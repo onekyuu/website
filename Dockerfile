@@ -1,35 +1,49 @@
-FROM node:20-alpine AS builder
+# 使用阿里云ACR 镜像
+FROM registry.cn-hangzhou.aliyuncs.com/keyu-images/website-frontend-base:v1.0.0 AS base
 
-# 设置工作目录
+# Rebuild the source code only when needed
+FROM base AS builder
 WORKDIR /app
-
-# 复制package.json和package-lock.json
-COPY package.json package-lock.json ./
-
-# 安装依赖
-RUN npm ci
-
-# 复制其他文件
+# COPY --from=base /app/node_modules ./node_modules
 COPY . .
 
-# 构建应用
-RUN npm run build
+# Next.js collects completely anonymous telemetry data about general usage.
+# Learn more here: https://nextjs.org/telemetry
+# Uncomment the following line in case you want to disable telemetry during the build.
+# ENV NEXT_TELEMETRY_DISABLED=1
 
-# 生产阶段
-FROM node:20-alpine AS runner
+RUN \
+  if [ -f yarn.lock ]; then yarn run build; \
+  elif [ -f package-lock.json ]; then npm run build; \
+  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm run build; \
+  else echo "Lockfile not found." && exit 1; \
+  fi
 
+# Production image, copy all the files and run next
+FROM base AS runner
 WORKDIR /app
 
-# 设置为生产环境
 ENV NODE_ENV=production
+# Uncomment the following line in case you want to disable telemetry during runtime.
+# ENV NEXT_TELEMETRY_DISABLED=1
 
-# 只复制必要的文件
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next/standalone ./
-COPY --from=builder /app/.next/static ./.next/static
 
-# 暴露端口
+# Automatically leverage output traces to reduce image size
+# https://nextjs.org/docs/advanced-features/output-file-tracing
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+USER nextjs
+
 EXPOSE 3001
 
-# 设置启动命令
+ENV PORT=3001
+
+# server.js is created by next build from the standalone output
+# https://nextjs.org/docs/pages/api-reference/config/next-config-js/output
+ENV HOSTNAME="0.0.0.0"
 CMD ["node", "server.js"]
