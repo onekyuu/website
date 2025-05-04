@@ -21,7 +21,7 @@ jobs:
       - name: Copy project files to ECS
         run: |
           # 创建临时压缩包
-         tar --warning=no-file-changed -czf project.tar.gz \
+          tar --warning=no-file-changed -czf project.tar.gz \
             --exclude=node_modules \
             --exclude=.next \
             --exclude=.git \
