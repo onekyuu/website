@@ -9,19 +9,17 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: 🛎️ Checkout code
         uses: actions/checkout@v4
 
-      - name: Install SSH key
-        uses: shimataro/ssh-key-action@v2
+      - name: 🐧 Set up SSH
+        uses: webfactory/ssh-agent@v0.9.1
         with:
-          key: ${{ secrets.ALIYUN_SSH_PRIVATE_KEY }}
-          known_hosts: ${{ secrets.ALIYUN_KNOWN_HOSTS }}
+          ssh-private-key: ${{ secrets.ALIYUN_SSH_PRIVATE_KEY }}
 
-      - name: Copy project files to ECS
+      - name: 📤 Copy project to Aliyun
         run: |
-          # 创建临时压缩包
-          tar --warning=no-file-changed -czf project.tar.gz \
+          rsync -avz --delete \
             --exclude=node_modules \
             --exclude=.next \
             --exclude=.git \
@@ -29,51 +27,35 @@ jobs:
             --exclude=*.log \
             --exclude=.DS_Store \
             --exclude=*.tmp \
-            .
+            -e "ssh -o StrictHostKeyChecking=no" \
+            ./ ${{ secrets.ALIYUN_USER }}@${{ secrets.ALIYUN_HOST }}:/var/www/website
 
-          # 将项目文件传输到服务器
-          scp -o StrictHostKeyChecking=no -P ${SSH_PORT:-22} project.tar.gz ${ALIYUN_USER}@${ALIYUN_HOST}:/tmp/
-
-      - name: Deploy to Aliyun ECS
+      - name: 🧾 Prepare .env file on server
         run: |
-          # 创建部署脚本
-          echo "#!/bin/bash
-          set -e
+          ssh -o StrictHostKeyChecking=no ${{ secrets.ALIYUN_USER }}@${{ secrets.ALIYUN_HOST }} << 'EOF'
+            cp /var/www/env/website.env /var/www/website/.env
+          EOF
 
-          # 确保目标目录存在
-          mkdir -p /var/www/website
-
-          # 解压项目文件到目标目录
-          rm -rf /var/www/website/* || true
-          tar -xzf /tmp/project.tar.gz -C /var/www/website
-          cd /var/www/website
-
-          cp /var/www/env/website.env /var/www/website/.env
-
-          # 使用Docker Compose部署
-          docker compose down || true
-          docker compose build
-          docker compose up -d
-
-          # 清理未使用的镜像和容器
-          docker system prune -af --volumes
-
-          # 清理临时文件
-          rm -f /tmp/project.tar.gz
-          " > deploy.sh
-
-          chmod +x deploy.sh
-
-          # 将部署脚本传输到服务器
-          scp -o StrictHostKeyChecking=no -P ${SSH_PORT:-22} deploy.sh ${ALIYUN_USER}@${ALIYUN_HOST}:/tmp/
-
-          # 执行远程部署脚本
-          ssh -o StrictHostKeyChecking=no -p ${SSH_PORT:-22} ${ALIYUN_USER}@${ALIYUN_HOST} "bash /tmp/deploy.sh"
-        env:
-          ALIYUN_HOST: ${{ secrets.ALIYUN_HOST }}
-          ALIYUN_USER: ${{ secrets.ALIYUN_USER }}
+      - name: 🐳 SSH and deploy with Docker Compose
+        run: |
+          ssh -o StrictHostKeyChecking=no -o ServerAliveInterval=3000 -o ServerAliveCountMax=3 \
+            ${{ secrets.ALIYUN_USER }}@${{ secrets.ALIYUN_HOST }} << 'EOF'
+              cd /var/www/website
+              
+              echo "🐳 Stopping existing containers..."
+              docker compose down || true
+              
+              echo "🐳 Building Docker images..."
+              docker compose build --progress=plain
+              
+              echo "🚀 Starting containers..."
+              docker compose up -d
+              
+              echo "🧹 Cleaning unused Docker resources..."
+              docker image prune -f
+          EOF
 
       - name: Cleanup
         if: always()
         run: |
-          rm -f project.tar.gz deploy.sh
+          echo "✅ Deployment completed"
