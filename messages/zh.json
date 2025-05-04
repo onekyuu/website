@@ -1,0 +1,11 @@
+{
+  "Index": {
+    "title": "欢迎访问我们的网站",
+    "description": "这是一个使用next-intl国际化的Next.js站点"
+  },
+  "Navigation": {
+    "home": "首页",
+    "about": "关于",
+    "contact": "联系我们"
+  }
+}

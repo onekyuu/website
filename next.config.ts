@@ -1,8 +1,14 @@
-import type { NextConfig } from "next";
+import { NextConfig } from "next";
+import createNextIntlPlugin from "next-intl/plugin";
 
-const nextConfig: NextConfig = {
-  /* config options here */
-  output: 'standalone', // 启用standalone模式以优化Docker部署
+const withNextIntl = createNextIntlPlugin();
+
+const config: NextConfig = {
+  output: "standalone",
+  turbopack: {},
+  images: {
+    domains: ["onekyuu-blog.oss-cn-shanghai.aliyuncs.com", "static.keyu.wang"],
+  },
 };
 
-export default nextConfig;
+export default withNextIntl(config);

@@ -1,0 +1,11 @@
+{
+  "Index": {
+    "title": "ようこそへ",
+    "description": "This is an internationalized Next.js site using next-intl"
+  },
+  "Navigation": {
+    "home": "Home",
+    "about": "About",
+    "contact": "Contact"
+  }
+}
