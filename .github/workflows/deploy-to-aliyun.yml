@@ -17,12 +17,19 @@ jobs:
         with:
           key: ${{ secrets.ALIYUN_SSH_PRIVATE_KEY }}
           known_hosts: ${{ secrets.ALIYUN_KNOWN_HOSTS }}
-          if_key_exists: fail # 如果密钥已存在则失败，避免意外覆盖
 
       - name: Copy project files to ECS
         run: |
           # 创建临时压缩包
-          tar -czf project.tar.gz --exclude=node_modules --exclude=.next .
+         tar --warning=no-file-changed -czf project.tar.gz \
+            --exclude=node_modules \
+            --exclude=.next \
+            --exclude=.git \
+            --exclude=.github \
+            --exclude=*.log \
+            --exclude=.DS_Store \
+            --exclude=*.tmp \
+            .
 
           # 将项目文件传输到服务器
           scp -o StrictHostKeyChecking=no -P ${SSH_PORT:-22} project.tar.gz ${ALIYUN_USER}@${ALIYUN_HOST}:/tmp/

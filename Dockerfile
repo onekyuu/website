@@ -29,7 +29,7 @@ COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 
 # 暴露端口
-EXPOSE 3000
+EXPOSE 3001
 
 # 设置启动命令
 CMD ["node", "server.js"]
