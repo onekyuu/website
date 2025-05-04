@@ -1,0 +1,72 @@
+name: Deploy to Aliyun ECS with Docker Compose
+
+on:
+  push:
+    branches:
+      - main # 设置触发部署的分支，这里以main为例
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.ALIYUN_SSH_PRIVATE_KEY }}
+          known_hosts: ${{ secrets.ALIYUN_KNOWN_HOSTS }}
+          if_key_exists: fail # 如果密钥已存在则失败，避免意外覆盖
+
+      - name: Copy project files to ECS
+        run: |
+          # 创建临时压缩包
+          tar -czf project.tar.gz --exclude=node_modules --exclude=.next .
+
+          # 将项目文件传输到服务器
+          scp -o StrictHostKeyChecking=no -P ${SSH_PORT:-22} project.tar.gz ${ALIYUN_USER}@${ALIYUN_HOST}:/tmp/
+
+      - name: Deploy to Aliyun ECS
+        run: |
+          # 创建部署脚本
+          echo "#!/bin/bash
+          set -e
+
+          # 确保目标目录存在
+          mkdir -p /var/www/website
+
+          # 解压项目文件到目标目录
+          rm -rf /var/www/website/* || true
+          tar -xzf /tmp/project.tar.gz -C /var/www/website
+          cd /var/www/website
+
+          cp /var/www/env/website.env /var/www/website/.env
+
+          # 使用Docker Compose部署
+          docker compose down || true
+          docker compose build
+          docker compose up -d
+
+          # 清理未使用的镜像和容器
+          docker system prune -af --volumes
+
+          # 清理临时文件
+          rm -f /tmp/project.tar.gz
+          " > deploy.sh
+
+          chmod +x deploy.sh
+
+          # 将部署脚本传输到服务器
+          scp -o StrictHostKeyChecking=no -P ${SSH_PORT:-22} deploy.sh ${ALIYUN_USER}@${ALIYUN_HOST}:/tmp/
+
+          # 执行远程部署脚本
+          ssh -o StrictHostKeyChecking=no -p ${SSH_PORT:-22} ${ALIYUN_USER}@${ALIYUN_HOST} "bash /tmp/deploy.sh"
+        env:
+          ALIYUN_HOST: ${{ secrets.ALIYUN_HOST }}
+          ALIYUN_USER: ${{ secrets.ALIYUN_USER }}
+
+      - name: Cleanup
+        if: always()
+        run: |
+          rm -f project.tar.gz deploy.sh

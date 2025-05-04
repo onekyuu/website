@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  website:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: website:latest
+    container_name: website-app
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./.env:/app/.env:ro
+    environment:
+      - NODE_ENV=production
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
