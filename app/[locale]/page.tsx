@@ -1,12 +1,6 @@
 "use client";
 
 import Hero from "@/components/home/Hero";
-import Projects from "@/components/home/Projects";
-import Services from "@/components/home/Services";
-import Testimonials from "@/components/home/Testimonials";
-import Blog from "@/components/home/Blog";
-import Contact from "@/components/home/Contact";
-import Footer from "@/components/home/Footer";
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -24,29 +18,28 @@ export default function HomePage() {
     smoother.current?.scrollTo(".box-c", true, "center center");
   };
 
-  useGSAP(
-    () => {
-      // create the smooth scroller FIRST!
-      smoother.current = ScrollSmoother.create({
-        smooth: 2, // seconds it takes to "catch up" to native scroll position
-        effects: true, // look for data-speed and data-lag attributes on elements and animate accordingly
-      });
-      ScrollTrigger.create({
-        trigger: ".box-c",
-        pin: true,
-        start: "center center",
-        end: "+=300",
-        markers: true,
-      });
-    },
-    { scope: main }
-  );
+  // useGSAP(
+  //   () => {
+  //     // create the smooth scroller FIRST!
+  //     smoother.current = ScrollSmoother.create({
+  //       smooth: 2, // seconds it takes to "catch up" to native scroll position
+  //       effects: true, // look for data-speed and data-lag attributes on elements and animate accordingly
+  //     });
+  //     ScrollTrigger.create({
+  //       trigger: ".box-c",
+  //       pin: true,
+  //       start: "center center",
+  //       end: "+=300",
+  //       markers: true,
+  //     });
+  //   },
+  //   { scope: main }
+  // );
 
   return (
-    <div ref={main} className="min-h-screen bg-[#FAFAFA] overflow-hidden">
+    <div ref={main} className="min-h-screen overflow-hidden">
       <Hero />
-      <Projects />
-      <div id="smooth-wrapper" ref={main}>
+      {/* <div id="smooth-wrapper" ref={main}>
         <div id="smooth-content">
           <header className="header">
             <h2 className="title">GSAP ScrollSmoother in React</h2>
@@ -65,12 +58,7 @@ export default function HomePage() {
           </div>
           <div className="line"></div>
         </div>
-      </div>
-      <Services />
-      <Testimonials />
-      <Blog />
-      <Contact />
-      <Footer />
+      </div> */}
     </div>
   );
 }
