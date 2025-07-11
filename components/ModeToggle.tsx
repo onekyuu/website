@@ -14,17 +14,17 @@ const ModeToggle: FC = () => {
     <Button
       variant="ghost"
       onClick={() => setTheme("dark")}
-      className="cursor-pointer"
+      className="cursor-pointer h-7 w-7 lg:h-9 lg:w-9"
     >
-      <Sun className="h-[2rem] w-[2rem]" />
+      <Sun />
     </Button>
   ) : (
     <Button
       variant="ghost"
       onClick={() => setTheme("light")}
-      className="cursor-pointer"
+      className="cursor-pointer h-7 w-7 lg:h-9  lg:w-9"
     >
-      <Moon className="h-[2rem] w-[2rem]" />
+      <Moon />
     </Button>
   );
 };

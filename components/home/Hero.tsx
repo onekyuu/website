@@ -13,8 +13,8 @@ export default function Hero() {
       <ContentContainer>
         <Header />
         <section className="flex flex-col md:flex-row items-center justify-between py-12">
-          <div className="flex flex-col font-bold text-7xl/21 gap-4">
-            <span className="text-[var(--color-gray-900)]">
+          <div className="flex flex-col font-bold text-4xl/11 md:text-5xl/17 lg:text-7xl/21 gap-4">
+            <span className="text-[var(--color-gray-900)] dark:text-[var(--color-gray-50)]">
               {t("Home.greetingLineOne")}
             </span>
             <span className="hero-text-gradient bg-clip-text text-transparent">

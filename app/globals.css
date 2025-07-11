@@ -296,4 +296,7 @@
       var(--color-secondary-500) 79%
     );
   }
+  .dark .hero-text-gradient {
+    background-image: radial-gradient(#93c5fd 0%, #bfdbfe 50%, #93c5fd 100%);
+  }
 }
