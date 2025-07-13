@@ -5,6 +5,8 @@ import { routing } from "@/i18n/config";
 import { Roboto, Noto_Sans_JP, Noto_Sans_SC, Nunito } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider";
+import ContentContainer from "@/components/ContentContainer";
+import Header from "@/components/Header";
 
 type Props = {
   children: ReactNode;
@@ -48,7 +50,10 @@ export default async function LocaleLayout({ children, params }: Props) {
           enableSystem
           disableTransitionOnChange
         >
-          <NextIntlClientProvider>{children}</NextIntlClientProvider>
+          <NextIntlClientProvider>
+            <Header />
+            {children}
+          </NextIntlClientProvider>
         </ThemeProvider>
       </body>
     </html>

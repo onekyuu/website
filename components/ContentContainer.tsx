@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import React, { CSSProperties, FC, ReactNode } from "react";
+import React, { FC, ReactNode } from "react";
 
 const ContentContainer: FC<{ children: ReactNode; className?: string }> = ({
   children,

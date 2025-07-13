@@ -7,6 +7,8 @@ import gsap from "gsap";
 import { Button } from "@/components/ui/button";
 import { ScrollSmoother } from "gsap/all";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Header from "@/components/Header";
+import Skills from "@/components/home/Skills";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollSmoother);
 
@@ -37,8 +39,9 @@ export default function HomePage() {
   // );
 
   return (
-    <div ref={main} className="min-h-screen overflow-hidden">
+    <div ref={main} className="min-h-screen overflow-y-scroll">
       <Hero />
+      <Skills />
       {/* <div id="smooth-wrapper" ref={main}>
         <div id="smooth-content">
           <header className="header">

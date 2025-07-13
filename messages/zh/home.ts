@@ -1,6 +1,10 @@
 const Home = {
-  greetingLineOne: "欢迎，我是一名",
+  greetingLineOne: "你好，我是一名",
   greetingLineTwo: "全栈开发者",
+  introduce:
+    "构建健壮且可扩展的全栈应用程序，以解决复杂问题并提供有影响力的用户体验。",
+  workWithMe: "与我合作",
+  myWork: "我的作品",
 };
 
 export default Home;

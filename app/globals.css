@@ -156,7 +156,7 @@
   --card-foreground: oklch(0.2101 0.0318 264.6645);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.2101 0.0318 264.6645);
-  --primary: oklch(0.4568 0.2146 277.0229);
+  --primary: var(--color-primary-700);
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.9299 0.0334 272.7879);
   --secondary-foreground: oklch(0.2101 0.0318 264.6645);
@@ -198,8 +198,6 @@
   --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.1),
     0 8px 10px -1px hsl(0 0% 0% / 0.1);
   --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
-
-  --hero-background: url("/hero-1.svg"), var(--color-secondary-200);
 }
 
 .dark {
@@ -258,19 +256,43 @@
   * {
     @apply border-border outline-ring/50;
   }
-  :root {
-    --gradient-primary: linear-gradient(to right, #4f46e5, #9333ea);
-  }
   body {
     @apply bg-background text-foreground;
+  }
+  html {
+    /* 隐藏滚动条但保持滚动功能 */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+  }
+
+  html::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Edge */
+  }
+
+  body {
+    /* 确保body也隐藏滚动条 */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  body::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* 对所有可滚动元素应用隐藏滚动条 */
+  * {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  *::-webkit-scrollbar {
+    display: none;
   }
 }
 
 @layer utilities {
   .hero-bg {
-    /* background-image: url("/hero.svg"),
-      linear-gradient(var(--color-secondary-100), var(--color-secondary-100)); */
-    background-image: url("/hero-1.svg"),
+    background-image: url("/hero.svg"),
       linear-gradient(
         -45deg,
         rgba(var(--color-primary-rgb-100), 1) 0%,
