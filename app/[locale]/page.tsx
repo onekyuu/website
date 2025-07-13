@@ -9,6 +9,7 @@ import { ScrollSmoother } from "gsap/all";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Header from "@/components/Header";
 import Skills from "@/components/home/Skills";
+import { Projects } from "@/components/home/Projects";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollSmoother);
 
@@ -42,6 +43,7 @@ export default function HomePage() {
     <div ref={main} className="min-h-screen overflow-y-scroll">
       <Hero />
       <Skills />
+      <Projects />
       {/* <div id="smooth-wrapper" ref={main}>
         <div id="smooth-content">
           <header className="header">

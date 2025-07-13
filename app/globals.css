@@ -321,4 +321,10 @@
   .dark .hero-text-gradient {
     background-image: radial-gradient(#93c5fd 0%, #bfdbfe 50%, #93c5fd 100%);
   }
+  .lines-wave-bg {
+    background-image: url("/lines-wave.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
 }

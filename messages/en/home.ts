@@ -5,6 +5,7 @@ const Home = {
     "Building robust and scalable full-stack applications to solve complex problems and deliver impactful user experiences.",
   workWithMe: "Work with me",
   myWork: "My Work",
+  skills: "Skills",
 };
 
 export default Home;

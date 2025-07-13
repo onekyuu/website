@@ -1,13 +1,19 @@
 import clsx from "clsx";
 import React, { FC, ReactNode } from "react";
 
-const ContentContainer: FC<{ children: ReactNode; className?: string }> = ({
+interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {
+  children: React.ReactNode;
+}
+
+const ContentContainer = ({
   children,
   className,
-}) => {
+  ...props
+}: ContainerProps) => {
   return (
     <section
       className={clsx("container mx-auto overflow-hidden px-8", className)}
+      {...props}
     >
       {children}
     </section>

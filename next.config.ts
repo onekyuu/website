@@ -11,4 +11,21 @@ const config: NextConfig = {
   },
 };
 
-export default withNextIntl(config);
+export default withNextIntl({
+  ...config,
+  turbopack: {
+    rules: {
+      "*.svg": {
+        loaders: [
+          {
+            loader: "@svgr/webpack",
+            options: {
+              icon: true,
+            },
+          },
+        ],
+        as: "*.js",
+      },
+    },
+  },
+});

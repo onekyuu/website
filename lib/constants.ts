@@ -1,3 +1,16 @@
+import JavsScriptIcon from "@/assets/dev-icons/javascript.svg";
+import TypeScriptIcon from "@/assets/dev-icons/typescript.svg";
+import ReactIcon from "@/assets/dev-icons/react.svg";
+import NextJsIcon from "@/assets/dev-icons/nextjs.svg";
+import NodeJsIcon from "@/assets/dev-icons/nodejs.svg";
+import PythonIcon from "@/assets/dev-icons/python.svg";
+import PostgreSQLIcon from "@/assets/dev-icons/postgresql.svg";
+import HTML5Icon from "@/assets/dev-icons/html5.svg";
+import CSS3Icon from "@/assets/dev-icons/css3.svg";
+import TailwindCSSIcon from "@/assets/dev-icons/tailwindcss.svg";
+import GitIcon from "@/assets/dev-icons/git.svg";
+import DockerIcon from "@/assets/dev-icons/docker.svg";
+
 export const HeaderMenu = [
   {
     name: "Home",
@@ -19,51 +32,75 @@ export const HeaderMenu = [
 
 export const skillsList = [
   {
+    key: "javascript",
     name: "JavaScript",
-    icon: "javascript",
+    icon: JavsScriptIcon,
+    order: 2,
   },
   {
+    key: "typescript",
     name: "TypeScript",
-    icon: "typescript",
+    icon: TypeScriptIcon,
+    order: 1,
   },
   {
+    key: "react",
     name: "React",
-    icon: "react",
+    icon: ReactIcon,
+    order: 0,
   },
   {
+    key: "nextjs",
     name: "Next.js",
-    icon: "nextjs",
+    icon: NextJsIcon,
+    order: 0,
   },
   {
+    key: "nodejs",
     name: "Node.js",
-    icon: "nodejs",
+    icon: NodeJsIcon,
+    order: 1,
   },
   {
+    key: "python",
     name: "Python",
-    icon: "python",
+    icon: PythonIcon,
+    order: 2,
   },
   {
+    key: "postgresql",
     name: "PostgreSQL",
-    icon: "postgresql",
+    icon: PostgreSQLIcon,
+    order: 2,
   },
   {
+    key: "html5",
     name: "HTML5",
-    icon: "html5",
+    icon: HTML5Icon,
+    order: 1,
   },
   {
+    key: "css3",
     name: "CSS3",
-    icon: "css3",
+    icon: CSS3Icon,
+    order: 0,
   },
   {
+    key: "tailwindcss",
     name: "Tailwind CSS",
-    icon: "tailwindcss",
+    icon: TailwindCSSIcon,
+    order: 0,
   },
   {
-    name: "Git/GitHub",
-    icon: "github",
+    key: "git",
+    name: "Git",
+    icon: GitIcon,
+    order: 1,
   },
   {
+    key: "docker",
     name: "Docker",
-    icon: "docker",
+    icon: DockerIcon,
+    order: 2,
   },
 ];
