@@ -7,6 +7,11 @@ const Home = {
   myWork: "My Work",
   skills: "Skills",
   checkProject: "Check Project",
+  home: "Home",
+  portfolio: "Portfolio",
+  blog: "Blog",
+  gallery: "Gallery",
+  readPost: "Read Post",
 };
 
 export default Home;

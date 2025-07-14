@@ -2,7 +2,7 @@
 
 import Hero from "@/components/home/Hero";
 import Skills from "@/components/home/Skills";
-import Projects from "@/components/home/Projects";
+import Portfolio from "@/components/home/Portfolio";
 import Blog from "@/components/home/Blog";
 
 import gsap from "gsap";
@@ -15,7 +15,7 @@ export default function HomePage() {
     <div className="min-h-screen">
       <Hero />
       <Skills />
-      <Projects />
+      <Portfolio />
       <Blog />
     </div>
   );

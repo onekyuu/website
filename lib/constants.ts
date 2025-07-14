@@ -13,18 +13,22 @@ import DockerIcon from "@/assets/dev-icons/docker.svg";
 
 export const HeaderMenu = [
   {
+    key: "home",
     name: "Home",
     href: "/",
   },
   {
+    key: "portfolio",
     name: "Protfolio",
     href: "/portfolio",
   },
   {
+    key: "blog",
     name: "Blog",
     href: "/blog",
   },
   {
+    key: "gallery",
     name: "Gallery",
     href: "/gallery",
   },

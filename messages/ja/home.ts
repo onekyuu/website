@@ -7,6 +7,11 @@ const Home = {
   myWork: "私の作品",
   skills: "スキル",
   checkProject: "プロジェクトの詳細を見る",
+  home: "ホーム",
+  portfolio: "作品",
+  blog: "記事",
+  gallery: "ギャラリー",
+  readPost: "記事を読む",
 };
 
 export default Home;

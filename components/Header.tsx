@@ -1,7 +1,7 @@
 "use client";
 
 import { HeaderMenu } from "@/lib/constants";
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import { Link } from "@/i18n/navigations";
 import ModeToggle from "./ModeToggle";
 import LocaleSwitcher from "./LocaleSwitcher";
@@ -14,24 +14,25 @@ import {
   DrawerTrigger,
 } from "./ui/drawer";
 import { ArrowRight, List, X } from "lucide-react";
-import ContentContainer from "./ContentContainer";
 import { Separator } from "./ui/separator";
+import { useTranslations } from "next-intl";
 
 export default function Header() {
+  const t = useTranslations("Home");
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="w-full grid grid-cols-2 lg:grid-cols-3 justify-center items-center py-4 lg:py-8 px-8 lg:px-12 bg-transparent fixed top-0 left-0 z-10">
-      <div className="flex">logo</div>
-      <nav className="hidden lg:block">
+    <div className="w-full grid grid-cols-2 lg:grid-cols-12 justify-center items-center py-4 lg:py-8 px-8 lg:px-12 bg-transparent fixed top-0 left-0 z-10">
+      <div className="flex lg:col-span-3">logo</div>
+      <nav className="hidden lg:block lg:col-span-6">
         <div className="text-lg grid grid-cols-4 gap-4 place-items-center justify-center items-center font-light">
           {HeaderMenu.map((item) => (
-            <Link className="cursor-pointer" key={item.name} href={item.href}>
-              {item.name}
+            <Link className="cursor-pointer" key={item.key} href={item.href}>
+              {t(`${item.key}`)}
             </Link>
           ))}
         </div>
       </nav>
-      <div className="flex justify-end items-center gap-4">
+      <div className="flex lg:col-span-3 justify-end items-center gap-4">
         <ModeToggle />
         <LocaleSwitcher />
         {/* <Link
@@ -65,12 +66,12 @@ export default function Header() {
                   <div key={item.name}>
                     <Link
                       className="px-4 py-8 cursor-pointer"
-                      key={item.name}
+                      key={item.key}
                       href={item.href}
                       onClick={() => setIsOpen(false)}
                     >
                       <span className="flex justify-between">
-                        {item.name}
+                        {t(`${item.key}`)}
                         <ArrowRight />
                       </span>
                     </Link>

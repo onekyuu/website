@@ -12,7 +12,7 @@ import { Link } from "@/i18n/navigations";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const Projects: FC = () => {
+const Portfolio: FC = () => {
   const t = useTranslations("Home");
   const ProjectList = [
     {
@@ -121,7 +121,7 @@ const Projects: FC = () => {
       <div className="sticky top-0 w-full h-screen overflow-hidden flex items-center">
         <div ref={projectBoxRef} className="flex items-center h-screen">
           <div className="h-2/3 lg:h-1/2 w-screen lg:w-5xl flex flex-shrink-0 items-center justify-center text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] text-2xl md:text-3xl lg:text-4xl font-semibold">
-            Portfolio
+            {t("portfolio")}
           </div>
           {ProjectList.map((project) => (
             <div
@@ -168,4 +168,4 @@ const Projects: FC = () => {
   );
 };
 
-export default Projects;
+export default Portfolio;
