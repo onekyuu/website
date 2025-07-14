@@ -12,6 +12,7 @@ const Home = {
   blog: "Blog",
   gallery: "Gallery",
   readPost: "Read Post",
+  contactMe: "Contact Me",
 };
 
 export default Home;

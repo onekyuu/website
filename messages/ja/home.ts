@@ -12,6 +12,7 @@ const Home = {
   blog: "記事",
   gallery: "ギャラリー",
   readPost: "記事を読む",
+  contactMe: "お問い合わせ",
 };
 
 export default Home;

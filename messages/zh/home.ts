@@ -12,6 +12,7 @@ const Home = {
   blog: "博客",
   gallery: "画廊",
   readPost: "阅读文章",
+  contactMe: "联系我",
 };
 
 export default Home;
