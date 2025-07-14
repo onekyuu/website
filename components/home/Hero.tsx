@@ -24,12 +24,12 @@ export default function Hero() {
               {t("Home.introduce")}
             </span>
             <div className="flex gap-8 mt-4 lg:mt-8 justify-center lg:justify-start">
-              <Button className="h-12 px-3 py-2.5 md:h-14 md:px-5 md:py-3 md:text-lg md:font-normal lg:h-16 lg:text-xl lg:px-8 lg:py-5 rounded-xl md:rounded-2xl">
+              <Button className="h-12 px-3 py-2.5 md:h-14 md:px-5 md:py-3 md:text-lg md:font-normal lg:h-16 lg:text-xl lg:px-8 lg:py-5 rounded-xl md:rounded-2xl cursor-pointer">
                 {t("Home.workWithMe")}
               </Button>
               <Button
                 variant={"ghost"}
-                className="h-12 px-3 py-5 md:h-14 md:px-5 md:py-3 md:text-lg md:font-normal lg:h-16 lg:text-xl lg:px-8 lg:py-5 rounded-xl md:rounded-2xl border-2 border-[var(--color-primary-700)]"
+                className="h-12 px-3 py-5 md:h-14 md:px-5 md:py-3 md:text-lg md:font-normal lg:h-16 lg:text-xl lg:px-8 lg:py-5 rounded-xl md:rounded-2xl border-2 border-[var(--color-primary-700)] cursor-pointer"
               >
                 {t("Home.myWork")}
               </Button>

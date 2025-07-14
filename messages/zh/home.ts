@@ -6,6 +6,7 @@ const Home = {
   workWithMe: "与我合作",
   myWork: "我的作品",
   skills: "职业技能",
+  checkProject: "查看项目",
 };
 
 export default Home;

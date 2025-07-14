@@ -6,6 +6,7 @@ const Home = {
   workWithMe: "Work with me",
   myWork: "My Work",
   skills: "Skills",
+  checkProject: "Check Project",
 };
 
 export default Home;

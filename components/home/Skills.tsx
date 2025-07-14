@@ -6,6 +6,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ContentContainer from "../ContentContainer";
 import { useTranslations } from "next-intl";
+import Lenis from "lenis";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -13,6 +14,19 @@ const Skills: FC = () => {
   const t = useTranslations("Home");
   const containerRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+      autoRaf: true,
+    });
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
     skillsList.forEach((skill, i) => {
       const listContainer = containerRef.current?.children[0] as HTMLElement;
       if (!listContainer) return;
@@ -26,24 +40,23 @@ const Skills: FC = () => {
         listContainer.clientHeight / 2 -
         targetElement.offsetTop -
         targetElement.clientHeight / 2;
-      gsap.fromTo(
-        targetElement,
-        {},
-        {
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: `top center+=${Number(targetElement.dataset.order) * 100}px`,
-            end: "+=40%",
-            onUpdate: (self) => {
-              targetElement.style.opacity = `${self.progress}`;
-              targetElement.style.transform = `translate(${
-                startX * (1 - self.progress)
-              }px, ${startY * (1 - self.progress)}px)`;
-              targetElement.style.scale = `${self.progress}`;
-            },
-          },
-        }
-      );
+
+      ScrollTrigger.create({
+        trigger: containerRef.current,
+        start: `top center+=${Number(targetElement.dataset.order) * 100}px`,
+        end: "+=40%",
+        onUpdate: (self) => {
+          targetElement.style.opacity = `${self.progress}`;
+          targetElement.style.transform = `translate(${
+            startX * (1 - self.progress)
+          }px, ${startY * (1 - self.progress)}px)`;
+          targetElement.style.scale = `${self.progress}`;
+        },
+      });
+      return () => {
+        ScrollTrigger.getAll().forEach((t) => t.kill());
+        lenis.destroy();
+      };
     });
   }, []);
 
@@ -51,7 +64,7 @@ const Skills: FC = () => {
     <div className="relative w-full">
       <div className="absolute inset-0 lines-wave-bg -z-1"></div>
       <ContentContainer>
-        <div className="text-2xl font-bold text-[var(--color-primary-900)] mt-7 md:text-3xl md:mt-12 lg:text-4xl lg:mt-16">
+        <div className="text-2xl font-bold text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] mt-7 md:text-3xl md:mt-12 lg:text-4xl lg:mt-16">
           {t("skills")}
         </div>
         <div
