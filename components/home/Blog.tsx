@@ -59,7 +59,7 @@ const Blog: FC = () => {
               <CardContent>
                 <AspectRatio ratio={1}>
                   <Image
-                    src="https://images.unsplash.com/photo-1590593162201-f67611a18b87?q=80&w=2814&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    src="/blog-cover.jpeg"
                     alt="Image"
                     className="rounded-lg object-cover"
                     fill

@@ -171,7 +171,8 @@ const Portfolio: FC = () => {
                   >
                     <Image
                       fill
-                      src={project.image}
+                      // src={project.image}
+                      src={"/project-cover.jpeg"}
                       alt={project.name}
                       className="object-cover rounded-xl"
                     />
