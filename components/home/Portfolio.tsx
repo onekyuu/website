@@ -9,6 +9,8 @@ import Lenis from "lenis";
 import { BadgeCheck } from "lucide-react";
 import { Button } from "../ui/button";
 import { Link } from "@/i18n/navigations";
+import { AspectRatio } from "../ui/aspect-ratio";
+import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -24,6 +26,8 @@ const Portfolio: FC = () => {
         "It includes a responsive design and modern UI.",
         "Built with React and Next.js.",
       ],
+      image:
+        "https://images.unsplash.com/photo-1622227920933-7fcd7377703f?q=80&w=3870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
       id: 2,
@@ -34,6 +38,8 @@ const Portfolio: FC = () => {
         "It features a custom backend API.",
         "Built with Node.js and Express.",
       ],
+      image:
+        "https://images.unsplash.com/photo-1622227920933-7fcd7377703f?q=80&w=3870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
       id: 3,
@@ -44,6 +50,8 @@ const Portfolio: FC = () => {
         "It includes user authentication and data management.",
         "Built with MongoDB and GraphQL.",
       ],
+      image:
+        "https://images.unsplash.com/photo-1622227920933-7fcd7377703f?q=80&w=3870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
       id: 4,
@@ -54,6 +62,8 @@ const Portfolio: FC = () => {
         "It features offline capabilities and push notifications.",
         "Built with React Native and Firebase.",
       ],
+      image:
+        "https://images.unsplash.com/photo-1622227920933-7fcd7377703f?q=80&w=3870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
   ];
 
@@ -154,10 +164,18 @@ const Portfolio: FC = () => {
                     </Link>
                   </div>
                 </div>
-                <div className="row-span-2 w-full aspect-[16/9]">
-                  <div className="h-full w-full bg-amber-300 rounded-xl lg:shadow-[-8px_8px_40px_0px_rgba(99,102,241,0.26)]">
-                    picture
-                  </div>
+                <div className="row-span-2 w-full">
+                  <AspectRatio
+                    ratio={16 / 9}
+                    className="rounded-xl lg:shadow-[-8px_8px_40px_0px_rgba(99,102,241,0.26)]"
+                  >
+                    <Image
+                      fill
+                      src={project.image}
+                      alt={project.name}
+                      className="object-cover rounded-xl"
+                    />
+                  </AspectRatio>
                 </div>
               </ContentContainer>
             </div>
