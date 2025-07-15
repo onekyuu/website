@@ -1,7 +1,6 @@
 "use client";
 
 import { DotLottiePlayer } from "@dotlottie/react-player";
-import Header from "../Header";
 import ContentContainer from "../ContentContainer";
 import { useTranslations } from "next-intl";
 import { Button } from "../ui/button";

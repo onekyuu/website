@@ -5,7 +5,6 @@ import ContentContainer from "../ContentContainer";
 import { useTranslations } from "next-intl";
 import {
   Card,
-  CardAction,
   CardContent,
   CardDescription,
   CardFooter,

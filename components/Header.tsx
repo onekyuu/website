@@ -50,7 +50,10 @@ export default function Header() {
               <DrawerHeader>
                 <DrawerTitle className="flex justify-between items-center">
                   <div>logo</div>
-                  <DrawerClose className="cursor-pointer">
+                  <DrawerClose
+                    className="cursor-pointer"
+                    onClick={() => setIsOpen(false)}
+                  >
                     <X />
                   </DrawerClose>
                 </DrawerTitle>

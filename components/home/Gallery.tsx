@@ -41,9 +41,11 @@ const Gallery: FC = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen mt-12 lg:mt-0">
-      <div className="text-2xl font-bold text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] mt-7 md:text-3xl md:mt-12 lg:text-4xl lg:mt-14">
-        {t("gallery")}
-      </div>
+      <ContentContainer>
+        <div className="text-2xl font-bold text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] mb-4 mr-4 md:text-3xl md:mb-6 md:mr-6 lg:text-4xl lg:mb-8 lg:mr-8 text-end">
+          {t("gallery")}
+        </div>
+      </ContentContainer>
       {galleryImages.map((image, index) => (
         <div
           key={index}
@@ -64,7 +66,7 @@ const Gallery: FC = () => {
               />
             </AspectRatio>
             <div className="text-[var(--color-gray-900)]">
-              <div>{image.description}</div>
+              <div>{image.description || ""}</div>
               <div>
                 {image.location} - {image.date}
               </div>
