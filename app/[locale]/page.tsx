@@ -9,6 +9,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Gallery from "@/components/home/Gallery";
 import Contact from "@/components/home/Contact";
+import Footer from "@/components/home/Footer";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -21,6 +22,7 @@ export default function HomePage() {
       <Blog />
       <Gallery />
       <Contact />
+      <Footer />
     </div>
   );
 }

@@ -50,7 +50,7 @@ const Gallery: FC = () => {
         <div
           key={index}
           className={
-            "sticky top-0 h-[60vh] lg:h-[80vh] w-full flex items-center justify-center even:bg-[var(--color-primary-50)] odd:bg-[var(--color-primary-100)] even:text-[var(--color-primary-50)] odd:text-[var(--color-primary-100)]"
+            "sticky top-0 h-[60vh] lg:h-[80vh] w-full flex items-center justify-center even:bg-[var(--color-primary-50)] odd:bg-[var(--color-primary-100)] even:text-[var(--color-primary-50)] odd:text-[var(--color-primary-100)] dark:even:bg-[var(--color-gray-800)] dark:odd:bg-[var(--color-gray-900)] dark:even:text-[var(--color-gray-800)] dark:odd:text-[var(--color-gray-900)]"
           }
         >
           <div className="absolute top-0 left-0 w-[25%] scale-[-1] translate-y-[-100%]">
@@ -65,7 +65,7 @@ const Gallery: FC = () => {
                 className="object-cover"
               />
             </AspectRatio>
-            <div className="text-[var(--color-gray-900)]">
+            <div className="text-[var(--color-gray-900)] dark:text-[var(--color-gray-100)]">
               <div>{image.description || ""}</div>
               <div>
                 {image.location} - {image.date}
