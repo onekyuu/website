@@ -1,11 +1,10 @@
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
-import { ReactNode, Suspense } from "react";
+import { ReactNode } from "react";
 import { routing } from "@/i18n/config";
-import { Roboto, Noto_Sans_JP, Noto_Sans_SC, Nunito } from "next/font/google";
+import { Noto_Sans_JP, Noto_Sans_SC, Nunito } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider";
-import ContentContainer from "@/components/ContentContainer";
 import Header from "@/components/Header";
 
 type Props = {

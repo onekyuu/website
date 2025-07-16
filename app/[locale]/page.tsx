@@ -15,7 +15,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen pb-4 lg:pb-0">
       <Hero />
       <Skills />
       <Portfolio />

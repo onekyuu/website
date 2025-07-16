@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import ContentContainer from "../ContentContainer";
 import { useTranslations } from "next-intl";
 import {
@@ -15,8 +15,16 @@ import { Link } from "@/i18n/navigations";
 import Image from "next/image";
 import { AspectRatio } from "../ui/aspect-ratio";
 
+interface BlogPost {
+  id: number;
+  title: string;
+  description: string;
+  date: string;
+}
+
 const Blog: FC = () => {
   const t = useTranslations("Home");
+  const [displayPosts, setDisplayPosts] = React.useState<BlogPost[]>([]);
 
   const BlogList = [
     {
@@ -45,6 +53,21 @@ const Blog: FC = () => {
     },
   ];
 
+  useEffect(() => {
+    const updatePosts = () => {
+      const width = window.innerWidth;
+      if (width >= 768) {
+        setDisplayPosts(BlogList.slice(0, 4));
+      } else {
+        setDisplayPosts(BlogList.slice(0, 3));
+      }
+    };
+
+    updatePosts();
+    window.addEventListener("resize", updatePosts);
+    return () => window.removeEventListener("resize", updatePosts);
+  }, []);
+
   return (
     <div className="min-h-screen flex items-center justify-center">
       <ContentContainer>
@@ -52,7 +75,7 @@ const Blog: FC = () => {
           {t("blog")}
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
-          {BlogList.map((blog) => (
+          {displayPosts.map((blog) => (
             <Card key={blog.id}>
               <CardHeader></CardHeader>
               <CardContent>
