@@ -6,11 +6,9 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
 import { cn } from "@/lib/utils";
 
-interface HorizontalScrollProps extends React.HTMLAttributes<HTMLDivElement> {}
-
 gsap.registerPlugin(ScrollTrigger);
 
-const HorizontalScroll: FC<HorizontalScrollProps> = ({
+const HorizontalScroll: FC<React.HTMLAttributes<HTMLDivElement>> = ({
   children,
   className,
   ...props

@@ -52,7 +52,7 @@ const Blog: FC = () => {
       date: "2023-10-04",
     },
   ];
-
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     const updatePosts = () => {
       const width = window.innerWidth;
