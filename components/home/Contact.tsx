@@ -120,6 +120,7 @@ const Contact: FC = () => {
                       placeholder={field.placeholder}
                       rows={10}
                       className="mt-2 w-full flex-1 min-h-48"
+                      id={field.name}
                     />
                   </div>
                 ) : (
@@ -130,6 +131,7 @@ const Contact: FC = () => {
                       type={field.type}
                       placeholder={field.placeholder}
                       className="mt-2 w-full"
+                      id={field.name}
                     />
                   </div>
                 )
