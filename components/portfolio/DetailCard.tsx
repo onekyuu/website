@@ -33,7 +33,7 @@ const DetailCard: FC<DetailCardProps> = ({
       <div className="absolute inset-0 card-gradient-bg bg-cover opacity-60 z-[-1] rounded-xl"></div>
       <CardContent
         className={cn(
-          "flex flex-col justify-between min-h-[40vh] md:min-h-[50vh] lg:min-h-[60vh]",
+          "flex flex-col justify-between min-h-[40vh] md:min-h-[50vh] lg:min-h-[60vh] gap-4 md:gap-8",
           type === "lateset"
             ? "dark:text-[var(--color-primary-100)]"
             : "dark:text-[var(--color-gray-900)]",

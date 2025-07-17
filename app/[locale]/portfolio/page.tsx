@@ -119,7 +119,7 @@ const PortfolioPage = () => {
               />
               <SummaryCard
                 summary={project.summary}
-                className="bg-[var(--color-secrondary-100)] dark:bg-[var(--color-primary-600)] row-span-1 md:col-span-1 lg:col-span-2"
+                className="row-span-1 md:col-span-1 lg:col-span-2"
               />
             </ContentContainer>
           </div>

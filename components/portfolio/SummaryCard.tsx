@@ -26,7 +26,7 @@ const SummaryCard: FC<SummaryCardProps> = ({ summary, className }) => {
         {summary.map((line, index) => (
           <div
             key={`latest-${index}`}
-            className="flex items-center justify-start gap-1 md:gap-2 text-xl font-bold"
+            className="flex items-center justify-start gap-1 md:gap-2 text-xl font-semibold lg:font-bold"
           >
             <span className="mr-4 ">
               <BadgeCheck className="h-4 w-4 lg:h-6 lg:w-6" />
