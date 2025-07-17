@@ -29,22 +29,24 @@ const DetailCard: FC<DetailCardProps> = ({
 }) => {
   const t = useTranslations("Portfolio");
   return (
-    <Card className={cn("relative col-span-3 bg-transparent", className)}>
+    <Card className={cn("relative bg-transparent", className)}>
       <div className="absolute inset-0 card-gradient-bg bg-cover opacity-60 z-[-1] rounded-xl"></div>
       <CardContent
         className={cn(
-          "flex flex-col justify-between min-h-[60vh]",
+          "flex flex-col justify-between min-h-[40vh] md:min-h-[50vh] lg:min-h-[60vh]",
           type === "lateset"
             ? "dark:text-[var(--color-primary-100)]"
             : "dark:text-[var(--color-gray-900)]",
           className
         )}
       >
-        <div className="flex flex-col gap-6">
-          <p className="text-3xl font-bold">{project.name}</p>
+        <div className="flex flex-col gap-2 md:gap-4 lg:gap-6">
+          <p className="text-xl md:text-2xl lg:text-3xl font-bold">
+            {project.name}
+          </p>
           <p
             className={cn(
-              "text-lg ",
+              "text-base lg:text-lg",
               type === "lateset"
                 ? "text-[var(--color-gray-600)] dark:text-[var(--color-primary-100)]"
                 : "text-[var(--color-gray-700)]"
@@ -54,13 +56,13 @@ const DetailCard: FC<DetailCardProps> = ({
           </p>
           <Link
             href={project.link}
-            className="flex gap-1 items-center text-lg font-bold"
+            className="flex gap-1 items-center text-base lg:text-lg font-bold"
           >
             <span>{t("learnMore")}</span>
             <ArrowUpRight />
           </Link>
         </div>
-        <div className="p-5 picture-gradient-bg rounded-xl">
+        <div className="p-2 md:p-4 lg:p-5 picture-gradient-bg rounded-xl">
           <AspectRatio ratio={16 / 9} className="w-full ">
             <Image
               src="/blog-cover.jpeg"

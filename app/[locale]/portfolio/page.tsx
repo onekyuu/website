@@ -84,35 +84,44 @@ const PortfolioPage = () => {
           </div>
         </ContentContainer>
       </div>
-      <div className="relative w-full h-screen">
+      <div className="relative w-full min-h-screen py-4 flex flex-col items-center justify-center">
         <div className="absolute inset-0 lines-wave-bg -z-1"></div>
         <ContentContainer className="flex flex-col justify-center h-full gap-14">
-          <div className="text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] lg:text-4xl font-bold">
+          <div className="text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] text-2xl md:text-3xl lg:text-4xl font-bold">
             {t("latestProject")}
           </div>
-          <div className="grid grid-cols-5 gap-6 w-full">
-            <SummaryCard summary={ProjectList[0].summary} />
-            <DetailCard project={ProjectList[0]} type="lateset" />
+          <div className="grid grid-rows-2 md:grid-rows-1 md:grid-cols-2 lg:grid-cols-5 gap-6 w-full">
+            <SummaryCard
+              summary={ProjectList[0].summary}
+              className="md:col-span-1 lg:col-span-2"
+            />
+            <DetailCard
+              project={ProjectList[0]}
+              type="lateset"
+              className="md:col-span-1 lg:col-span-3"
+            />
           </div>
         </ContentContainer>
       </div>
-      <HorizontalScroll className="gap-18">
-        <div className=" w-[70vw] lg:w-[50vw] text-center text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] lg:text-4xl font-bold">
+      <HorizontalScroll className="gap-6">
+        <div className=" w-[80vw] lg:w-[50vw] text-center text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] text-2xl md:text-3xl lg:text-4xl font-bold">
           {t("allProjects")}
         </div>
         {ProjectList.map((project) => (
           <div
             key={project.name}
-            className="min-h-1/2 w-[70vw] grid grid-cols-5 gap-6 px-6"
+            className="w-screen flex items-center justify-center flex-shrink-0"
           >
-            <DetailCard
-              project={project}
-              className="project-card-bg col-span-3"
-            />
-            <SummaryCard
-              summary={project.summary}
-              className="bg-[var(--color-secrondary-100)] dark:bg-[var(--color-primary-600)] col-span-2"
-            />
+            <ContentContainer className="lg:min-h-1/2 grid grid-rows-2 grid-cols-1 md:grid-cols-2 md:grid-rows-1 lg:grid-cols-5 gap-6">
+              <DetailCard
+                project={project}
+                className="project-card-bg row-span-1 md:col-span-1 lg:col-span-3"
+              />
+              <SummaryCard
+                summary={project.summary}
+                className="bg-[var(--color-secrondary-100)] dark:bg-[var(--color-primary-600)] row-span-1 md:col-span-1 lg:col-span-2"
+              />
+            </ContentContainer>
           </div>
         ))}
       </HorizontalScroll>

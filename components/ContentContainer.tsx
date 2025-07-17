@@ -12,7 +12,10 @@ const ContentContainer = ({
 }: ContainerProps) => {
   return (
     <section
-      className={clsx("container mx-auto overflow-hidden px-8", className)}
+      className={clsx(
+        "container mx-auto overflow-hidden px-4 lg:px-8",
+        className
+      )}
       {...props}
     >
       {children}

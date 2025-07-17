@@ -15,19 +15,21 @@ const SummaryCard: FC<SummaryCardProps> = ({ summary, className }) => {
   return (
     <Card
       className={cn(
-        "dark:bg-[var(--color-primary-600)] col-span-2 dark:text-[var(--color-gray-50)]",
+        "dark:bg-[var(--color-primary-600)] dark:text-[var(--color-gray-50)]",
         className
       )}
     >
       <CardContent className="flex flex-col gap-2">
-        <p className="font-bold text-2xl mb-4">{t("projectSummary")}</p>
+        <p className="font-bold text-lg md:text-xl lg:text-2xl mb-2 md:mb-4">
+          {t("projectSummary")}
+        </p>
         {summary.map((line, index) => (
           <div
             key={`latest-${index}`}
-            className="flex items-start justify-start mb-2 text-xl font-bold"
+            className="flex items-center justify-start gap-1 md:gap-2 text-xl font-bold"
           >
             <span className="mr-4 ">
-              <BadgeCheck className="h-6 w-6" />
+              <BadgeCheck className="h-4 w-4 lg:h-6 lg:w-6" />
             </span>
             <span className="text-base md:text-lg">{line}</span>
           </div>
