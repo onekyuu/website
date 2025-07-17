@@ -1,14 +1,10 @@
 import ContentContainer from "@/components/ContentContainer";
-import { Card, CardContent } from "@/components/ui/card";
-import { Link } from "@/i18n/navigations";
-import { AspectRatio } from "@radix-ui/react-aspect-ratio";
-import { ArrowUpRight, BadgeCheck } from "lucide-react";
 import { useTranslations } from "next-intl";
 import React from "react";
-import Image from "next/image";
 import HorizontalScroll from "@/components/HorizontalScroll";
 import SummaryCard from "@/components/portfolio/SummaryCard";
 import DetailCard from "@/components/portfolio/DetailCard";
+import PageLayout from "@/components/PageLayout";
 
 const PortfolioPage = () => {
   const t = useTranslations("Portfolio");
@@ -64,45 +60,36 @@ const PortfolioPage = () => {
     },
   ];
 
-  return (
-    <div className="min-h-screen w-full">
-      <div className="relative h-[70vh] w-full">
-        <div className="hero-bg absolute inset-0 z-[-1]"></div>
-        <ContentContainer className="flex flex-col items-center justify-center h-full gap-6">
-          <div className="text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] text-lg md:text-xl lg:text-2xl font-bold">
-            {t("title")}
-          </div>
-          <div className="text-4xl font-bold md:text-6xl md:font-medium lg:text-7xl text-center">
-            <span>{t("subtitleStart")}</span>
+  const latestProjectNode = (
+    <div className="grid grid-rows-2 md:grid-rows-1 md:grid-cols-2 lg:grid-cols-5 gap-6 w-full">
+      <SummaryCard
+        summary={ProjectList[0].summary}
+        className="md:col-span-1 lg:col-span-2"
+      />
+      <DetailCard
+        project={ProjectList[0]}
+        type="latest"
+        className="md:col-span-1 lg:col-span-3"
+      />
+    </div>
+  );
 
-            <span className="hero-text-gradient bg-clip-text text-transparent">
-              {t("subtitleEnd")}
-            </span>
-          </div>
+  return (
+    <PageLayout
+      heroContent={{
+        title: t("title"),
+        subtitle: { start: t("subtitleStart"), end: t("subtitleEnd") },
+        extraContent: (
           <div className="text-[var(--color-gray-700)] dark:text-[var(--color-gray-300)] text-base md:text-lg lg:text-xl text-center mt-4">
             {t("description")}
           </div>
-        </ContentContainer>
-      </div>
-      <div className="relative w-full min-h-screen py-4 flex flex-col items-center justify-center">
-        <div className="absolute inset-0 lines-wave-bg -z-1"></div>
-        <ContentContainer className="flex flex-col justify-center h-full gap-14">
-          <div className="text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] text-2xl md:text-3xl lg:text-4xl font-bold">
-            {t("latestProject")}
-          </div>
-          <div className="grid grid-rows-2 md:grid-rows-1 md:grid-cols-2 lg:grid-cols-5 gap-6 w-full">
-            <SummaryCard
-              summary={ProjectList[0].summary}
-              className="md:col-span-1 lg:col-span-2"
-            />
-            <DetailCard
-              project={ProjectList[0]}
-              type="lateset"
-              className="md:col-span-1 lg:col-span-3"
-            />
-          </div>
-        </ContentContainer>
-      </div>
+        ),
+      }}
+      latestContent={{
+        title: t("latestProject"),
+        content: latestProjectNode,
+      }}
+    >
       <HorizontalScroll className="gap-6">
         <div className=" w-[80vw] lg:w-[50vw] text-center text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] text-2xl md:text-3xl lg:text-4xl font-bold">
           {t("allProjects")}
@@ -125,7 +112,7 @@ const PortfolioPage = () => {
           </div>
         ))}
       </HorizontalScroll>
-    </div>
+    </PageLayout>
   );
 };
 

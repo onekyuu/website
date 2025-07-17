@@ -19,7 +19,7 @@ interface Project {
 
 interface DetailCardProps extends React.HTMLAttributes<HTMLDivElement> {
   project: Project;
-  type?: "lateset" | "normal";
+  type?: "latest" | "normal";
 }
 
 const DetailCard: FC<DetailCardProps> = ({
@@ -34,8 +34,8 @@ const DetailCard: FC<DetailCardProps> = ({
       <CardContent
         className={cn(
           "flex flex-col justify-between min-h-[40vh] md:min-h-[50vh] lg:min-h-[60vh] gap-4 md:gap-8",
-          type === "lateset"
-            ? "dark:text-[var(--color-primary-100)]"
+          type === "latest"
+            ? "text-[var(--color-primary-100)]"
             : "dark:text-[var(--color-gray-900)]",
           className
         )}
@@ -47,8 +47,8 @@ const DetailCard: FC<DetailCardProps> = ({
           <p
             className={cn(
               "text-base lg:text-lg",
-              type === "lateset"
-                ? "text-[var(--color-gray-600)] dark:text-[var(--color-primary-100)]"
+              type === "latest"
+                ? "text-[var(--color-primary-100)]"
                 : "text-[var(--color-gray-700)]"
             )}
           >
