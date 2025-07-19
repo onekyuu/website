@@ -47,7 +47,8 @@ const HorizontalScroll: FC<React.HTMLAttributes<HTMLDivElement>> = ({
       trigger: wapperRef.current,
       start: "top top",
       end: "bottom bottom",
-      scrub: true,
+      scrub: 1,
+      invalidateOnRefresh: true,
       onUpdate: (self) => {
         if (!projectBoxRef.current) return;
         projectBoxRef.current.style.transform = `translateX(-${
