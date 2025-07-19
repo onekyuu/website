@@ -55,7 +55,9 @@ const BlogCard: FC<BlogCardProps> = ({ post, className, type = "all" }) => {
           <div className="flex flex-col gap-3 md:gap-6">
             <div className="flex gap-2">
               {post.tags.map((tag) => (
-                <Badge variant={"default"}>{tag}</Badge>
+                <Badge key={tag} variant={"default"}>
+                  {tag}
+                </Badge>
               ))}
             </div>
             <div className="text-2xl md:text-3xl lg:text-4xl font-semibold">
