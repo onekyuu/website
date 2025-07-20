@@ -105,7 +105,12 @@ const Masonry: React.FC<MasonryProps> = ({
   const [imagesReady, setImagesReady] = useState(false);
   const [containerHeight, setContainerHeight] = useState(0);
 
-  const getInitialPosition = (item: any) => {
+  const getInitialPosition = (item: {
+    x: number;
+    y: number;
+    w: number;
+    h: number;
+  }) => {
     const containerRect = containerRef.current?.getBoundingClientRect();
     if (!containerRect) return { x: item.x, y: item.y };
 
