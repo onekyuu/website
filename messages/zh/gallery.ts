@@ -1,8 +1,8 @@
 const Gallery = {
-  title: "Blog.",
+  title: "Gallery.",
   subtitleStart: "Discover the Art of ",
   subtitleEnd: "Digital World",
-  latestProject: "Latest Post",
+  latestPhoto: "Latest Photo",
 };
 
 export default Gallery;

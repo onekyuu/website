@@ -13,6 +13,16 @@ import { Badge } from "@/components/ui/badge";
 import { Link } from "@/i18n/navigations";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import BlogCard from "@/components/blog/BlogCard";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
+import { Separator } from "@/components/ui/separator";
 
 const BlogPage = () => {
   const t = useTranslations("Blog");
@@ -92,7 +102,7 @@ const BlogPage = () => {
         content: latestBlogNode,
       }}
     >
-      <ContentContainer>
+      <ContentContainer className="my-18">
         <div className="text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] text-2xl md:text-3xl lg:text-4xl font-bold">
           {t("allPosts")}
         </div>
@@ -101,6 +111,23 @@ const BlogPage = () => {
             <BlogCard key={post.id} post={post} />
           ))}
         </div>
+        <Separator className="mt-8" />
+        <Pagination className="w-full h-16 py-4 px-6">
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious href="#" />
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationLink href="#">1</PaginationLink>
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationEllipsis />
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationNext href="#" />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
       </ContentContainer>
     </PageLayout>
   );
