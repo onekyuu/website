@@ -21,10 +21,30 @@ const config: NextConfig = {
     },
   },
   images: {
-    domains: [
-      "onekyuu-blog.oss-cn-shanghai.aliyuncs.com",
-      "static.keyu.wang",
-      "images.unsplash.com",
+    // domains: [
+    //   "onekyuu-blog.oss-cn-shanghai.aliyuncs.com",
+    //   "static.keyu.wang",
+    //   "images.unsplash.com",
+    // ],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "static.keyu.wang",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "onekyuu-blog.oss-cn-shanghai.aliyuncs.com",
+        port: "",
+        pathname: "/**",
+      },
     ],
   },
 };
