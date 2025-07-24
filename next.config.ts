@@ -21,11 +21,6 @@ const config: NextConfig = {
     },
   },
   images: {
-    // domains: [
-    //   "onekyuu-blog.oss-cn-shanghai.aliyuncs.com",
-    //   "static.keyu.wang",
-    //   "images.unsplash.com",
-    // ],
     remotePatterns: [
       {
         protocol: "https",
