@@ -6,6 +6,7 @@ import { Nunito } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider";
 import Header from "@/components/Header";
+import QueryProvider from "@/providers/QueryProvider";
 
 type Props = {
   children: ReactNode;
@@ -43,17 +44,19 @@ export default async function LocaleLayout({ children, params }: Props) {
   return (
     <html lang={locale}>
       <body className={cn(fonts[locale])}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <NextIntlClientProvider>
-            <Header />
-            {children}
-          </NextIntlClientProvider>
-        </ThemeProvider>
+        <QueryProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="light"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <NextIntlClientProvider>
+              <Header />
+              {children}
+            </NextIntlClientProvider>
+          </ThemeProvider>
+        </QueryProvider>
       </body>
     </html>
   );
