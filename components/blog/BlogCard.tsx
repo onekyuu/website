@@ -8,26 +8,18 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Link } from "@/i18n/navigations";
 import { cn } from "@/lib/utils";
 import { Badge } from "../ui/badge";
-import { useTranslations } from "next-intl";
-
-interface BlogPost {
-  id: number;
-  title: string;
-  description: string;
-  date: string;
-  image: string;
-  avatar: string;
-  author: string;
-  tags: string[];
-}
+import { useLocale, useTranslations } from "next-intl";
+import { Post } from "@/types/post";
 
 interface BlogCardProps extends React.HTMLAttributes<HTMLDivElement> {
-  post: BlogPost;
+  post: Post;
   type?: "latest" | "all";
 }
 
 const BlogCard: FC<BlogCardProps> = ({ post, className, type = "all" }) => {
   const t = useTranslations("Blog");
+  const { image, id, avatar, date, user, category, translations } = post;
+  const locale = useLocale();
   return (
     <Card className={cn("w-full min-h-[40vh] rounded-xl", className)}>
       <CardContent
@@ -38,12 +30,14 @@ const BlogCard: FC<BlogCardProps> = ({ post, className, type = "all" }) => {
       >
         <div className={cn("w-full", type === "latest" ? "md:w-1/2" : "")}>
           <AspectRatio ratio={1}>
-            <Image
-              src={post.image}
-              alt="Latest Blog Post"
-              fill
-              className="rounded-lg object-cover"
-            />
+            {image && (
+              <Image
+                src={image}
+                alt="Latest Blog Post"
+                fill
+                className="rounded-lg object-cover"
+              />
+            )}
           </AspectRatio>
         </div>
         <div
@@ -54,20 +48,18 @@ const BlogCard: FC<BlogCardProps> = ({ post, className, type = "all" }) => {
         >
           <div className="flex flex-col gap-3 md:gap-6">
             <div className="flex gap-2">
-              {post.tags.map((tag) => (
-                <Badge key={tag} variant={"default"}>
-                  {tag}
-                </Badge>
-              ))}
+              <Badge key={category.title} variant={"default"}>
+                {category.title}
+              </Badge>
             </div>
             <div className="text-2xl md:text-3xl lg:text-4xl font-semibold">
-              {post.title}
+              {translations[locale]?.title}
             </div>
             <div className="text-lg lg:text-xl font-semibold text-[var(--color-gray-600)]">
-              {post.description}
+              {translations[locale]?.description}
             </div>
             <Link
-              href={`/blog/${post.id}`}
+              href={`/blog/${id}`}
               className="text-[var(--color-secondary-700)] font-bold text-lg"
             >
               {t("readPost")}
@@ -75,13 +67,13 @@ const BlogCard: FC<BlogCardProps> = ({ post, className, type = "all" }) => {
           </div>
           <div className="flex items-center gap-4 mt-4 md:mt-0">
             <Avatar className="h-14 w-14">
-              <AvatarImage src={post.avatar} />
-              <AvatarFallback>{post.author.slice(0, 2)}</AvatarFallback>
+              <AvatarImage src={avatar} />
+              <AvatarFallback>{user.username.slice(0, 2)}</AvatarFallback>
             </Avatar>
             <div className="flex flex-col">
-              <span className="text-sm font-semibold">{post.author}</span>
+              <span className="text-sm font-semibold">{user.username}</span>
               <span className="text-xs text-[var(--color-gray-500)]">
-                {new Date(post.date).toLocaleDateString()}
+                {new Date(date).toLocaleDateString()}
               </span>
             </div>
           </div>

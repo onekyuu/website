@@ -9,6 +9,7 @@ const Blog = {
   searchPlaceholder: "Unleash your curiosity",
   searchButton: "Explore by genre",
   readPost: "Read Full Post",
+  noResults: "No posts found.",
 };
 
 export default Blog;

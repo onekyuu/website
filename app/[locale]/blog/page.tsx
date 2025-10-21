@@ -25,7 +25,7 @@ const BlogPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchInput, setSearchInput] = useState("");
 
-  const pageSize = 8;
+  const pageSize = 10;
 
   // 使用 TanStack Query 获取数据
   const {
@@ -56,7 +56,7 @@ const BlogPage = () => {
 
   // 预取下一页
   const handlePrefetchNextPage = () => {
-    if (postsData && currentPage * pageSize < postsData.total) {
+    if (postsData && currentPage * pageSize < postsData.count) {
       prefetchPosts({
         page: currentPage + 1,
         pageSize,
@@ -65,9 +65,10 @@ const BlogPage = () => {
     }
   };
 
-  const totalPages = postsData ? Math.ceil(postsData.total / pageSize) : 0;
-  const blogList = postsData?.data || [];
+  const totalPages = postsData ? Math.ceil(postsData.count / pageSize) : 0;
+  const blogList = postsData?.results || [];
   const latestPost = blogList[0];
+  console.log("Latest Post:", latestPost);
 
   const latestBlogNode = latestPost ? (
     <ContentContainer>
@@ -114,7 +115,6 @@ const BlogPage = () => {
           {t("allPosts")}
         </div>
 
-        {/* 加载状态 */}
         {isLoading && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
             {Array.from({ length: pageSize }).map((_, index) => (
@@ -126,7 +126,6 @@ const BlogPage = () => {
           </div>
         )}
 
-        {/* 错误状态 */}
         {isError && (
           <div className="mt-8 p-6 bg-red-50 dark:bg-red-900/20 rounded-xl">
             <p className="text-red-600 dark:text-red-400">
@@ -135,7 +134,6 @@ const BlogPage = () => {
           </div>
         )}
 
-        {/* 文章列表 */}
         {!isLoading && !isError && blogList.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
             {blogList.map((post) => (
@@ -144,7 +142,6 @@ const BlogPage = () => {
           </div>
         )}
 
-        {/* 无结果 */}
         {!isLoading && !isError && blogList.length === 0 && (
           <div className="mt-8 p-6 text-center text-gray-500 dark:text-gray-400">
             {t("noResults")}

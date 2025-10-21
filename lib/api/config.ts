@@ -3,7 +3,7 @@ export const API_CONFIG = {
   endpoints: {
     posts: {
       lists: "/post/lists",
-      detail: (id: string) => `/post/${id}`,
+      detail: (slug: string) => `/post/detail/${slug}`,
     },
   },
 };
