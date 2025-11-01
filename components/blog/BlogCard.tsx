@@ -24,7 +24,7 @@ const BlogCard: FC<BlogCardProps> = ({ post, className, type = "all" }) => {
     <Card className={cn("w-full min-h-[40vh] rounded-xl", className)}>
       <CardContent
         className={cn(
-          "flex flex-col gap-8",
+          "flex flex-col flex-1 gap-8",
           type === "latest" ? "md:flex-row" : ""
         )}
       >
@@ -36,28 +36,29 @@ const BlogCard: FC<BlogCardProps> = ({ post, className, type = "all" }) => {
                 alt="Latest Blog Post"
                 fill
                 className="rounded-lg object-cover"
-                unoptimized
               />
             )}
           </AspectRatio>
         </div>
         <div
           className={cn(
-            "w-full flex flex-col justify-between",
+            "w-full flex flex-col flex-1",
             type === "latest" ? "md:w-1/2" : ""
           )}
         >
-          <div className="flex flex-col gap-3 md:gap-6">
+          <div className="flex flex-col gap-3 md:gap-6 flex-1">
             <div className="flex gap-2">
               <Badge key={category.title} variant={"default"}>
                 {category.title}
               </Badge>
             </div>
-            <div className="text-2xl md:text-3xl lg:text-4xl font-semibold">
-              {translations[locale]?.title}
-            </div>
-            <div className="text-lg lg:text-xl font-semibold text-[var(--color-gray-600)]">
-              {translations[locale]?.description}
+            <div className="flex-1">
+              <div className="text-2xl md:text-3xl lg:text-4xl font-semibold">
+                {translations[locale]?.title}
+              </div>
+              <div className="text-lg lg:text-xl font-semibold text-[var(--color-gray-600)]">
+                {translations[locale]?.description}
+              </div>
             </div>
             <Link
               href={`/blog/detail/${slug}`}
