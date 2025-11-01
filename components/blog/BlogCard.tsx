@@ -18,7 +18,7 @@ interface BlogCardProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const BlogCard: FC<BlogCardProps> = ({ post, className, type = "all" }) => {
   const t = useTranslations("Blog");
-  const { image, id, avatar, date, user, category, translations, slug } = post;
+  const { image, id, date, user, category, translations, slug } = post;
   const locale = useLocale();
   return (
     <Card className={cn("w-full min-h-[40vh] rounded-xl", className)}>
@@ -68,7 +68,7 @@ const BlogCard: FC<BlogCardProps> = ({ post, className, type = "all" }) => {
           </div>
           <div className="flex items-center gap-4 mt-4 md:mt-0">
             <Avatar className="h-14 w-14">
-              <AvatarImage src={avatar} />
+              <AvatarImage src={user.profile.avatar} />
               <AvatarFallback>{user.username.slice(0, 2)}</AvatarFallback>
             </Avatar>
             <div className="flex flex-col">
