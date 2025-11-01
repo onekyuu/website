@@ -18,7 +18,7 @@ interface BlogCardProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const BlogCard: FC<BlogCardProps> = ({ post, className, type = "all" }) => {
   const t = useTranslations("Blog");
-  const { image, id, avatar, date, user, category, translations } = post;
+  const { image, id, avatar, date, user, category, translations, slug } = post;
   const locale = useLocale();
   return (
     <Card className={cn("w-full min-h-[40vh] rounded-xl", className)}>
@@ -36,6 +36,7 @@ const BlogCard: FC<BlogCardProps> = ({ post, className, type = "all" }) => {
                 alt="Latest Blog Post"
                 fill
                 className="rounded-lg object-cover"
+                unoptimized
               />
             )}
           </AspectRatio>
@@ -59,7 +60,7 @@ const BlogCard: FC<BlogCardProps> = ({ post, className, type = "all" }) => {
               {translations[locale]?.description}
             </div>
             <Link
-              href={`/blog/${id}`}
+              href={`/blog/detail/${slug}`}
               className="text-[var(--color-secondary-700)] font-bold text-lg"
             >
               {t("readPost")}
