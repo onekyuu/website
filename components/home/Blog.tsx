@@ -39,7 +39,6 @@ const BlogSection: FC<BlogSectionProps> = ({
   const t = useTranslations("Home");
   const [displayPosts, setDisplayPosts] = React.useState<BlogPost[]>([]);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     const updatePosts = () => {
       const width = window.innerWidth;
