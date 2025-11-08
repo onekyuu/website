@@ -5,7 +5,7 @@ import ContentContainer from "../ContentContainer";
 import { useTranslations } from "next-intl";
 import { Button } from "../ui/button";
 
-export default function Hero() {
+const HeroSection = () => {
   const t = useTranslations();
   return (
     <div className="w-full flex items-center justify-between relative z-0 h-screen">
@@ -46,4 +46,6 @@ export default function Hero() {
       </ContentContainer>
     </div>
   );
-}
+};
+
+export default HeroSection;

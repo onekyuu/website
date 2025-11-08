@@ -4,71 +4,92 @@ import Image from "next/image";
 import ContentContainer from "../ContentContainer";
 import { useTranslations } from "next-intl";
 import HeadSVG from "@/public/head.svg";
+import { Gallery } from "@/types/gallery";
+import dayjs from "dayjs";
+import { Camera } from "lucide-react";
 
-const Gallery: FC = () => {
+interface GallerySectionProps {
+  galleryList: Gallery[];
+  isLoading: boolean;
+  isError?: boolean;
+  error?: any;
+}
+
+const GallerySection: FC<GallerySectionProps> = ({
+  galleryList,
+  isLoading,
+}) => {
   const t = useTranslations("Home");
 
-  const galleryImages = [
-    {
-      src: "/project-cover.jpeg",
-      description:
-        "A beautiful project cover image showcasing the essence of the project.",
-      date: "2023-10-01",
-      location: "New York, USA",
-    },
-    {
-      src: "/project-cover.jpeg",
-      description:
-        "A beautiful project cover image showcasing the essence of the project.",
-      date: "2023-10-01",
-      location: "New York, USA",
-    },
-    {
-      src: "/project-cover.jpeg",
-      description:
-        "A beautiful project cover image showcasing the essence of the project.",
-      date: "2023-10-01",
-      location: "New York, USA",
-    },
-    {
-      src: "/project-cover.jpeg",
-      description:
-        "A beautiful project cover image showcasing the essence of the project.",
-      date: "2023-10-01",
-      location: "New York, USA",
-    },
-  ];
+  // const galleryImages = [
+  //   {
+  //     src: "/project-cover.jpeg",
+  //     description:
+  //       "A beautiful project cover image showcasing the essence of the project.",
+  //     date: "2023-10-01",
+  //     location: "New York, USA",
+  //   },
+  //   {
+  //     src: "/project-cover.jpeg",
+  //     description:
+  //       "A beautiful project cover image showcasing the essence of the project.",
+  //     date: "2023-10-01",
+  //     location: "New York, USA",
+  //   },
+  //   {
+  //     src: "/project-cover.jpeg",
+  //     description:
+  //       "A beautiful project cover image showcasing the essence of the project.",
+  //     date: "2023-10-01",
+  //     location: "New York, USA",
+  //   },
+  //   {
+  //     src: "/project-cover.jpeg",
+  //     description:
+  //       "A beautiful project cover image showcasing the essence of the project.",
+  //     date: "2023-10-01",
+  //     location: "New York, USA",
+  //   },
+  // ];
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen mt-12 lg:mt-0">
-      <ContentContainer>
-        <div className="text-2xl font-bold text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] mb-4 mr-4 md:text-3xl md:mb-6 md:mr-6 lg:text-4xl lg:mb-8 lg:mr-8 text-end">
+      <ContentContainer className="my-4">
+        <div className="text-2xl font-bold text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] md:text-3xl lg:text-4xl text-end">
           {t("gallery")}
         </div>
       </ContentContainer>
-      {galleryImages.map((image, index) => (
+      {galleryList.map((image, index) => (
         <div
           key={index}
           className={
-            "sticky top-0 h-[60vh] lg:h-[80vh] w-full flex items-center justify-center even:bg-[var(--color-primary-50)] odd:bg-[var(--color-primary-100)] even:text-[var(--color-primary-50)] odd:text-[var(--color-primary-100)] dark:even:bg-[var(--color-gray-800)] dark:odd:bg-[var(--color-gray-900)] dark:even:text-[var(--color-gray-800)] dark:odd:text-[var(--color-gray-900)]"
+            "sticky top-0 h-[80vh] py-8 w-full flex items-center justify-center even:bg-[var(--color-primary-50)] odd:bg-[var(--color-primary-100)] even:text-[var(--color-primary-50)] odd:text-[var(--color-primary-100)] dark:even:bg-[var(--color-gray-800)] dark:odd:bg-[var(--color-gray-900)] dark:even:text-[var(--color-gray-800)] dark:odd:text-[var(--color-gray-900)]"
           }
         >
           <div className="absolute top-0 left-0 w-[25%] scale-[-1] translate-y-[-100%]">
             <HeadSVG className="w-full scale-200 lg:scale-500" />
           </div>
           <ContentContainer className="flex flex-col items-center justify-center gap-4">
-            <AspectRatio ratio={16 / 9} className="w-full">
+            <div className="relative w-full h-[50vh] lg:h-[60vh]">
               <Image
-                src={image.src}
-                alt="Gallery Image"
+                src={image.image_url}
+                alt={image.title || "Gallery Image"}
                 fill
-                className="object-cover"
+                className="object-contain"
               />
-            </AspectRatio>
+            </div>
+            {/* <AspectRatio ratio={16 / 9} className="max-h-[50vh]">
+            </AspectRatio> */}
             <div className="text-[var(--color-gray-900)] dark:text-[var(--color-gray-100)]">
-              <div>{image.description || ""}</div>
-              <div>
-                {image.location} - {image.date}
+              <p>{image.description || ""}</p>
+              <p>
+                {`${image.location_info.location} - ${
+                  image.taken_at && dayjs(image.taken_at).format("YYYY-MM-DD")
+                }`}
+              </p>
+              <div className="flex items-center justify-center align-middle gap-2">
+                <Camera />
+                {`${image.camera_make} - ${image.camera_model} - ${image.exif_summary}`}
               </div>
             </div>
           </ContentContainer>
@@ -78,4 +99,4 @@ const Gallery: FC = () => {
   );
 };
 
-export default Gallery;
+export default GallerySection;

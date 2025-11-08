@@ -26,7 +26,7 @@ const BlogPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchInput, setSearchInput] = useState("");
 
-  const pageSize = 10;
+  const pageSize = 8;
 
   const {
     data: postsData,

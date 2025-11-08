@@ -3,7 +3,7 @@ import ContentContainer from "../ContentContainer";
 import { Separator } from "../ui/separator";
 import { Link } from "@/i18n/navigations";
 
-const Footer: FC = () => {
+const FooterSection: FC = () => {
   return (
     <div className="bg-[var(--color-gray-900)] mx-2 my-4 py-8 md:m-4 md:py-12 lg:m-8 lg:py-16 rounded-3xl">
       <ContentContainer className="px-2">
@@ -63,4 +63,4 @@ const Footer: FC = () => {
   );
 };
 
-export default Footer;
+export default FooterSection;

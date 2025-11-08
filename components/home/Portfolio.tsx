@@ -11,28 +11,31 @@ import Image from "next/image";
 import HorizontalScroll from "../HorizontalScroll";
 import { useProjects } from "@/hooks/useProjects";
 import { LanguageCode } from "@/types/common";
+import { Project } from "@/types/project";
 
-const Portfolio: FC = () => {
+interface PortfolioSectionProps {
+  projectList?: Project[];
+  isLoading: boolean;
+  isError?: boolean;
+  error?: any;
+}
+
+const PortfolioSection: FC<PortfolioSectionProps> = ({
+  projectList,
+  isLoading,
+}) => {
   const t = useTranslations("Home");
   const locale = useLocale() as LanguageCode;
-  const {
-    data: projectResponse,
-    isLoading,
-    isError,
-    error,
-  } = useProjects({
-    page: 1,
-    pageSize: 10,
-  });
-  const projectList = projectResponse || [];
 
   return (
     <HorizontalScroll>
-      <div className="h-2/3 lg:h-1/2 w-full lg:w-[50vw] flex flex-shrink-0 items-center justify-center text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] text-2xl md:text-3xl lg:text-4xl font-semibold">
-        {t("portfolio")}
-      </div>
+      <ContentContainer>
+        <div className="mt-7 md:mt-12 lg:mt-0 lg:px-0 lg:h-1/2 w-full lg:w-[50vw] flex flex-shrink-0 items-center justify-end lg:justify-center text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] text-2xl md:text-3xl lg:text-4xl font-semibold">
+          {t("portfolio")}
+        </div>
+      </ContentContainer>
       {isLoading && (
-        <div className="h-2/3 lg:h-1/2 w-screen lg:w-5xl flex flex-shrink-0 items-center justify-center">
+        <div className="lg:h-2/3 w-screen lg:w-5xl flex flex-shrink-0 items-center justify-center">
           <ContentContainer className="h-full grid grid-rows-5 lg:grid-rows-1 lg:grid-cols-2 gap-4 place-items-center px-0">
             <div className="row-span-3 h-full w-full flex flex-col justify-start lg:justify-center">
               <div className="skeleton h-8 w-3/4 mb-4 rounded-lg"></div>
@@ -43,10 +46,10 @@ const Portfolio: FC = () => {
       {projectList?.map((project) => (
         <div
           key={project.id}
-          className="h-2/3 lg:h-1/2 w-screen lg:w-5xl lg:px-10 flex flex-shrink-0 items-center justify-center"
+          className="lg:h-2/3 w-screen lg:w-5xl lg:px-10 flex flex-shrink-0 items-center justify-center"
         >
-          <ContentContainer className="h-full grid grid-rows-5 lg:grid-rows-1 lg:grid-cols-2 gap-4 place-items-center px-0">
-            <div className="row-span-3 h-full w-full flex flex-col justify-start lg:justify-center">
+          <ContentContainer className="lg:h-full lg:grid lg:grid-rows-1 lg:grid-cols-2 gap-4 place-items-center px-0">
+            <div className="lg:row-span-3 h-full w-full flex flex-col justify-center items-start">
               <div className="text-2xl md:text-3xl lg:text-3xl font-semibold text-[var(--color-gray-900)]] dark:text-[var(--color-gray-50)] mb-4">
                 {project.translations[locale]?.title}
               </div>
@@ -71,16 +74,13 @@ const Portfolio: FC = () => {
                 </Link>
               </div>
             </div>
-            <div className="row-span-2 w-full">
-              <AspectRatio
-                ratio={16 / 9}
-                className="rounded-xl lg:shadow-[-8px_8px_40px_0px_rgba(99,102,241,0.26)]"
-              >
+            <div className="mt-8 lg:mt-0 lg:row-span-2 w-full">
+              <AspectRatio ratio={16 / 9} className="rounded-xl">
                 <Image
                   fill
                   src={project.images[0] || "/project-cover.jpeg"}
                   alt={`Project Image for ${project.slug}`}
-                  className="object-cover rounded-xl"
+                  className="object-contain rounded-xl"
                 />
               </AspectRatio>
             </div>
@@ -91,4 +91,4 @@ const Portfolio: FC = () => {
   );
 };
 
-export default Portfolio;
+export default PortfolioSection;

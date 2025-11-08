@@ -14,9 +14,6 @@ import {
 import { Link } from "@/i18n/navigations";
 import Image from "next/image";
 import { AspectRatio } from "../ui/aspect-ratio";
-import { usePosts } from "@/hooks/usePosts";
-import { Post } from "@/types/post";
-import { Skeleton } from "../ui/skeleton";
 
 interface BlogPost {
   id: number;
@@ -26,47 +23,37 @@ interface BlogPost {
   image: string;
 }
 
-const Blog: FC = () => {
+interface BlogSectionProps {
+  blogList: BlogPost[] | undefined;
+  isLoading: boolean;
+  isError: boolean;
+  error: any;
+}
+
+const BlogSection: FC<BlogSectionProps> = ({
+  blogList,
+  isLoading,
+  isError,
+  error,
+}) => {
   const t = useTranslations("Home");
-  const locale = useLocale();
   const [displayPosts, setDisplayPosts] = React.useState<BlogPost[]>([]);
-
-  const {
-    data: blogData,
-    isLoading,
-    isError,
-    error,
-  } = usePosts({
-    page: 1,
-    pageSize: 4,
-  });
-
-  const formatBlogData = (data: Post[] | undefined) => {
-    if (!data) return [];
-    return data.map((post: Post) => ({
-      id: post.id,
-      title: post.translations[locale]?.title || post.title,
-      description: post.translations[locale]?.description || post.description,
-      date: post.date,
-      image: post.image,
-    }));
-  };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     const updatePosts = () => {
       const width = window.innerWidth;
       if (width >= 768) {
-        setDisplayPosts(formatBlogData(blogData?.results)?.slice(0, 4) || []);
+        setDisplayPosts(blogList?.slice(0, 4) || []);
       } else {
-        setDisplayPosts(formatBlogData(blogData?.results)?.slice(0, 3) || []);
+        setDisplayPosts(blogList?.slice(0, 3) || []);
       }
     };
 
     updatePosts();
     window.addEventListener("resize", updatePosts);
     return () => window.removeEventListener("resize", updatePosts);
-  }, [blogData]);
+  }, [blogList]);
 
   return (
     <div className="min-h-screen flex items-center justify-center">
@@ -109,4 +96,4 @@ const Blog: FC = () => {
   );
 };
 
-export default Blog;
+export default BlogSection;

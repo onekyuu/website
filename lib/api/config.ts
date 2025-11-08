@@ -13,5 +13,9 @@ export const API_CONFIG = {
       lists: "/projects/skill/list",
       detail: (slug: string) => `/projects/skill/${slug}`,
     },
+    gallery: {
+      lists: "/gallery/list",
+      detail: (id: string) => `/gallery/detail/${id}`,
+    },
   },
 };

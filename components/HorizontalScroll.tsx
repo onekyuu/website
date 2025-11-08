@@ -117,7 +117,7 @@ const HorizontalScroll: FC<React.HTMLAttributes<HTMLDivElement>> = ({
   if (isMobile) {
     return (
       <div key={"mobile-wrapper"} className="w-full">
-        <div className={cn("flex flex-col gap-8 py-8", className)} {...props}>
+        <div className={cn("flex flex-col gap-8", className)} {...props}>
           {children}
         </div>
       </div>

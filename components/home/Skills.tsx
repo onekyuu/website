@@ -10,7 +10,7 @@ import Lenis from "lenis";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const Skills: FC = () => {
+const SkillsSection: FC = () => {
   const t = useTranslations("Home");
   const containerRef = useRef<HTMLDivElement>(null);
   const lenisRef = useRef<Lenis | null>(null);
@@ -60,7 +60,6 @@ const Skills: FC = () => {
       skillsList.forEach((skill, i) => {
         const targetElement = listContainer.children[i] as HTMLElement;
         if (!targetElement) {
-          console.log(`Element ${i} not found`);
           return;
         }
 
@@ -74,8 +73,6 @@ const Skills: FC = () => {
 
         const moveX = elementCenterX - containerCenterX;
         const moveY = elementCenterY - containerCenterY;
-
-        console.log(`Element ${i} - moveX: ${moveX}, moveY: ${moveY}`);
 
         gsap.set(targetElement, {
           x: -moveX,
@@ -151,4 +148,4 @@ const Skills: FC = () => {
   );
 };
 
-export default Skills;
+export default SkillsSection;

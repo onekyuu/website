@@ -7,7 +7,7 @@ export const projectsApi = {
 
     if (params.page) queryParams.append("page", params.page.toString());
     if (params.pageSize)
-      queryParams.append("page_size", params.pageSize.toString());
+      queryParams.append("pageSize", params.pageSize.toString());
     if (params.search) queryParams.append("search", params.search);
 
     const url = `${API_CONFIG.baseURL}${API_CONFIG.endpoints.projects.lists}${

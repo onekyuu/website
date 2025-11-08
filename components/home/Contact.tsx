@@ -12,7 +12,7 @@ import { Link } from "@/i18n/navigations";
 import { Textarea } from "../ui/textarea";
 import { Label } from "../ui/label";
 
-const Contact: FC = () => {
+const ContactSection: FC = () => {
   const t = useTranslations("Home");
 
   const SocialMediaMap = [
@@ -72,13 +72,13 @@ const Contact: FC = () => {
         <div className="text-2xl font-bold text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] md:text-3xl lg:text-4xl">
           {t("contactMe")}
         </div>
-        <div className="flex flex-col lg:flex-row items-center justify-between mt-6 lg:mt-12 lg:h-[50vh] w-full">
-          <div className="w-full lg:h-full lg:w-[40%] contact-bg rounded-3xl py-8 px-6 flex flex-col items-center justify-between">
+        <div className="flex flex-col lg:grid lg:grid-cols-[40%_55%] items-start justify-between mt-6 lg:mt-12 w-full gap-6">
+          <div className="w-full lg:h-full contact-bg rounded-3xl py-8 px-6 flex flex-1 flex-col items-center justify-between">
             <div className="flex flex-col items-center md:w-[70%] lg:items-start lg:w-full">
               <div className="text-3xl font-bold dark:text-[var(--color-gray-50)]">
                 {t("sayHello")}
               </div>
-              <div className="text-lg text-[car(--color-gray-600)] dark:text-[var(--color-gray-300)] mt-6">
+              <div className="text-lg text-[var(--color-gray-600)] dark:text-[var(--color-gray-300)] mt-6">
                 {t("contactDescription")}
               </div>
 
@@ -109,7 +109,7 @@ const Contact: FC = () => {
               ))}
             </div>
           </div>
-          <div className="w-full lg:w-[55%] py-8 px-7 rounded-3xl bg-[var(--color-background-2)] dark:bg-[var(--color-background-dark-3)] mt-6 lg:mt-0 h-full">
+          <div className="w-full py-8 px-7 rounded-3xl bg-[var(--color-background-2)] dark:bg-[var(--color-background-dark-3)] mt-6 lg:mt-0 h-full">
             <Form action={handleSendMessage} className="flex flex-col h-full">
               {SendMessageMap.map((field) =>
                 field.type === "textarea" ? (
@@ -151,4 +151,4 @@ const Contact: FC = () => {
   );
 };
 
-export default Contact;
+export default ContactSection;
