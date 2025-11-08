@@ -27,7 +27,7 @@ interface BlogSectionProps {
   blogList: BlogPost[] | undefined;
   isLoading: boolean;
   isError: boolean;
-  error: any;
+  error: Error | null;
 }
 
 const BlogSection: FC<BlogSectionProps> = ({

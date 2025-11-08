@@ -17,7 +17,7 @@ interface PortfolioSectionProps {
   projectList?: Project[];
   isLoading: boolean;
   isError?: boolean;
-  error?: any;
+  error?: Error | null;
 }
 
 const PortfolioSection: FC<PortfolioSectionProps> = ({

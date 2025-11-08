@@ -12,7 +12,7 @@ interface GallerySectionProps {
   galleryList: Gallery[];
   isLoading: boolean;
   isError?: boolean;
-  error?: any;
+  error?: Error | null;
 }
 
 const GallerySection: FC<GallerySectionProps> = ({
@@ -20,37 +20,6 @@ const GallerySection: FC<GallerySectionProps> = ({
   isLoading,
 }) => {
   const t = useTranslations("Home");
-
-  // const galleryImages = [
-  //   {
-  //     src: "/project-cover.jpeg",
-  //     description:
-  //       "A beautiful project cover image showcasing the essence of the project.",
-  //     date: "2023-10-01",
-  //     location: "New York, USA",
-  //   },
-  //   {
-  //     src: "/project-cover.jpeg",
-  //     description:
-  //       "A beautiful project cover image showcasing the essence of the project.",
-  //     date: "2023-10-01",
-  //     location: "New York, USA",
-  //   },
-  //   {
-  //     src: "/project-cover.jpeg",
-  //     description:
-  //       "A beautiful project cover image showcasing the essence of the project.",
-  //     date: "2023-10-01",
-  //     location: "New York, USA",
-  //   },
-  //   {
-  //     src: "/project-cover.jpeg",
-  //     description:
-  //       "A beautiful project cover image showcasing the essence of the project.",
-  //     date: "2023-10-01",
-  //     location: "New York, USA",
-  //   },
-  // ];
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen mt-12 lg:mt-0">
