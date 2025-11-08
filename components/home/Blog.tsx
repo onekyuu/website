@@ -2,13 +2,12 @@
 
 import React, { FC, useEffect } from "react";
 import ContentContainer from "../ContentContainer";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import {
   Card,
   CardContent,
   CardDescription,
   CardFooter,
-  CardHeader,
   CardTitle,
 } from "../ui/card";
 import { Link } from "@/i18n/navigations";
