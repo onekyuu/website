@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/pagination";
 import { Separator } from "@/components/ui/separator";
 import { usePosts, usePrefetchPosts } from "@/hooks/usePosts";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const BlogPage = () => {
   const t = useTranslations("Blog");
@@ -27,7 +28,6 @@ const BlogPage = () => {
 
   const pageSize = 10;
 
-  // 使用 TanStack Query 获取数据
   const {
     data: postsData,
     isLoading,
@@ -41,20 +41,17 @@ const BlogPage = () => {
 
   const prefetchPosts = usePrefetchPosts();
 
-  // 处理搜索
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     setSearchQuery(searchInput);
     setCurrentPage(1);
   };
 
-  // 处理分页
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  // 预取下一页
   const handlePrefetchNextPage = () => {
     if (postsData && currentPage * pageSize < postsData.count) {
       prefetchPosts({
@@ -65,10 +62,9 @@ const BlogPage = () => {
     }
   };
 
-  const totalPages = postsData ? Math.ceil(postsData.count / pageSize) : 0;
+  const totalPages = postsData?.totalPages || 0;
   const blogList = postsData?.results || [];
   const latestPost = blogList[0];
-  console.log("Latest Post:", latestPost);
 
   const latestBlogNode = latestPost ? (
     <ContentContainer>
@@ -118,10 +114,9 @@ const BlogPage = () => {
         {isLoading && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
             {Array.from({ length: pageSize }).map((_, index) => (
-              <div
-                key={index}
-                className="animate-pulse space-y-3 bg-gray-200 dark:bg-gray-700 rounded-xl h-64"
-              />
+              <div key={index} className="w-full">
+                <Skeleton className="h-[500px] w-full rounded-xl" />
+              </div>
             ))}
           </div>
         )}

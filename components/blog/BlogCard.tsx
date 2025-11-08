@@ -67,7 +67,7 @@ const BlogCard: FC<BlogCardProps> = ({ post, className, type = "all" }) => {
               {t("readPost")}
             </Link>
           </div>
-          <div className="flex items-center gap-4 mt-4 md:mt-0">
+          <div className="flex items-center gap-4 mt-4 md:mt-2">
             <Avatar className="h-14 w-14">
               <AvatarImage src={user.profile.avatar} />
               <AvatarFallback>{user.username.slice(0, 2)}</AvatarFallback>

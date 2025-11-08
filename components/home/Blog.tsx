@@ -2,7 +2,7 @@
 
 import React, { FC, useEffect } from "react";
 import ContentContainer from "../ContentContainer";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import {
   Card,
   CardContent,
@@ -14,59 +14,59 @@ import {
 import { Link } from "@/i18n/navigations";
 import Image from "next/image";
 import { AspectRatio } from "../ui/aspect-ratio";
+import { usePosts } from "@/hooks/usePosts";
+import { Post } from "@/types/post";
+import { Skeleton } from "../ui/skeleton";
 
 interface BlogPost {
   id: number;
   title: string;
   description: string;
   date: string;
+  image: string;
 }
 
 const Blog: FC = () => {
   const t = useTranslations("Home");
+  const locale = useLocale();
   const [displayPosts, setDisplayPosts] = React.useState<BlogPost[]>([]);
 
-  const BlogList = [
-    {
-      id: 1,
-      title: "Blog Post 1",
-      description: "This is the description for blog post 1.",
-      date: "2023-10-01",
-    },
-    {
-      id: 2,
-      title: "Blog Post 2",
-      description: "This is the description for blog post 2.",
-      date: "2023-10-02",
-    },
-    {
-      id: 3,
-      title: "Blog Post 3",
-      description: "This is the description for blog post 3.",
-      date: "2023-10-03",
-    },
-    {
-      id: 4,
-      title: "Blog Post 4",
-      description: "This is the description for blog post 4.",
-      date: "2023-10-04",
-    },
-  ];
+  const {
+    data: blogData,
+    isLoading,
+    isError,
+    error,
+  } = usePosts({
+    page: 1,
+    pageSize: 4,
+  });
+
+  const formatBlogData = (data: Post[] | undefined) => {
+    if (!data) return [];
+    return data.map((post: Post) => ({
+      id: post.id,
+      title: post.translations[locale]?.title || post.title,
+      description: post.translations[locale]?.description || post.description,
+      date: post.date,
+      image: post.image,
+    }));
+  };
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     const updatePosts = () => {
       const width = window.innerWidth;
       if (width >= 768) {
-        setDisplayPosts(BlogList.slice(0, 4));
+        setDisplayPosts(formatBlogData(blogData?.results)?.slice(0, 4) || []);
       } else {
-        setDisplayPosts(BlogList.slice(0, 3));
+        setDisplayPosts(formatBlogData(blogData?.results)?.slice(0, 3) || []);
       }
     };
 
     updatePosts();
     window.addEventListener("resize", updatePosts);
     return () => window.removeEventListener("resize", updatePosts);
-  }, []);
+  }, [blogData]);
 
   return (
     <div className="min-h-screen flex items-center justify-center">
@@ -76,13 +76,12 @@ const Blog: FC = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
           {displayPosts.map((blog) => (
-            <Card key={blog.id}>
-              <CardHeader></CardHeader>
-              <CardContent>
+            <Card key={blog.id} className="flex flex-col">
+              <CardContent className="flex-1">
                 <AspectRatio ratio={1}>
                   <Image
-                    src="/blog-cover.jpeg"
-                    alt="Image"
+                    src={blog.image || "/blog-cover.jpeg"}
+                    alt={blog.title}
                     className="rounded-lg object-cover"
                     fill
                   />

@@ -2,73 +2,45 @@
 
 import React, { FC } from "react";
 import ContentContainer from "../ContentContainer";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { BadgeCheck } from "lucide-react";
 import { Button } from "../ui/button";
 import { Link } from "@/i18n/navigations";
 import { AspectRatio } from "../ui/aspect-ratio";
 import Image from "next/image";
 import HorizontalScroll from "../HorizontalScroll";
+import { useProjects } from "@/hooks/useProjects";
+import { LanguageCode } from "@/types/common";
 
-export const ProjectList = [
-  {
-    id: 1,
-    name: "Project 1",
-    description: [
-      "Description of Project 1",
-      "This project showcases advanced features.",
-      "It includes a responsive design and modern UI.",
-      "Built with React and Next.js.",
-    ],
-    image:
-      "https://images.unsplash.com/photo-1622227920933-7fcd7377703f?q=80&w=3870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: 2,
-    name: "Project 2",
-    description: [
-      "Description of Project 2",
-      "This project focuses on performance optimization.",
-      "It features a custom backend API.",
-      "Built with Node.js and Express.",
-    ],
-    image:
-      "https://images.unsplash.com/photo-1622227920933-7fcd7377703f?q=80&w=3870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: 3,
-    name: "Project 3",
-    description: [
-      "Description of Project 3",
-      "This project is a full-stack application.",
-      "It includes user authentication and data management.",
-      "Built with MongoDB and GraphQL.",
-    ],
-    image:
-      "https://images.unsplash.com/photo-1622227920933-7fcd7377703f?q=80&w=3870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: 4,
-    name: "Project 4",
-    description: [
-      "Description of Project 4",
-      "This project is a mobile-first application.",
-      "It features offline capabilities and push notifications.",
-      "Built with React Native and Firebase.",
-    ],
-    image:
-      "https://images.unsplash.com/photo-1622227920933-7fcd7377703f?q=80&w=3870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-];
 const Portfolio: FC = () => {
   const t = useTranslations("Home");
+  const locale = useLocale() as LanguageCode;
+  const {
+    data: projectResponse,
+    isLoading,
+    isError,
+    error,
+  } = useProjects({
+    page: 1,
+    pageSize: 10,
+  });
+  const projectList = projectResponse || [];
 
   return (
     <HorizontalScroll>
-      <div className="h-2/3 lg:h-1/2 w-[70vw] lg:w-[50vw] flex flex-shrink-0 items-center justify-center text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] text-2xl md:text-3xl lg:text-4xl font-semibold">
+      <div className="h-2/3 lg:h-1/2 w-full lg:w-[50vw] flex flex-shrink-0 items-center justify-center text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] text-2xl md:text-3xl lg:text-4xl font-semibold">
         {t("portfolio")}
       </div>
-      {ProjectList.map((project) => (
+      {isLoading && (
+        <div className="h-2/3 lg:h-1/2 w-screen lg:w-5xl flex flex-shrink-0 items-center justify-center">
+          <ContentContainer className="h-full grid grid-rows-5 lg:grid-rows-1 lg:grid-cols-2 gap-4 place-items-center px-0">
+            <div className="row-span-3 h-full w-full flex flex-col justify-start lg:justify-center">
+              <div className="skeleton h-8 w-3/4 mb-4 rounded-lg"></div>
+            </div>
+          </ContentContainer>
+        </div>
+      )}
+      {projectList?.map((project) => (
         <div
           key={project.id}
           className="h-2/3 lg:h-1/2 w-screen lg:w-5xl lg:px-10 flex flex-shrink-0 items-center justify-center"
@@ -76,10 +48,10 @@ const Portfolio: FC = () => {
           <ContentContainer className="h-full grid grid-rows-5 lg:grid-rows-1 lg:grid-cols-2 gap-4 place-items-center px-0">
             <div className="row-span-3 h-full w-full flex flex-col justify-start lg:justify-center">
               <div className="text-2xl md:text-3xl lg:text-3xl font-semibold text-[var(--color-gray-900)]] dark:text-[var(--color-gray-50)] mb-4">
-                {project.name}
+                {project.translations[locale]?.title}
               </div>
               <div className="text-base md:text-lg text-[var(--color-gray-700)] dark:text-[var(--color-gray-300)] ">
-                {project.description.map((desc, index) => (
+                {project.translations[locale]?.info.map((spec, index) => (
                   <div
                     key={`project-desc-${index}`}
                     className="flex items-start justify-start mb-2"
@@ -87,7 +59,7 @@ const Portfolio: FC = () => {
                     <span className="mr-4 ">
                       <BadgeCheck className="h-6 w-6" />
                     </span>
-                    <span className="text-base md:text-lg">{desc}</span>
+                    <span className="text-base md:text-lg">{spec}</span>
                   </div>
                 ))}
               </div>
@@ -106,9 +78,8 @@ const Portfolio: FC = () => {
               >
                 <Image
                   fill
-                  // src={project.image}
-                  src={"/project-cover.jpeg"}
-                  alt={project.name}
+                  src={project.images[0] || "/project-cover.jpeg"}
+                  alt={`Project Image for ${project.slug}`}
                   className="object-cover rounded-xl"
                 />
               </AspectRatio>

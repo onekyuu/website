@@ -1,7 +1,7 @@
 "use client";
 
 import { skillsList } from "@/lib/constants";
-import React, { FC, useEffect, useRef } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ContentContainer from "../ContentContainer";
@@ -13,52 +13,115 @@ gsap.registerPlugin(ScrollTrigger);
 const Skills: FC = () => {
   const t = useTranslations("Home");
   const containerRef = useRef<HTMLDivElement>(null);
+  const lenisRef = useRef<Lenis | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
+    return () => {
+      window.removeEventListener("resize", checkMobile);
+    };
+  }, []);
+
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 1,
+      duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
-      autoRaf: true,
+      autoRaf: false,
     });
+
+    lenisRef.current = lenis;
+
+    let rafId: number;
     function raf(time: number) {
       lenis.raf(time);
-      requestAnimationFrame(raf);
+      rafId = requestAnimationFrame(raf);
     }
 
-    requestAnimationFrame(raf);
+    rafId = requestAnimationFrame(raf);
 
-    skillsList.forEach((skill, i) => {
-      const listContainer = containerRef.current?.children[0] as HTMLElement;
-      if (!listContainer) return;
-      const targetElement = listContainer.children[i] as HTMLElement;
-      if (!targetElement) return;
-      const startX =
-        listContainer.clientWidth / 2 -
-        targetElement.offsetLeft -
-        targetElement.clientWidth / 2;
-      const startY =
-        listContainer.clientHeight / 2 -
-        targetElement.offsetTop -
-        targetElement.clientHeight / 2;
+    lenis.on("scroll", ScrollTrigger.update);
 
-      ScrollTrigger.create({
-        trigger: containerRef.current,
-        start: `top center+=${Number(targetElement.dataset.order) * 100}px`,
-        end: "+=40%",
-        onUpdate: (self) => {
-          targetElement.style.opacity = `${self.progress}`;
-          targetElement.style.transform = `translate(${
-            startX * (1 - self.progress)
-          }px, ${startY * (1 - self.progress)}px)`;
-          targetElement.style.scale = `${self.progress}`;
-        },
+    if (!containerRef.current) return;
+
+    const listContainer = containerRef.current.querySelector(
+      ".skills-grid"
+    ) as HTMLElement;
+    if (!listContainer) return;
+
+    const initAnimation = () => {
+      skillsList.forEach((skill, i) => {
+        const targetElement = listContainer.children[i] as HTMLElement;
+        if (!targetElement) {
+          console.log(`Element ${i} not found`);
+          return;
+        }
+
+        const elementCenterX =
+          targetElement.offsetLeft + targetElement.clientWidth / 2;
+        const elementCenterY =
+          targetElement.offsetTop + targetElement.clientHeight / 2;
+
+        const containerCenterX = listContainer.clientWidth / 2;
+        const containerCenterY = listContainer.clientHeight / 2;
+
+        const moveX = elementCenterX - containerCenterX;
+        const moveY = elementCenterY - containerCenterY;
+
+        console.log(`Element ${i} - moveX: ${moveX}, moveY: ${moveY}`);
+
+        gsap.set(targetElement, {
+          x: -moveX,
+          y: -moveY,
+          scale: 0,
+          opacity: 0,
+        });
+
+        const triggerElement = containerRef.current;
+        const startPosition = `top center+=${Number(skill.order) * 80}px`;
+        const endPosition = "+=40%";
+
+        ScrollTrigger.create({
+          trigger: triggerElement,
+          start: startPosition,
+          end: endPosition,
+          scrub: 1,
+          id: `skill-${i}`,
+          onUpdate: (self) => {
+            gsap.to(targetElement, {
+              x: -moveX * (1 - self.progress),
+              y: -moveY * (1 - self.progress),
+              scale: self.progress,
+              opacity: self.progress,
+              duration: 0.1,
+              ease: "power2.out",
+            });
+          },
+        });
       });
-      return () => {
-        ScrollTrigger.getAll().forEach((t) => t.kill());
-        lenis.destroy();
-      };
-    });
-  }, []);
+
+      ScrollTrigger.refresh();
+    };
+
+    const timer = setTimeout(initAnimation, 300);
+
+    return () => {
+      clearTimeout(timer);
+      cancelAnimationFrame(rafId);
+      ScrollTrigger.getAll().forEach((t) => t.kill());
+      if (lenisRef.current) {
+        lenisRef.current.destroy();
+        lenisRef.current = null;
+      }
+    };
+  }, [isMobile]);
 
   return (
     <div className="relative w-full">
@@ -69,20 +132,16 @@ const Skills: FC = () => {
         </div>
         <div
           ref={containerRef}
-          className="min-h-[50vh] flex items-center justify-center"
+          className="min-h-[70vh] flex items-center justify-center py-12"
         >
-          <div className="h-30vh grid grid-cols-6 gap-4 lg:gap-12 place-items-center w-full">
+          <div className="skills-grid grid grid-cols-6 gap-4 lg:gap-12 place-items-center w-full relative py-20">
             {skillsList.map((skill) => (
               <div
                 key={skill.key}
                 data-order={skill.order}
-                className={`${skill.key}`}
-                style={{
-                  scale: 0,
-                  opacity: 0,
-                }}
+                className={`${skill.key} will-change-transform`}
               >
-                <skill.icon className={"h-10 w-10 lg:h-18 lg:w-18"} />
+                <skill.icon className="h-10 w-10 lg:h-18 lg:w-18" />
               </div>
             ))}
           </div>

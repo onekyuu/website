@@ -5,5 +5,13 @@ export const API_CONFIG = {
       lists: "/post/lists",
       detail: (slug: string) => `/post/detail/${slug}`,
     },
+    projects: {
+      lists: "/projects/list",
+      detail: (slug: string) => `/projects/detail/${slug}`,
+    },
+    skills: {
+      lists: "/projects/skill/list",
+      detail: (slug: string) => `/projects/skill/${slug}`,
+    },
   },
 };

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC, useEffect, useRef } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
@@ -16,14 +16,50 @@ const HorizontalScroll: FC<React.HTMLAttributes<HTMLDivElement>> = ({
   const wapperRef = useRef<HTMLDivElement | null>(null);
   const projectBoxRef = useRef<HTMLDivElement | null>(null);
   const ifLeave = useRef(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
+    const checkMobile = () => {
+      const mobile = window.innerWidth < 1024;
+      setIsMobile(mobile);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
+    return () => {
+      window.removeEventListener("resize", checkMobile);
+    };
+  }, []);
+
+  useEffect(() => {
+    console.log("isMobile:", isMobile);
+    if (isMobile) {
+      ScrollTrigger.getAll().forEach((t) => t.kill());
+      if (lenisRef.current) {
+        lenisRef.current.destroy();
+        lenisRef.current = null;
+      }
+      if (wapperRef.current) {
+        wapperRef.current.style.height = "";
+      }
+      if (projectBoxRef.current) {
+        projectBoxRef.current.style.transform = "";
+      }
+
+      return;
+    }
+
     const lenis = new Lenis({
       duration: 1,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
-      autoRaf: true,
+      autoRaf: false,
     });
+
+    lenisRef.current = lenis;
+
     function raf(time: number) {
       lenis.raf(time);
       requestAnimationFrame(raf);
@@ -35,7 +71,8 @@ const HorizontalScroll: FC<React.HTMLAttributes<HTMLDivElement>> = ({
 
     const resize = () => {
       if (!projectBoxRef.current || !wapperRef.current) return;
-      distance = projectBoxRef.current.offsetWidth - innerWidth;
+
+      distance = projectBoxRef.current.offsetWidth - window.innerWidth;
       wapperRef.current.style.height = `${distance}px`;
 
       if (ifLeave.current) {
@@ -43,7 +80,7 @@ const HorizontalScroll: FC<React.HTMLAttributes<HTMLDivElement>> = ({
       }
     };
 
-    ScrollTrigger.create({
+    const scrollTrigger = ScrollTrigger.create({
       trigger: wapperRef.current,
       start: "top top",
       end: "bottom bottom",
@@ -67,14 +104,28 @@ const HorizontalScroll: FC<React.HTMLAttributes<HTMLDivElement>> = ({
     window.addEventListener("resize", resize);
 
     return () => {
+      scrollTrigger.kill();
       ScrollTrigger.getAll().forEach((t) => t.kill());
       window.removeEventListener("resize", resize);
-      lenis.destroy();
+      if (lenisRef.current) {
+        lenisRef.current.destroy();
+        lenisRef.current = null;
+      }
     };
-  }, []);
+  }, [isMobile]);
+
+  if (isMobile) {
+    return (
+      <div key={"mobile-wrapper"} className="w-full">
+        <div className={cn("flex flex-col gap-8 py-8", className)} {...props}>
+          {children}
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div ref={wapperRef} className="relative w-full">
+    <div key={"desktop-wrapper"} ref={wapperRef} className="relative w-full">
       <div className="sticky top-0 w-full h-screen overflow-hidden flex items-center">
         <div
           ref={projectBoxRef}

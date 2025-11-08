@@ -1,8 +1,8 @@
+import { Skill, SkillsParams, SkillsResponse } from "@/types/project";
 import { API_CONFIG } from "./config";
-import type { PostsResponse, PostsParams, Post } from "@/types/post";
 
-export const postsApi = {
-  getLists: async (params: PostsParams = {}): Promise<PostsResponse> => {
+export const skillsApi = {
+  getLists: async (params: SkillsParams = {}): Promise<SkillsResponse> => {
     const queryParams = new URLSearchParams();
 
     if (params.page) queryParams.append("page", params.page.toString());
@@ -10,7 +10,7 @@ export const postsApi = {
       queryParams.append("page_size", params.pageSize.toString());
     if (params.search) queryParams.append("search", params.search);
 
-    const url = `${API_CONFIG.baseURL}${API_CONFIG.endpoints.posts.lists}${
+    const url = `${API_CONFIG.baseURL}${API_CONFIG.endpoints.skills.lists}${
       queryParams.toString() ? `?${queryParams.toString()}` : ""
     }`;
 
@@ -23,13 +23,13 @@ export const postsApi = {
     });
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch posts: ${response.statusText}`);
+      throw new Error(`Failed to fetch skills: ${response.statusText}`);
     }
 
     return response.json();
   },
-  getDetail: async (slug: string): Promise<Post> => {
-    const url = `${API_CONFIG.baseURL}${API_CONFIG.endpoints.posts.detail(
+  getDetail: async (slug: string): Promise<Skill> => {
+    const url = `${API_CONFIG.baseURL}${API_CONFIG.endpoints.skills.detail(
       slug
     )}`;
 
@@ -42,7 +42,7 @@ export const postsApi = {
     });
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch post detail: ${response.statusText}`);
+      throw new Error(`Failed to fetch skill detail: ${response.statusText}`);
     }
 
     return response.json();
