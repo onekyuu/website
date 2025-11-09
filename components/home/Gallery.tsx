@@ -47,12 +47,14 @@ const GallerySection: FC<GallerySectionProps> = ({
                 className="object-contain"
               />
             </div>
-            {/* <AspectRatio ratio={16 / 9} className="max-h-[50vh]">
-            </AspectRatio> */}
             <div className="text-[var(--color-gray-900)] dark:text-[var(--color-gray-100)]">
-              <p>{image.description || ""}</p>
+              <p>{image.title || ""}</p>
               <p>
-                {`${image.location_info.location} - ${
+                {`${
+                  image.location_info.location
+                    ? image.location_info.location + " - "
+                    : ""
+                }${
                   image.taken_at && dayjs(image.taken_at).format("YYYY-MM-DD")
                 }`}
               </p>

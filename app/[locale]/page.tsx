@@ -14,6 +14,7 @@ import BlogSection from "@/components/home/Blog";
 import GallerySection from "@/components/home/Gallery";
 import ContactSection from "@/components/home/Contact";
 import FooterSection from "@/components/home/Footer";
+import { useMemo } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -62,6 +63,16 @@ export default function HomePage() {
     }));
   };
 
+  const sortedGalleryList = useMemo(() => {
+    if (!galleryResponse?.results) return [];
+
+    return [...galleryResponse.results].sort((a, b) => {
+      const dateA = new Date(a.created_at).getTime();
+      const dateB = new Date(b.created_at).getTime();
+      return dateA - dateB;
+    });
+  }, [galleryResponse?.results]);
+
   return (
     <div className="min-h-screen pb-4 lg:pb-0">
       <HeroSection />
@@ -77,13 +88,16 @@ export default function HomePage() {
         error={blogError}
       />
       <GallerySection
-        galleryList={galleryResponse?.results || []}
+        galleryList={sortedGalleryList}
         isLoading={isGalleryLoading}
         isError={isGalleryError}
         error={galleryError}
       />
       <ContactSection />
-      <FooterSection />
+      <FooterSection
+        portfolioList={projectResponse?.slice(0, 4) || []}
+        blogList={blogResponse?.results.slice(0, 4) || []}
+      />
     </div>
   );
 }

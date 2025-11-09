@@ -2,51 +2,58 @@ import React, { FC } from "react";
 import ContentContainer from "../ContentContainer";
 import { Separator } from "../ui/separator";
 import { Link } from "@/i18n/navigations";
+import { Project } from "@/types/project";
+import { Post } from "@/types/post";
+import { useLocale } from "next-intl";
+import { LanguageCode } from "@/types/common";
 
-const FooterSection: FC = () => {
+interface FooterSectionProps {
+  portfolioList: Project[];
+  blogList: Post[];
+}
+
+const FooterSection: FC<FooterSectionProps> = ({ portfolioList, blogList }) => {
+  const locale = useLocale() as LanguageCode;
+
   return (
     <div className="bg-[var(--color-gray-900)] mx-2 my-4 py-8 md:m-4 md:py-12 lg:m-8 lg:py-16 rounded-3xl">
       <ContentContainer className="px-2">
         <Separator className="my-4 bg-[var(--color-gray-600)]" />
         <div className="grid grid-cols-2 grid-rows-2 md:grid-cols-4 md:grid-rows-1 justify-items-center text-[var(--color-gray-50)]">
           <div className="mt-8 md:mt-4">
-            <span>Home</span>
+            <Link href="/">Home</Link>
           </div>
           <div className="mt-8 md:mt-4">
-            <span>Portfolio</span>
+            <Link href="/portfolio">Portfolio</Link>
             <div className="text-[var(--color-gray-400)] text-sm md:text-base flex flex-col mt-4">
-              <Link href="/portfolio" className="my-1">
-                Portfolio 1
-              </Link>
-              <Link href="/portfolio" className="my-1">
-                Portfolio 2
-              </Link>
-              <Link href="/portfolio" className="my-1">
-                Portfolio 3
-              </Link>
-              <Link href="/portfolio" className="my-1">
-                Portfolio 4
-              </Link>
+              {portfolioList?.map((project) => (
+                <Link
+                  href={`/portfolio/${project.slug}`}
+                  className="my-1"
+                  key={project.slug}
+                >
+                  {project.translations[locale]?.title}
+                </Link>
+              ))}
             </div>
           </div>
           <div className="mt-8 md:mt-4">
-            <span>Blog</span>
+            <Link href="/blog">Blog</Link>
             <div className="text-[var(--color-gray-400)] text-sm md:text-base flex flex-col mt-4">
-              <Link href="/blog" className="my-1">
-                blog 1
-              </Link>
-              <Link href="/blog" className="my-1">
-                blog 2
-              </Link>
-              <Link href="/blog" className="my-1">
-                blog 3
-              </Link>
-              <Link href="/blog" className="my-1">
-                blog 4
-              </Link>
+              {blogList?.map((post) => (
+                <Link
+                  href={`/blog/${post.slug}`}
+                  className="my-1"
+                  key={post.slug}
+                >
+                  {post.translations[locale]?.title}
+                </Link>
+              ))}
             </div>
           </div>
-          <div className="mt-8 md:mt-4">Gallery</div>
+          <Link className="mt-8 md:mt-4" href="/gallery">
+            Gallery
+          </Link>
         </div>
         <Separator className="my-4 bg-[var(--color-gray-600)]" />
         <div className="flex justify-between items-center">

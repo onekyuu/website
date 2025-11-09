@@ -46,6 +46,7 @@ export interface ProjectBase {
   images: string[];
   skills: Skill[];
   is_featured: boolean;
+  created_at: string;
 }
 
 export type ProjectTranslation = {

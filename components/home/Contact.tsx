@@ -62,7 +62,6 @@ const ContactSection: FC = () => {
   ];
 
   const handleSendMessage = async (formData: FormData) => {
-    // Handle form submission logic here
     console.log("Form submitted with data:", Object.fromEntries(formData));
   };
 
@@ -91,14 +90,14 @@ const ContactSection: FC = () => {
                     xxx.gmail.com
                   </div>
                 </div>
-                <div className="mt-8">
+                {/* <div className="mt-8">
                   <div className="text-xl font-semibold dark:text-[var(--color-gray-100)] text-center lg:text-start">
                     {t("phone")}
                   </div>
                   <div className="mt-2 md:mt-6 font-semibold text-[var(--color-primary-700)] dark:text-[var(--color-primary-300)]">
                     12345678901
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
             <div className="self-center flex flex-row mt-12">
