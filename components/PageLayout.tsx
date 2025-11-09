@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import ContentContainer from "./ContentContainer";
-import Footer from "./home/Footer";
+import FooterSection from "./home/Footer";
 
 interface PageLayoutProps extends React.HTMLAttributes<HTMLDivElement> {
   heroContent: {
@@ -58,7 +58,7 @@ const PageLayout: FC<PageLayoutProps> = ({
         </ContentContainer>
       </div>
       {children}
-      <Footer />
+      <FooterSection />
     </div>
   );
 };

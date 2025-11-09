@@ -42,3 +42,11 @@ export interface PostsParams {
   pageSize?: number;
   search?: string;
 }
+
+export interface BlogPost {
+  id: number;
+  title: string;
+  description: string;
+  date: string;
+  image: string;
+}

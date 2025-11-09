@@ -13,14 +13,7 @@ import {
 import { Link } from "@/i18n/navigations";
 import Image from "next/image";
 import { AspectRatio } from "../ui/aspect-ratio";
-
-interface BlogPost {
-  id: number;
-  title: string;
-  description: string;
-  date: string;
-  image: string;
-}
+import { BlogPost } from "@/types/post";
 
 interface BlogSectionProps {
   blogList: BlogPost[] | undefined;

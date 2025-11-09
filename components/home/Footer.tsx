@@ -1,19 +1,18 @@
+"use client";
+
 import React, { FC } from "react";
 import ContentContainer from "../ContentContainer";
 import { Separator } from "../ui/separator";
 import { Link } from "@/i18n/navigations";
-import { Project } from "@/types/project";
-import { Post } from "@/types/post";
 import { useLocale } from "next-intl";
 import { LanguageCode } from "@/types/common";
+import useBlogStore from "@/store/blog";
+import useProjectStore from "@/store/portfolio";
 
-interface FooterSectionProps {
-  portfolioList: Project[];
-  blogList: Post[];
-}
-
-const FooterSection: FC<FooterSectionProps> = ({ portfolioList, blogList }) => {
+const FooterSection: FC = () => {
   const locale = useLocale() as LanguageCode;
+  const blogList = useBlogStore((state) => state.blogList);
+  const projectList = useProjectStore((state) => state.projectList);
 
   return (
     <div className="bg-[var(--color-gray-900)] mx-2 my-4 py-8 md:m-4 md:py-12 lg:m-8 lg:py-16 rounded-3xl">
@@ -26,7 +25,7 @@ const FooterSection: FC<FooterSectionProps> = ({ portfolioList, blogList }) => {
           <div className="mt-8 md:mt-4">
             <Link href="/portfolio">Portfolio</Link>
             <div className="text-[var(--color-gray-400)] text-sm md:text-base flex flex-col mt-4">
-              {portfolioList?.map((project) => (
+              {projectList?.map((project) => (
                 <Link
                   href={`/portfolio/${project.slug}`}
                   className="my-1"

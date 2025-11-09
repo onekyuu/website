@@ -14,12 +14,16 @@ import BlogSection from "@/components/home/Blog";
 import GallerySection from "@/components/home/Gallery";
 import ContactSection from "@/components/home/Contact";
 import FooterSection from "@/components/home/Footer";
-import { useMemo } from "react";
+import { use, useEffect, useMemo } from "react";
+import useBlogStore from "@/store/blog";
+import useProjectStore from "@/store/portfolio";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function HomePage() {
   const locale = useLocale();
+  const updateBlogStore = useBlogStore((state) => state.updateBlogList);
+  const updateProjectList = useProjectStore((state) => state.updateProjectList);
 
   const {
     data: blogResponse,
@@ -73,6 +77,18 @@ export default function HomePage() {
     });
   }, [galleryResponse?.results]);
 
+  useEffect(() => {
+    if (blogResponse?.results) {
+      updateBlogStore(blogResponse.results);
+    }
+  }, [blogResponse?.results, updateBlogStore, locale]);
+
+  useEffect(() => {
+    if (projectResponse) {
+      updateProjectList(projectResponse);
+    }
+  }, [projectResponse, updateProjectList, locale]);
+
   return (
     <div className="min-h-screen pb-4 lg:pb-0">
       <HeroSection />
@@ -94,10 +110,7 @@ export default function HomePage() {
         error={galleryError}
       />
       <ContactSection />
-      <FooterSection
-        portfolioList={projectResponse?.slice(0, 4) || []}
-        blogList={blogResponse?.results.slice(0, 4) || []}
-      />
+      <FooterSection />
     </div>
   );
 }

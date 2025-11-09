@@ -34,7 +34,6 @@ const HorizontalScroll: FC<React.HTMLAttributes<HTMLDivElement>> = ({
   }, []);
 
   useEffect(() => {
-    console.log("isMobile:", isMobile);
     if (isMobile) {
       ScrollTrigger.getAll().forEach((t) => t.kill());
       if (lenisRef.current) {
