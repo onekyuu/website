@@ -66,7 +66,7 @@ const ContactSection: FC = () => {
   };
 
   return (
-    <div>
+    <div id="contact-section">
       <ContentContainer className="my-7 md:my-12 lg:my-16">
         <div className="text-2xl font-bold text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] md:text-3xl lg:text-4xl">
           {t("contactMe")}

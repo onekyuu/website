@@ -17,6 +17,7 @@ import FooterSection from "@/components/home/Footer";
 import { use, useEffect, useMemo } from "react";
 import useBlogStore from "@/store/blog";
 import useProjectStore from "@/store/portfolio";
+import { Gallery } from "@/types/gallery";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -67,15 +68,15 @@ export default function HomePage() {
     }));
   };
 
-  const sortedGalleryList = useMemo(() => {
-    if (!galleryResponse?.results) return [];
+  const sortedProjectList = useMemo(() => {
+    if (!projectResponse) return [];
 
-    return [...galleryResponse.results].sort((a, b) => {
+    return projectResponse.sort((a, b) => {
       const dateA = new Date(a.created_at).getTime();
       const dateB = new Date(b.created_at).getTime();
       return dateA - dateB;
     });
-  }, [galleryResponse?.results]);
+  }, [projectResponse]);
 
   useEffect(() => {
     if (blogResponse?.results) {
@@ -85,7 +86,7 @@ export default function HomePage() {
 
   useEffect(() => {
     if (projectResponse) {
-      updateProjectList(projectResponse);
+      updateProjectList(sortedProjectList);
     }
   }, [projectResponse, updateProjectList, locale]);
 
@@ -94,7 +95,7 @@ export default function HomePage() {
       <HeroSection />
       <SkillsSection />
       <PortfolioSection
-        projectList={projectResponse || []}
+        projectList={sortedProjectList}
         isLoading={isProjectLoading}
       />
       <BlogSection
@@ -104,7 +105,7 @@ export default function HomePage() {
         error={blogError}
       />
       <GallerySection
-        galleryList={sortedGalleryList}
+        galleryList={galleryResponse?.results || []}
         isLoading={isGalleryLoading}
         isError={isGalleryError}
         error={galleryError}

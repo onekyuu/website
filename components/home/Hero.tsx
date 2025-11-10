@@ -4,9 +4,14 @@ import { DotLottiePlayer } from "@dotlottie/react-player";
 import ContentContainer from "../ContentContainer";
 import { useTranslations } from "next-intl";
 import { Button } from "../ui/button";
+import { useRouter } from "@/i18n/navigations";
+import { useScrollTo } from "@/hooks/useScrollTo";
 
 const HeroSection = () => {
   const t = useTranslations();
+  const router = useRouter();
+  const { scrollToElement } = useScrollTo();
+
   return (
     <div className="w-full flex items-center justify-between relative z-0 h-screen">
       <div className="hero-bg absolute inset-0 z-[-1]"></div>
@@ -23,12 +28,16 @@ const HeroSection = () => {
               {t("Home.introduce")}
             </span>
             <div className="flex gap-8 mt-4 lg:mt-8 justify-center lg:justify-start">
-              <Button className="h-12 px-3 py-2.5 md:h-14 md:px-5 md:py-3 md:text-lg md:font-normal lg:h-16 lg:text-xl lg:px-8 lg:py-5 rounded-xl md:rounded-2xl cursor-pointer">
+              <Button
+                className="h-12 px-3 py-2.5 md:h-14 md:px-5 md:py-3 md:text-lg md:font-normal lg:h-16 lg:text-xl lg:px-8 lg:py-5 rounded-xl md:rounded-2xl cursor-pointer"
+                onClick={() => scrollToElement("contact-section")}
+              >
                 {t("Home.workWithMe")}
               </Button>
               <Button
                 variant={"ghost"}
                 className="h-12 px-3 py-5 md:h-14 md:px-5 md:py-3 md:text-lg md:font-normal lg:h-16 lg:text-xl lg:px-8 lg:py-5 rounded-xl md:rounded-2xl border-2 border-[var(--color-primary-700)] cursor-pointer"
+                onClick={() => router.push("/portfolio")}
               >
                 {t("Home.myWork")}
               </Button>
