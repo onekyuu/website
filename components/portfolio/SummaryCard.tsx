@@ -7,10 +7,10 @@ import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 
 interface SummaryCardProps extends React.HTMLAttributes<HTMLDivElement> {
-  summary: string[];
+  info: string[];
 }
 
-const SummaryCard: FC<SummaryCardProps> = ({ summary, className }) => {
+const SummaryCard: FC<SummaryCardProps> = ({ info, className }) => {
   const t = useTranslations("Portfolio");
   return (
     <Card
@@ -23,7 +23,7 @@ const SummaryCard: FC<SummaryCardProps> = ({ summary, className }) => {
         <p className="font-bold text-lg md:text-xl lg:text-2xl mb-2 md:mb-4">
           {t("projectSummary")}
         </p>
-        {summary.map((line, index) => (
+        {info?.map((line, index) => (
           <div
             key={`latest-${index}`}
             className="flex items-center justify-start gap-1 md:gap-2 text-xl font-semibold lg:font-bold"

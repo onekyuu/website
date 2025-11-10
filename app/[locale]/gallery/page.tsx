@@ -3,9 +3,9 @@ import ContentContainer from "@/components/ContentContainer";
 import Masonry from "@/components/gallery/Masonry";
 import PageLayout from "@/components/PageLayout";
 import { useTranslations } from "next-intl";
-import React from "react";
+import React, { FC } from "react";
 
-const GalleryPage = () => {
+const GalleryPage: FC = () => {
   const t = useTranslations("Gallery");
 
   const items = [

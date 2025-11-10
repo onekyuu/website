@@ -8,17 +8,17 @@ import { AspectRatio } from "../ui/aspect-ratio";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
+import { Project } from "@/types/project";
 
-interface Project {
-  id: number;
-  name: string;
+interface ProjectDetail {
+  title: string;
   description: string;
-  link: string;
-  summary: string[];
+  image: string;
+  slug: string;
 }
 
 interface DetailCardProps extends React.HTMLAttributes<HTMLDivElement> {
-  project: Project;
+  project: ProjectDetail;
   type?: "latest" | "normal";
 }
 
@@ -42,7 +42,7 @@ const DetailCard: FC<DetailCardProps> = ({
       >
         <div className="flex flex-col gap-2 md:gap-4 lg:gap-6">
           <p className="text-xl md:text-2xl lg:text-3xl font-bold">
-            {project.name}
+            {project.title}
           </p>
           <p
             className={cn(
@@ -55,7 +55,7 @@ const DetailCard: FC<DetailCardProps> = ({
             {project.description}
           </p>
           <Link
-            href={project.link}
+            href={`/portfolio/${project.slug}`}
             className="flex gap-1 items-center text-base lg:text-lg font-bold"
           >
             <span>{t("learnMore")}</span>
@@ -65,7 +65,7 @@ const DetailCard: FC<DetailCardProps> = ({
         <div className="p-2 md:p-4 lg:p-5 picture-gradient-bg rounded-xl">
           <AspectRatio ratio={16 / 9} className="w-full ">
             <Image
-              src="/blog-cover.jpeg"
+              src={project.image || "/project-cover.jpeg"}
               alt="Project Cover"
               className="rounded-lg object-cover"
               fill

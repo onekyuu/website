@@ -5,7 +5,7 @@ import PageLayout from "@/components/PageLayout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useTranslations } from "next-intl";
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import BlogCard from "@/components/blog/BlogCard";
 import {
   Pagination,
@@ -19,12 +19,14 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { usePosts, usePrefetchPosts } from "@/hooks/usePosts";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useScrollTo } from "@/hooks/useScrollTo";
 
-const BlogPage = () => {
+const BlogPage: FC = () => {
   const t = useTranslations("Blog");
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchInput, setSearchInput] = useState("");
+  const { scrollToElement } = useScrollTo();
 
   const pageSize = 8;
 
@@ -49,7 +51,7 @@ const BlogPage = () => {
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    scrollToElement("all-posts");
   };
 
   const handlePrefetchNextPage = () => {
@@ -107,7 +109,10 @@ const BlogPage = () => {
       }}
     >
       <ContentContainer className="my-18">
-        <div className="text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] text-2xl md:text-3xl lg:text-4xl font-bold">
+        <div
+          id="all-posts"
+          className="text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] text-2xl md:text-3xl lg:text-4xl font-bold"
+        >
           {t("allPosts")}
         </div>
 
@@ -143,7 +148,6 @@ const BlogPage = () => {
           </div>
         )}
 
-        {/* 分页 */}
         {totalPages > 1 && (
           <>
             <Separator className="mt-8" />
