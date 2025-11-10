@@ -74,18 +74,22 @@ const PortfolioPage = () => {
     >
       {isProjectLoading ? (
         <div>
-          <div className=" w-[80vw] lg:w-[50vw] text-center text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] text-2xl md:text-3xl lg:text-4xl font-bold">
-            {t("allProjects")}
-          </div>
+          <ContentContainer>
+            <div className=" w-full lg:w-[50vw] lg:text-center text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] text-2xl md:text-3xl lg:text-4xl font-bold">
+              {t("allProjects")}
+            </div>
+          </ContentContainer>
           <ContentContainer className="lg:min-h-1/2 grid grid-rows-2 grid-cols-1 md:grid-cols-2 md:grid-rows-1 lg:grid-cols-5 gap-6">
             <Skeleton className="h-[400px] w-full rounded-xl" />
           </ContentContainer>
         </div>
       ) : (
         <HorizontalScroll className="gap-6">
-          <div className=" w-[80vw] lg:w-[50vw] text-center text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] text-2xl md:text-3xl lg:text-4xl font-bold">
-            {t("allProjects")}
-          </div>
+          <ContentContainer>
+            <div className=" w-full lg:w-[50vw] lg:text-center text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] text-2xl md:text-3xl lg:text-4xl font-bold">
+              {t("allProjects")}
+            </div>
+          </ContentContainer>
           {projectResponse?.map((project) => (
             <div
               key={project.translations[locale]?.title}

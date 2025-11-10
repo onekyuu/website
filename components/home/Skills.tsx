@@ -124,7 +124,7 @@ const SkillsSection: FC = () => {
     <div className="relative w-full">
       <div className="absolute inset-0 lines-wave-bg -z-1"></div>
       <ContentContainer>
-        <div className="text-2xl font-bold text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] mt-7 md:text-3xl md:mt-12 lg:text-4xl lg:mt-16">
+        <div className="text-3xl font-bold text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] mt-7 md:text-4xl md:mt-12 lg:text-5xl lg:mt-16">
           {t("skills")}
         </div>
         <div

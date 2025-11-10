@@ -49,7 +49,7 @@ const BlogSection: FC<BlogSectionProps> = ({
   return (
     <div className="min-h-screen flex items-center justify-center">
       <ContentContainer>
-        <div className="text-2xl font-bold text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] mt-7 md:text-3xl md:mt-12 lg:text-4xl lg:mt-16">
+        <div className="text-3xl font-bold text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] mt-7 md:text-4xl md:mt-12 lg:text-5xl lg:mt-16">
           {t("blog")}
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">

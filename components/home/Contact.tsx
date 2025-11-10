@@ -68,7 +68,7 @@ const ContactSection: FC = () => {
   return (
     <div id="contact-section">
       <ContentContainer className="my-7 md:my-12 lg:my-16">
-        <div className="text-2xl font-bold text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] md:text-3xl lg:text-4xl">
+        <div className="text-3xl font-bold text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] md:text-4xl lg:text-5xl">
           {t("contactMe")}
         </div>
         <div className="flex flex-col lg:grid lg:grid-cols-[40%_55%] items-start justify-between mt-6 lg:mt-12 w-full gap-6">

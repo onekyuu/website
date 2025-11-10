@@ -23,7 +23,7 @@ const GallerySection: FC<GallerySectionProps> = ({
   return (
     <div className="flex flex-col items-center justify-center min-h-screen mt-12 lg:mt-0">
       <ContentContainer className="my-4">
-        <div className="text-2xl font-bold text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] md:text-3xl lg:text-4xl text-end">
+        <div className="text-3xl font-bold text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] md:text-4xl lg:text-5xl text-end">
           {t("gallery")}
         </div>
       </ContentContainer>
