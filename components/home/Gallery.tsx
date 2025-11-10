@@ -1,4 +1,3 @@
-import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 import React, { FC } from "react";
 import Image from "next/image";
 import ContentContainer from "../ContentContainer";
