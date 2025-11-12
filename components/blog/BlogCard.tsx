@@ -61,7 +61,7 @@ const BlogCard: FC<BlogCardProps> = ({ post, className, type = "all" }) => {
               </div>
             </div>
             <Link
-              href={`/blog/detail/${slug}`}
+              href={`/blog/${slug}`}
               className="text-[var(--color-secondary-700)] font-bold text-lg"
             >
               {t("readPost")}

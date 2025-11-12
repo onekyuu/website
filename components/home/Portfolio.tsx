@@ -64,8 +64,8 @@ const PortfolioSection: FC<PortfolioSectionProps> = ({
                         key={`project-desc-${index}`}
                         className="flex items-start justify-start mb-2"
                       >
-                        <span className="mr-4 ">
-                          <BadgeCheck className="h-6 w-6" />
+                        <span className="mr-4 flex-shrink-0 mt-0.5">
+                          <BadgeCheck className="h-5 w-5 text-[var(--color-primary-700)]" />
                         </span>
                         <span className="text-base md:text-lg">{spec}</span>
                       </div>

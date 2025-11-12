@@ -57,8 +57,8 @@ const GallerySection: FC<GallerySectionProps> = ({
                   image.taken_at && dayjs(image.taken_at).format("YYYY-MM-DD")
                 }`}
               </p>
-              <div className="flex items-center justify-center align-middle gap-2">
-                <Camera />
+              <div className="flex items-start justify-center align-middle gap-2">
+                <Camera className="h-5 w-5 mt-0.5" />
                 {`${image.camera_make} - ${image.camera_model} - ${image.exif_summary}`}
               </div>
             </div>
