@@ -4,39 +4,14 @@ import { useTranslations } from "next-intl";
 import { Input } from "../ui/input";
 import Form from "next/form";
 import { Button } from "../ui/button";
-import GithubIcon from "@/assets/github.svg";
-import LeetcodeIcon from "@/assets/leetcode.svg";
-import ZennIcon from "@/assets/zenn.svg";
-import InstagramIcon from "@/assets/instagram.svg";
+
 import { Link } from "@/i18n/navigations";
 import { Textarea } from "../ui/textarea";
 import { Label } from "../ui/label";
+import { SocialMediaMap } from "@/lib/constants";
 
 const ContactSection: FC = () => {
   const t = useTranslations("Home");
-
-  const SocialMediaMap = [
-    {
-      name: "GitHub",
-      icon: GithubIcon,
-      url: "https://github.com/onekyuu",
-    },
-    {
-      name: "LeetCode",
-      icon: LeetcodeIcon,
-      url: "https://leetcode.com/u/onekyuu/",
-    },
-    {
-      name: "Zenn",
-      icon: ZennIcon,
-      url: "https://zenn.dev/onekyuu",
-    },
-    {
-      name: "Instagram",
-      icon: InstagramIcon,
-      url: "https://www.instagram.com/onekyuu_?igsh=N2VkcHpiMnFvOGVi&utm_source=qr",
-    },
-  ];
 
   const SendMessageMap = [
     {
@@ -102,7 +77,12 @@ const ContactSection: FC = () => {
             </div>
             <div className="self-center flex flex-row mt-12">
               {SocialMediaMap.map((social) => (
-                <Link key={social.name} href={social.url} className="mx-4">
+                <Link
+                  key={social.name}
+                  href={social.url}
+                  className="mx-4"
+                  target="_blank"
+                >
                   <social.icon className="h-6 w-6 text-[var(--color-gray-600)] dark:text-[var(--color-gray-300)]" />
                 </Link>
               ))}

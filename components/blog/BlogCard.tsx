@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 import { Badge } from "../ui/badge";
 import { useLocale, useTranslations } from "next-intl";
 import { Post } from "@/types/post";
+import dayjs from "dayjs";
 
 interface BlogCardProps extends React.HTMLAttributes<HTMLDivElement> {
   post: Post;
@@ -48,9 +49,11 @@ const BlogCard: FC<BlogCardProps> = ({ post, className, type = "all" }) => {
         >
           <div className="flex flex-col gap-3 md:gap-6 flex-1">
             <div className="flex gap-2">
-              <Badge key={category.title} variant={"default"}>
-                {category.title}
-              </Badge>
+              {category && (
+                <Badge key={category.title} variant={"default"}>
+                  {category.title}
+                </Badge>
+              )}
             </div>
             <div className="flex-1">
               <div className="text-2xl md:text-3xl lg:text-4xl font-semibold">
@@ -75,7 +78,7 @@ const BlogCard: FC<BlogCardProps> = ({ post, className, type = "all" }) => {
             <div className="flex flex-col">
               <span className="text-sm font-semibold">{user.username}</span>
               <span className="text-xs text-[var(--color-gray-500)]">
-                {new Date(date).toLocaleDateString()}
+                {dayjs(date).format("YYYY/MM/DD")}
               </span>
             </div>
           </div>

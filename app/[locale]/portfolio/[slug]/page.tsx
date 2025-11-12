@@ -6,12 +6,6 @@ import { useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
 import { LanguageCode } from "@/types/common";
 import { useProjectDetail } from "@/hooks/useProjects";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from "@/components/ui/carousel";
-import Autoplay from "embla-carousel-autoplay";
 import Image from "next/image";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import ContentContainer from "@/components/ContentContainer";
@@ -60,63 +54,34 @@ const ProjectDetailPage: FC = () => {
           end: formatProjectData.subtitle?.end || "",
         },
         extraContent: (
-          <div className="text-[var(--color-gray-700)] dark:text-[var(--color-gray-300)] text-base md:text-lg lg:text-xl text-center mt-4">
+          <div className="text-[var(--color-gray-700)] dark:text-[var(--color-gray-300)] text-base md:text-lg lg:text-xl text-center">
             {formatProjectData.summary}
           </div>
         ),
-        extraElement: (
-          <Carousel
-            className="w-full my-8 md:my-12 lg:my-16 mx-auto px-4 md:px-8 lg:px-0"
-            opts={{
-              align: "start",
-              loop: true,
-            }}
-            plugins={[
-              Autoplay({
-                delay: 3000,
-                stopOnInteraction: true,
-              }),
-            ]}
-          >
-            <CarouselContent>
-              {formatProjectData.images?.map((image, index) => (
-                <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                  <AspectRatio ratio={16 / 10}>
-                    <Image
-                      src={image}
-                      alt={`Project image ${index + 1}`}
-                      fill
-                      className="object-cover rounded-2xl"
-                    />
-                  </AspectRatio>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-          </Carousel>
-        ),
+        images: formatProjectData.images,
       }}
     >
-      <ContentContainer className="mt-16 flex flex-col gap-12 lg:gap-14">
+      <ContentContainer className="flex flex-col gap-12 lg:gap-14 mt-4 md:mt-8 lg:mt-12">
         <section className="rounded-2xl project-gradient-radial-purple py-12 px-8 lg:p-10 flex flex-col gap-14">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="flex gap-8 justify-center md:justify-self-end items-center md:order-2">
               <Link
                 href={formatProjectData.github_url}
                 target="_blank"
-                className="flex gap-2"
+                className="flex gap-2 text-base md:text-lg"
               >
-                <Github />
+                <Github className="w-5 h-5 md:w-6 md:h-6" />
                 {t("github")}
-                <ArrowRight />
+                <ArrowRight className="w-5 h-5 md:w-6 md:h-6" />
               </Link>
               <Link
                 href={formatProjectData.live_demo_url}
                 target="_blank"
                 className="flex gap-2"
               >
-                <TvMinimalPlay />
+                <TvMinimalPlay className="w-5 h-5 md:w-6 md:h-6" />
                 {t("liveDemo")}
-                <ArrowRight />
+                <ArrowRight className="w-5 h-5 md:w-6 md:h-6" />
               </Link>
             </div>
             <div className="section-title flex items-center justify-center md:justify-self-start md:order-1 text-center md:text-start">

@@ -2,6 +2,10 @@ import React, { FC } from "react";
 import ContentContainer from "./ContentContainer";
 import FooterSection from "./home/Footer";
 import { cn } from "@/lib/utils";
+import { Carousel, CarouselContent, CarouselItem } from "./ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
+import { AspectRatio } from "./ui/aspect-ratio";
+import Image from "next/image";
 
 interface PageLayoutProps extends React.HTMLAttributes<HTMLDivElement> {
   heroContent: {
@@ -9,6 +13,7 @@ interface PageLayoutProps extends React.HTMLAttributes<HTMLDivElement> {
     subtitle: { start: string; end: string };
     extraContent?: React.ReactNode;
     extraElement?: React.ReactNode;
+    images?: string[];
   };
   latestContent?: {
     title: string;
@@ -23,17 +28,10 @@ const PageLayout: FC<PageLayoutProps> = ({
 }) => {
   return (
     <div className="min-h-screen w-full">
-      <div className="relative w-full">
-        <div className="hero-bg absolute inset-0 z-[-1]" />
-        <div className="grid grid-rows-[auto_1fr_auto] min-h-[70vh]">
-          <div
-            className={cn(
-              heroContent.extraElement
-                ? "h-[14vh] md:h-[18vh] lg:h-[20vh]"
-                : "h-0"
-            )}
-          />
-
+      <div className="relative w-full min-h-[50vh] lg:min-h-[60vh]">
+        <div className="hero-bg absolute top-0 left-0 w-screen h-[50vh] lg:h-[60vh] z-[-1]" />
+        <div className="flex flex-col w-full">
+          <div className={cn("h-[14vh] lg:h-[18vh]")} />
           <div className="flex items-center justify-center py-8">
             <ContentContainer className="flex flex-col items-center justify-center gap-6 px-4">
               <h1 className="text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] text-lg md:text-xl lg:text-2xl font-bold text-center">
@@ -49,7 +47,7 @@ const PageLayout: FC<PageLayoutProps> = ({
                 </span>
               </h2>
               {heroContent.extraContent && (
-                <div className="w-full max-w-3xl mt-4">
+                <div className="w-full max-w-xs md:max-w-2xl lg:max-w-3xl">
                   {heroContent.extraContent}
                 </div>
               )}
@@ -57,6 +55,7 @@ const PageLayout: FC<PageLayoutProps> = ({
           </div>
 
           {heroContent.extraElement}
+          {heroContent.images && <HeaderImages images={heroContent.images} />}
         </div>
       </div>
 
@@ -78,3 +77,51 @@ const PageLayout: FC<PageLayoutProps> = ({
 };
 
 export default PageLayout;
+
+const HeaderImages: FC<{ images: string[] }> = ({ images }) => {
+  if (images.length === 0) return null;
+  if (images.length === 1) {
+    return (
+      <ContentContainer className="">
+        <AspectRatio ratio={2 / 1}>
+          <Image
+            src={images[0]}
+            alt="Header image"
+            fill
+            className="object-cover rounded-2xl"
+          />
+        </AspectRatio>
+      </ContentContainer>
+    );
+  }
+  return (
+    <Carousel
+      className="w-full my-4 md:my-8 lg:my-12 mx-auto px-4 md:px-8 lg:px-0"
+      opts={{
+        align: "start",
+        loop: true,
+      }}
+      plugins={[
+        Autoplay({
+          delay: 3000,
+          stopOnInteraction: true,
+        }),
+      ]}
+    >
+      <CarouselContent>
+        {images?.map((image, index) => (
+          <CarouselItem key={index} className="lg:basis-1/3">
+            <AspectRatio ratio={9 / 5}>
+              <Image
+                src={image}
+                alt={`Project image ${index + 1}`}
+                fill
+                className="object-cover rounded-2xl"
+              />
+            </AspectRatio>
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+    </Carousel>
+  );
+};

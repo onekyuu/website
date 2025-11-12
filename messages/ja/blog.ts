@@ -1,15 +1,14 @@
-import { read } from "fs";
-
 const Blog = {
-  title: "Blog.",
-  subtitleStart: "Discover the Art of ",
-  subtitleEnd: "Digital World",
-  latestBlog: "Latest Post",
-  allPosts: "All Posts",
-  searchPlaceholder: "Unleash your curiosity",
-  searchButton: "Explore by genre",
-  readPost: "Read Full Post",
-  noResults: "No posts found.",
+  title: "ブログ。",
+  subtitleStart: "Discover the Art of",
+  subtitleEnd: "Coding World",
+  latestBlog: "最新記事",
+  allPosts: "すべての記事",
+  searchPlaceholder: "キーワードを入力してください",
+  searchButton: "検索する",
+  readPost: "記事を読む",
+  noResults: "記事が見つかりません。",
+  tableOfContents: "目次",
 };
 
 export default Blog;

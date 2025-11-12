@@ -60,8 +60,9 @@ const FooterSection: FC = () => {
         <Separator className="my-4 bg-[var(--color-gray-600)]" />
         <div className="flex justify-between items-center">
           <div className="flex items-center justify-center gap-2 text-[var(--color-gray-50)] text-xl">
-            <div>logo</div>
-            <div>OneKyuu</div>
+            <div className="font-bold text-xl hero-text-gradient bg-clip-text text-transparent">
+              OneKyuu
+            </div>
           </div>
           <div className="text-sm md:text-base text-[var(--color-gray-300)] text-center align-middle">
             © {new Date().getFullYear()}. All rights reserved.

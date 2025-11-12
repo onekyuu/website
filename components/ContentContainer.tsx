@@ -1,25 +1,21 @@
-import clsx from "clsx";
-import React, { FC, ReactNode } from "react";
+import { cn } from "@/lib/utils";
+import { FC, ReactNode } from "react";
 
-interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {
-  children: React.ReactNode;
+interface ContentContainerProps {
+  children: ReactNode;
+  className?: string;
 }
 
-const ContentContainer = ({
+const ContentContainer: FC<ContentContainerProps> = ({
   children,
   className,
-  ...props
-}: ContainerProps) => {
+}) => {
   return (
-    <section
-      className={clsx(
-        "container mx-auto overflow-hidden px-4 lg:px-8",
-        className
-      )}
-      {...props}
+    <div
+      className={cn("w-full max-w-7xl mx-auto px-4 md:px-6 lg:px-8", className)}
     >
       {children}
-    </section>
+    </div>
   );
 };
 

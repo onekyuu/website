@@ -18,12 +18,16 @@ export interface Translations {
 export interface Post {
   id: number;
   title: string;
-  description: string;
-  date: string;
-  image: string;
+  subtitle?: {
+    start: string;
+    end: string;
+  };
+  description?: string;
+  date?: string;
+  image?: string;
   avatar: string;
   user: User;
-  category: Category;
+  category?: Category;
   translations: Translations;
   slug: string;
   views: number;
@@ -46,7 +50,7 @@ export interface PostsParams {
 export interface BlogPost {
   id: number;
   title: string;
-  description: string;
-  date: string;
-  image: string;
+  description?: string;
+  date?: string;
+  image?: string;
 }

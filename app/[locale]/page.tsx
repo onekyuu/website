@@ -57,7 +57,7 @@ export default function HomePage() {
       id: post.id,
       title: post.translations[locale]?.title || post.title,
       description: post.translations[locale]?.description || post.description,
-      date: post.date,
+      date: post.date || "",
       image: post.image,
     }));
   }, [blogResponse?.results, locale]);

@@ -10,6 +10,10 @@ import CSS3Icon from "@/assets/dev-icons/css3.svg";
 import TailwindCSSIcon from "@/assets/dev-icons/tailwindcss.svg";
 import GitIcon from "@/assets/dev-icons/git.svg";
 import DockerIcon from "@/assets/dev-icons/docker.svg";
+import GithubIcon from "@/assets/github.svg";
+import LeetcodeIcon from "@/assets/leetcode.svg";
+import ZennIcon from "@/assets/zenn.svg";
+import InstagramIcon from "@/assets/instagram.svg";
 
 export const HeaderMenu = [
   {
@@ -106,5 +110,28 @@ export const skillsList = [
     name: "Docker",
     icon: DockerIcon,
     order: 2,
+  },
+];
+
+export const SocialMediaMap = [
+  {
+    name: "GitHub",
+    icon: GithubIcon,
+    url: "https://github.com/onekyuu",
+  },
+  {
+    name: "LeetCode",
+    icon: LeetcodeIcon,
+    url: "https://leetcode.com/u/onekyuu/",
+  },
+  {
+    name: "Zenn",
+    icon: ZennIcon,
+    url: "https://zenn.dev/onekyuu",
+  },
+  {
+    name: "Instagram",
+    icon: InstagramIcon,
+    url: "https://www.instagram.com/onekyuu_?igsh=N2VkcHpiMnFvOGVi&utm_source=qr",
   },
 ];

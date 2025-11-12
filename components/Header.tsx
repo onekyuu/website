@@ -22,7 +22,9 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="w-full grid grid-cols-2 lg:grid-cols-12 justify-center items-center py-4 lg:py-8 px-8 lg:px-12 bg-transparent fixed top-0 left-0 z-10">
-      <div className="flex lg:col-span-3">logo</div>
+      <div className="flex lg:col-span-3 font-bold text-xl hero-text-gradient bg-clip-text text-transparent">
+        OneKyuu
+      </div>
       <nav className="hidden lg:block lg:col-span-6">
         <div className="text-lg grid grid-cols-4 gap-4 place-items-center justify-center items-center font-light">
           {HeaderMenu.map((item) => (
@@ -49,7 +51,9 @@ export default function Header() {
             <DrawerContent className="h-screen w-screen">
               <DrawerHeader>
                 <DrawerTitle className="flex justify-between items-center">
-                  <div>logo</div>
+                  <div className="font-bold text-xl hero-text-gradient bg-clip-text text-transparent">
+                    OneKyuu
+                  </div>
                   <DrawerClose
                     className="cursor-pointer"
                     onClick={() => setIsOpen(false)}
@@ -61,8 +65,8 @@ export default function Header() {
               <div className="flex flex-col gap-4 p-4">
                 <div className="flex flex-col py-6 relative z-0 rounded-lg items-center justify-center text-[var(--color-gray-50)] text-xl">
                   <div className="absolute inset-0 z-[-1] opacity-80 menu-hero-bg rounded-lg"></div>
-                  <span>Discover</span>
-                  <span>world</span>
+                  <span>Discover my</span>
+                  <span>world of coding</span>
                   <span>art</span>
                 </div>
                 {HeaderMenu.map((item) => (
