@@ -62,8 +62,8 @@ const ProjectDetailPage: FC = () => {
       }}
     >
       <ContentContainer className="flex flex-col gap-12 lg:gap-14 mt-4 md:mt-8 lg:mt-12">
-        <section className="rounded-2xl project-gradient-radial-purple py-12 px-8 lg:p-10 flex flex-col gap-14">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <section className="rounded-2xl project-gradient-radial-purple py-12 px-8 lg:p-10 flex flex-col gap-8 lg:gap-14">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="flex gap-8 justify-center md:justify-self-end items-center md:order-2">
               <Link
                 href={formatProjectData.github_url}

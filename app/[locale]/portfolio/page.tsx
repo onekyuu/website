@@ -75,7 +75,7 @@ const PortfolioPage = () => {
       {isProjectLoading ? (
         <div>
           <ContentContainer>
-            <div className=" w-full lg:w-[50vw] lg:text-center text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] text-2xl md:text-3xl lg:text-4xl font-bold">
+            <div className=" w-[60vw] lg:w-[50vw] text-center text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] text-2xl md:text-3xl lg:text-4xl font-bold">
               {t("allProjects")}
             </div>
           </ContentContainer>
@@ -86,7 +86,7 @@ const PortfolioPage = () => {
       ) : (
         <HorizontalScroll className="gap-6">
           <ContentContainer>
-            <div className=" w-full lg:w-[50vw] lg:text-center text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] text-2xl md:text-3xl lg:text-4xl font-bold">
+            <div className=" w-[60vw] lg:w-[50vw] text-center text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] text-2xl md:text-3xl lg:text-4xl font-bold">
               {t("allProjects")}
             </div>
           </ContentContainer>
