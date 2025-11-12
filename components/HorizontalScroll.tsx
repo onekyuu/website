@@ -1,9 +1,8 @@
 "use client";
 
-import React, { FC, useEffect, useRef, useState } from "react";
+import React, { FC, useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Lenis from "lenis";
 import { cn } from "@/lib/utils";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -13,122 +12,86 @@ const HorizontalScroll: FC<React.HTMLAttributes<HTMLDivElement>> = ({
   className,
   ...props
 }) => {
-  const wapperRef = useRef<HTMLDivElement | null>(null);
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
   const projectBoxRef = useRef<HTMLDivElement | null>(null);
   const ifLeave = useRef(false);
-  const [isMobile, setIsMobile] = useState(false);
-  const lenisRef = useRef<Lenis | null>(null);
+  const triggerRef = useRef<ScrollTrigger | null>(null);
 
   useEffect(() => {
-    const checkMobile = () => {
-      const mobile = window.innerWidth < 1024;
-      setIsMobile(mobile);
+    if (!wrapperRef.current || !projectBoxRef.current) return;
+
+    const getDistance = () => {
+      if (!projectBoxRef.current) return 0;
+      return projectBoxRef.current.offsetWidth - window.innerWidth;
     };
-
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-
-    return () => {
-      window.removeEventListener("resize", checkMobile);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (isMobile) {
-      ScrollTrigger.getAll().forEach((t) => t.kill());
-      if (lenisRef.current) {
-        lenisRef.current.destroy();
-        lenisRef.current = null;
-      }
-      if (wapperRef.current) {
-        wapperRef.current.style.height = "";
-      }
-      if (projectBoxRef.current) {
-        projectBoxRef.current.style.transform = "";
-      }
-
-      return;
-    }
-
-    const lenis = new Lenis({
-      duration: 1,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
-      autoRaf: false,
-    });
-
-    lenisRef.current = lenis;
-
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-
-    requestAnimationFrame(raf);
-
-    let distance = 0;
 
     const resize = () => {
-      if (!projectBoxRef.current || !wapperRef.current) return;
+      if (!projectBoxRef.current || !wrapperRef.current) return;
 
-      distance = projectBoxRef.current.offsetWidth - window.innerWidth;
-      wapperRef.current.style.height = `${distance}px`;
+      const distance = getDistance();
+      wrapperRef.current.style.height = `${distance + window.innerHeight}px`;
 
-      if (ifLeave.current) {
+      if (ifLeave.current && projectBoxRef.current) {
         projectBoxRef.current.style.transform = `translateX(-${distance}px)`;
+      }
+
+      if (triggerRef.current) {
+        triggerRef.current.refresh();
       }
     };
 
-    const scrollTrigger = ScrollTrigger.create({
-      trigger: wapperRef.current,
-      start: "top top",
-      end: "bottom bottom",
-      scrub: 1,
-      invalidateOnRefresh: true,
-      onUpdate: (self) => {
-        if (!projectBoxRef.current) return;
-        projectBoxRef.current.style.transform = `translateX(-${
-          self.progress * distance
-        }px)`;
-      },
-      onLeave: () => {
-        ifLeave.current = true;
-      },
-      onEnterBack: () => {
-        ifLeave.current = false;
-      },
-    });
+    const initTimer = setTimeout(() => {
+      if (triggerRef.current) {
+        triggerRef.current.kill();
+      }
 
-    resize();
+      triggerRef.current = ScrollTrigger.create({
+        trigger: wrapperRef.current,
+        start: "top top",
+        end: "bottom bottom",
+        scrub: 1,
+        invalidateOnRefresh: true,
+        id: "horizontal-scroll",
+        onUpdate: (self) => {
+          if (!projectBoxRef.current) return;
+          const distance = getDistance();
+          projectBoxRef.current.style.transform = `translateX(-${
+            self.progress * distance
+          }px)`;
+        },
+        onLeave: () => {
+          ifLeave.current = true;
+        },
+        onEnterBack: () => {
+          ifLeave.current = false;
+        },
+      });
+
+      resize();
+
+      setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 100);
+    }, 200);
+
     window.addEventListener("resize", resize);
 
     return () => {
-      scrollTrigger.kill();
-      ScrollTrigger.getAll().forEach((t) => t.kill());
-      window.removeEventListener("resize", resize);
-      if (lenisRef.current) {
-        lenisRef.current.destroy();
-        lenisRef.current = null;
+      clearTimeout(initTimer);
+      if (triggerRef.current) {
+        triggerRef.current.kill();
+        triggerRef.current = null;
       }
+      window.removeEventListener("resize", resize);
     };
-  }, [isMobile]);
-
-  if (isMobile) {
-    return (
-      <div key={"mobile-wrapper"} className="w-full">
-        <div className={cn("flex flex-col gap-8", className)} {...props}>
-          {children}
-        </div>
-      </div>
-    );
-  }
+  }, []);
 
   return (
-    <div key={"desktop-wrapper"} ref={wapperRef} className="relative w-full">
+    <div ref={wrapperRef} className="relative w-full">
       <div className="sticky top-0 w-full h-screen overflow-hidden flex items-center">
         <div
           ref={projectBoxRef}
-          className={cn("flex items-center h-screen", className)}
+          className={cn("flex items-center h-screen gap-8", className)}
           {...props}
         >
           {children}

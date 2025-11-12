@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider";
 import Header from "@/components/Header";
 import QueryProvider from "@/providers/QueryProvider";
+import SmoothScroll from "@/components/SmoothScroll";
 
 type Props = {
   children: ReactNode;
@@ -44,6 +45,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   return (
     <html lang={locale}>
       <body className={cn(fonts[locale])}>
+        <SmoothScroll />
         <QueryProvider>
           <ThemeProvider
             attribute="class"

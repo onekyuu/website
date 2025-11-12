@@ -31,7 +31,7 @@ const PortfolioSection: FC<PortfolioSectionProps> = ({
       {isLoading ? (
         <div className="lg:h-[60vh] w-screen lg:w-6xl flex shrink-0 items-center justify-center">
           <ContentContainer>
-            <div className="my-4 md:mt-12 lg:mt-0 lg:px-0 lg:h-1/2 w-full lg:w-[50vw] flex shrink-0 items-center justify-start lg:justify-center text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] text-3xl md:text-4xl lg:text-5xl font-semibold">
+            <div className="my-4 md:mt-12 lg:mt-0 lg:px-0 lg:h-1/2 w-[60vw] lg:w-[50vw] flex shrink-0 items-center justify-center lg:justify-start lg:justify-center text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] text-3xl md:text-4xl lg:text-5xl font-semibold">
               {t("portfolio")}
             </div>
           </ContentContainer>
@@ -44,7 +44,7 @@ const PortfolioSection: FC<PortfolioSectionProps> = ({
       ) : (
         <HorizontalScroll>
           <ContentContainer>
-            <div className="my-4 md:mt-12 lg:mt-0 lg:px-0 lg:h-1/2 w-full lg:w-[50vw] flex shrink-0 items-center justify-start lg:justify-center text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] text-3xl md:text-4xl lg:text-5xl font-semibold">
+            <div className="my-4 md:mt-12 lg:mt-0 lg:px-0 lg:h-1/2 w-[60vw] lg:w-[50vw] flex shrink-0 items-center justify-center lg:justify-start lg:justify-center text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] text-3xl md:text-4xl lg:text-5xl font-semibold">
               {t("portfolio")}
             </div>
           </ContentContainer>
@@ -53,7 +53,7 @@ const PortfolioSection: FC<PortfolioSectionProps> = ({
               key={project.id}
               className="lg:h-[60vh] w-screen lg:w-6xl lg:px-10 flex shrink-0 items-center justify-center"
             >
-              <ContentContainer className="lg:h-full lg:grid lg:grid-rows-1 lg:grid-cols-2 gap-4 place-items-center px-0">
+              <ContentContainer className="lg:h-full lg:grid lg:grid-rows-1 lg:grid-cols-2 gap-4 place-items-center">
                 <div className="lg:row-span-3 h-full w-full flex flex-col justify-center items-start">
                   <div className="text-2xl md:text-3xl lg:text-3xl font-semibold text-[var(--color-gray-900)]] dark:text-[var(--color-gray-50)] mb-4">
                     {project.translations[locale]?.title}

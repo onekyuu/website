@@ -34,11 +34,8 @@ const BlogDetailPage: FC = () => {
   return (
     <PageLayout
       heroContent={{
-        title: formatBlogData.title,
-        subtitle: {
-          start: "Start",
-          end: "end",
-        },
+        title: "Blog.",
+        subtitle: formatBlogData.title,
         extraContent: (
           <div className="text-[var(--color-gray-700)] dark:text-[var(--color-gray-300)] text-base md:text-lg lg:text-xl text-center mt-4">
             {formatBlogData.description}
@@ -67,7 +64,7 @@ const BlogDetailPage: FC = () => {
                 <div className="flex items-center gap-4">
                   <Avatar>
                     <AvatarImage
-                      src={formatBlogData.user.avatar}
+                      src={formatBlogData.user.profile.avatar}
                       alt={formatBlogData.user.username}
                     />
                     <AvatarFallback>

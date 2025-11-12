@@ -10,7 +10,7 @@ import Image from "next/image";
 interface PageLayoutProps extends React.HTMLAttributes<HTMLDivElement> {
   heroContent: {
     title: string;
-    subtitle: { start: string; end: string };
+    subtitle: { start: string; end: string } | string;
     extraContent?: React.ReactNode;
     extraElement?: React.ReactNode;
     images?: string[];
@@ -38,13 +38,21 @@ const PageLayout: FC<PageLayoutProps> = ({
                 {heroContent.title}
               </h1>
               <h2 className="text-4xl font-bold md:text-6xl md:font-medium lg:text-7xl text-center max-w-5xl">
-                <span className="text-[var(--color-gray-900)] dark:text-[var(--color-gray-50)]">
-                  {heroContent.subtitle.start}
-                </span>
-                {heroContent.subtitle.start && heroContent.subtitle.end && " "}
-                <span className="hero-text-gradient bg-clip-text text-transparent">
-                  {heroContent.subtitle.end}
-                </span>
+                {typeof heroContent.subtitle === "string" ? (
+                  heroContent.subtitle
+                ) : (
+                  <>
+                    <span className="text-[var(--color-gray-900)] dark:text-[var(--color-gray-50)]">
+                      {heroContent.subtitle.start}
+                    </span>
+                    {heroContent.subtitle.start &&
+                      heroContent.subtitle.end &&
+                      " "}
+                    <span className="hero-text-gradient bg-clip-text text-transparent">
+                      {heroContent.subtitle.end}
+                    </span>
+                  </>
+                )}
               </h2>
               {heroContent.extraContent && (
                 <div className="w-full max-w-xs md:max-w-2xl lg:max-w-3xl">
