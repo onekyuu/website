@@ -72,7 +72,7 @@ const PortfolioSection: FC<PortfolioSectionProps> = ({
                     ))}
                   </div>
                   <div>
-                    <Link href={`/portfolio`}>
+                    <Link href={`/portfolio/${project.slug}`}>
                       <Button className="font-bold mt-6 cursor-pointer">
                         {t("checkProject")}
                       </Button>

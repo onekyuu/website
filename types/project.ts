@@ -33,10 +33,23 @@ export interface Skill {
   type: SkillType;
 }
 
-export interface ProjectTranslationBase {
+export interface WhatIDidItem {
   title: string;
   description: string;
+  icon: string;
+}
+
+export interface ProjectTranslationBase {
+  title: string;
+  subtitle: { start: string; end: string };
+  summary: string;
+  tech_summary?: string;
+  description: string;
   info: string[];
+  introduction?: string;
+  challenges?: string[];
+  solutions?: string;
+  what_i_did?: WhatIDidItem[];
 }
 
 export interface ProjectBase {
@@ -44,8 +57,13 @@ export interface ProjectBase {
   slug: string;
   date: string;
   images: string[];
+  detail_images?: string[];
   skills: Skill[];
   is_featured: boolean;
+  github_url?: string;
+  live_demo_url?: string;
+  involved_areas?: string;
+  tools?: string;
   created_at: string;
 }
 

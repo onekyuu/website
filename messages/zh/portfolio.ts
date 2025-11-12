@@ -7,6 +7,15 @@ const Portfolio = {
   projectSummary: "项目简介：",
   learnMore: "了解更多",
   allProjects: "所有项目",
+  github: "GitHub",
+  liveDemo: "在线演示",
+  involvedAreas: "涉及领域",
+  skills: "使用的技能",
+  tools: "使用的工具",
+  introduction: "介绍",
+  challenges: "挑战",
+  solutions: "解决方案",
+  whatIDid: "我做了什么",
 };
 
 export default Portfolio;

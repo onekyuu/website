@@ -65,6 +65,7 @@
   --color-primary-700: oklch(48.82% 0.217 264.38);
   --color-primary-800: oklch(42.44% 0.181 265.64);
   --color-primary-900: oklch(37.91% 0.138 265.52);
+  --color-primary-900h: oklch(21.01% 0.0318 264.66);
 
   --color-secondary-50: oklch(98.46% 0.002 247.84);
   --color-secondary-100: oklch(92.99% 0.033 272.79);
@@ -353,7 +354,6 @@
       rgba(124, 126, 234, 0.6) 0%,
       rgba(76, 77, 157, 0.6) 100%
     );
-    /* radial-gradient(317.81% 324.93% at 50% 50%, rgba(124, 126, 234, 0.6) 0%, rgba(76, 77, 157, 0.6) 100%); */
   }
   .picture-gradient-bg {
     background-image: linear-gradient(
@@ -371,5 +371,26 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+  }
+  .project-gradient-radial-purple {
+    background-color: var(--color-secondary-100);
+  }
+
+  .dark .project-gradient-radial-purple {
+    background-image: radial-gradient(#7c7eea 0%, #4c4d9d 100%);
+  }
+
+  .section-title {
+    @apply text-2xl md:text-3xl lg:text-4xl font-bold;
+    color: var(--color-primary-900);
+  }
+  .dark .section-title {
+    color: var(--color-primary-50);
+  }
+  .title-color {
+    color: var(--color-primary-900);
+  }
+  .dark .title-color {
+    color: var(--color-primary-50);
   }
 }
