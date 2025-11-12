@@ -21,6 +21,12 @@ import {
   FolderCode,
   FileCheck,
   type LucideIcon,
+  LayoutPanelTop,
+  CodeXml,
+  BotMessageSquare,
+  FilePenLine,
+  BookUp2,
+  MoonStar,
 } from "lucide-react";
 
 const iconMap: Record<string, LucideIcon> = {
@@ -44,6 +50,12 @@ const iconMap: Record<string, LucideIcon> = {
   bookopencheck: BookOpenCheck,
   foldercode: FolderCode,
   filecheck: FileCheck,
+  layoutpaneltop: LayoutPanelTop,
+  codexml: CodeXml,
+  botmessagesquare: BotMessageSquare,
+  filepenline: FilePenLine,
+  bookup2: BookUp2,
+  moonstar: MoonStar,
 };
 
 interface ProjectIconProps {
