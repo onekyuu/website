@@ -2,14 +2,13 @@
 
 import ContentContainer from "@/components/ContentContainer";
 import { useTranslations } from "next-intl";
-import React, { useCallback, useMemo } from "react";
+import React, { useMemo } from "react";
 import HorizontalScroll from "@/components/HorizontalScroll";
 import SummaryCard from "@/components/portfolio/SummaryCard";
 import DetailCard from "@/components/portfolio/DetailCard";
 import PageLayout from "@/components/PageLayout";
 import { useLocale } from "next-intl";
 import { LanguageCode } from "@/types/common";
-import { Project } from "@/types/project";
 import { useProjects } from "@/hooks/useProjects";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -26,18 +25,16 @@ const PortfolioPage = () => {
     pageSize: 10,
   });
 
-  const getProjectDetail = useCallback(
-    (project?: Project) => {
-      if (!project) return { title: "", description: "", image: "", slug: "" };
-      return {
-        title: project?.translations[locale]?.title || "",
-        description: project?.translations[locale]?.description || "",
-        image: project?.images[0],
-        slug: project?.slug || "",
-      };
-    },
-    [locale, projectResponse]
-  );
+  const projectDetail = useMemo(() => {
+    const project = projectResponse?.[0];
+    if (!project) return { title: "", description: "", image: "", slug: "" };
+    return {
+      title: project?.translations[locale]?.title || "",
+      description: project?.translations[locale]?.description || "",
+      image: project?.images[0],
+      slug: project?.slug || "",
+    };
+  }, [locale, projectResponse]);
 
   const latestProjectNode = useMemo(
     () => (
@@ -47,13 +44,13 @@ const PortfolioPage = () => {
           className="md:col-span-1 lg:col-span-2"
         />
         <DetailCard
-          project={getProjectDetail(projectResponse?.[0])}
+          project={projectDetail}
           type="latest"
           className="md:col-span-1 lg:col-span-3"
         />
       </div>
     ),
-    [projectResponse, locale, getProjectDetail]
+    [locale, projectDetail]
   );
 
   return (
@@ -97,7 +94,7 @@ const PortfolioPage = () => {
             >
               <ContentContainer className="lg:min-h-1/2 grid grid-rows-2 grid-cols-1 md:grid-cols-2 md:grid-rows-1 lg:grid-cols-5 gap-6">
                 <DetailCard
-                  project={getProjectDetail(project)}
+                  project={projectDetail}
                   className="project-card-bg row-span-1 md:col-span-1 lg:col-span-3"
                 />
                 <SummaryCard
