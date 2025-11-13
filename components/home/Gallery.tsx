@@ -3,12 +3,12 @@ import Image from "next/image";
 import ContentContainer from "../ContentContainer";
 import { useTranslations } from "next-intl";
 import HeadSVG from "@/public/head.svg";
-import { Gallery } from "@/types/gallery";
+import { GalleryPhoto } from "@/types/gallery";
 import dayjs from "dayjs";
 import { Camera } from "lucide-react";
 
 interface GallerySectionProps {
-  galleryList: Gallery[];
+  galleryList: GalleryPhoto[];
   isLoading: boolean;
   isError?: boolean;
   error?: Error | null;

@@ -1,4 +1,9 @@
-import { Gallery, GalleryParams, GalleryResponse } from "@/types/gallery";
+import {
+  GalleryPhoto,
+  GalleryParams,
+  GalleryResponse,
+  GalleryTimelineResponse,
+} from "@/types/gallery";
 import { API_CONFIG } from "./config";
 
 export const galleryApi = {
@@ -30,7 +35,7 @@ export const galleryApi = {
 
     return response.json();
   },
-  getDetail: async (slug: string): Promise<Gallery> => {
+  getDetail: async (slug: string): Promise<GalleryPhoto> => {
     const url = `${API_CONFIG.baseURL}${API_CONFIG.endpoints.gallery.detail(
       slug
     )}`;
@@ -45,6 +50,25 @@ export const galleryApi = {
 
     if (!response.ok) {
       throw new Error(`Failed to fetch project detail: ${response.statusText}`);
+    }
+
+    return response.json();
+  },
+  timeline: async (): Promise<GalleryTimelineResponse> => {
+    const url = `${API_CONFIG.baseURL}${API_CONFIG.endpoints.gallery.timeline}`;
+
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      cache: "no-store",
+    });
+
+    if (!response.ok) {
+      throw new Error(
+        `Failed to fetch gallery timeline: ${response.statusText}`
+      );
     }
 
     return response.json();

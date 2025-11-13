@@ -1,3 +1,5 @@
+import { time } from "console";
+
 export const API_CONFIG = {
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
   endpoints: {
@@ -16,6 +18,7 @@ export const API_CONFIG = {
     gallery: {
       lists: "/gallery/list",
       detail: (id: string) => `/gallery/detail/${id}`,
+      timeline: "/gallery/timeline",
     },
   },
 };

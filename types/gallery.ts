@@ -1,5 +1,6 @@
-export interface Gallery {
+export interface GalleryPhoto {
   id: number;
+  slug: string;
   created_at: string;
   updated_at: string;
   image_url: string;
@@ -34,7 +35,7 @@ export interface Gallery {
 }
 
 export interface GalleryResponse {
-  results: Gallery[];
+  results: GalleryPhoto[];
   count: number;
   page: number;
   page_size: number;
@@ -46,4 +47,16 @@ export interface GalleryParams {
   pageSize?: number;
   search?: string;
   featured?: boolean;
+}
+
+export interface GalleryTimelineItem {
+  count: number;
+  photos: GalleryPhoto[];
+  year: string;
+}
+
+export interface GalleryTimelineResponse {
+  timeline: Record<string, GalleryTimelineItem>;
+  total_years: number;
+  total_photos: number;
 }

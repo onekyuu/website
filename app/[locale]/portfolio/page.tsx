@@ -53,7 +53,7 @@ const PortfolioPage = () => {
         />
       </div>
     ),
-    [locale, getProjectDetail]
+    [locale, getProjectDetail, projectResponse]
   );
 
   return (

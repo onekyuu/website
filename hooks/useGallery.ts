@@ -49,3 +49,22 @@ export function usePrefetchGalleryDetail() {
     });
   };
 }
+
+export function useGalleryTimeline() {
+  return useQuery({
+    queryKey: [...GALLERY_QUERY_KEYS.all, "timeline"] as const,
+    queryFn: () => galleryApi.timeline(),
+    staleTime: 10 * 60 * 1000,
+  });
+}
+
+export function usePrefetchGalleryTimeline() {
+  const queryClient = useQueryClient();
+
+  return () => {
+    queryClient.prefetchQuery({
+      queryKey: [...GALLERY_QUERY_KEYS.all, "timeline"] as const,
+      queryFn: () => galleryApi.timeline(),
+    });
+  };
+}
