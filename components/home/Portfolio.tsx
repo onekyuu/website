@@ -44,7 +44,7 @@ const PortfolioSection: FC<PortfolioSectionProps> = ({
       ) : (
         <HorizontalScroll>
           <ContentContainer>
-            <div className="my-4 md:mt-12 lg:mt-0 lg:px-0 lg:h-1/2 w-[60vw] lg:w-[50vw] flex shrink-0 items-center justify-center lg:justify-start lg:justify-center text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] text-3xl md:text-4xl lg:text-5xl font-semibold">
+            <div className="my-4 md:mt-12 lg:mt-0 lg:px-0 lg:h-1/2 w-[60vw] lg:w-[50vw] flex shrink-0 items-center justify-center text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] text-3xl md:text-4xl lg:text-5xl font-semibold">
               {t("portfolio")}
             </div>
           </ContentContainer>
