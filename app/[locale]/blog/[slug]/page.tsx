@@ -79,9 +79,9 @@ const BlogDetailPage: FC = () => {
             </div>
 
             <TiptapContent content={formatBlogData.content} />
-            <div className="bg-[var(--color-secondary-100)] dark:bg-[var(--color-background-dark-1)] px-6 py-7 rounded-2xl mt-16 text-2xl text-[var(--color-primary-900)] dark:text-[var(--color-secondary-50)] font-bold flex justify-between">
+            <div className="bg-[var(--color-secondary-100)] dark:bg-[var(--color-background-dark-1)] px-6 py-7 rounded-2xl mt-6 lg:mt-16 text-2xl text-[var(--color-primary-900)] dark:text-[var(--color-secondary-50)] font-bold flex justify-between">
               Follow Me
-              <div className="flex gap-8 items-center">
+              <div className="flex gap-4 md:gap-8 items-center">
                 {SocialMediaMap.map((social) => (
                   <Link key={social.name} href={social.url} target="_blank">
                     <social.icon className="h-6 w-6 text-[var(--color-gray-600)] dark:text-[var(--color-gray-300)]" />

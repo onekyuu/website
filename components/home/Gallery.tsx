@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import Image from "next/image";
 import ContentContainer from "../ContentContainer";
 import { useTranslations } from "next-intl";
@@ -6,6 +6,7 @@ import HeadSVG from "@/public/head.svg";
 import { GalleryPhoto } from "@/types/gallery";
 import dayjs from "dayjs";
 import { Camera } from "lucide-react";
+import PhotoViewer from "../gallery/PhotoViewer";
 
 interface GallerySectionProps {
   galleryList: GalleryPhoto[];
@@ -19,6 +20,23 @@ const GallerySection: FC<GallerySectionProps> = ({
   isLoading,
 }) => {
   const t = useTranslations("Home");
+  const [viewerOpen, setViewerOpen] = useState(false);
+  const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
+  const allPhotos = galleryList.flatMap((photo) => ({
+    id: photo.id,
+    slug: photo.slug,
+    img: photo.image_url,
+    title: photo.title,
+    description: photo.description,
+    exif: photo.exif_summary,
+    thumbnail: photo.thumbnail_url,
+  }));
+
+  const handlePhotoClick = (photoId: number) => {
+    const index = allPhotos.findIndex((p) => p.id === photoId);
+    setCurrentPhotoIndex(index);
+    setViewerOpen(true);
+  };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen mt-12 lg:mt-0">
@@ -44,6 +62,7 @@ const GallerySection: FC<GallerySectionProps> = ({
                 alt={image.title || "Gallery Image"}
                 fill
                 className="object-contain"
+                onClick={() => handlePhotoClick(image.id)}
               />
             </div>
             <div className="text-[var(--color-gray-900)] dark:text-[var(--color-gray-100)]">
@@ -65,6 +84,13 @@ const GallerySection: FC<GallerySectionProps> = ({
           </ContentContainer>
         </div>
       ))}
+
+      <PhotoViewer
+        photos={allPhotos}
+        index={currentPhotoIndex}
+        open={viewerOpen}
+        onClose={() => setViewerOpen(false)}
+      />
     </div>
   );
 };

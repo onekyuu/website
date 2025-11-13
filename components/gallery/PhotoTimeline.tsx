@@ -107,9 +107,9 @@ const PhotoTimeline: FC<PhotoTimelineProps> = ({
     <>
       <ContentContainer className={cn("py-8", className)}>
         {showStats && (
-          <div className="mb-12 md:mb-16 flex flex-wrap gap-4 justify-center">
+          <div className="mb-12 md:mb-16 flex flex-col md:flex-row flex-wrap gap-4 justify-center">
             <div className="px-6 py-4 rounded-2xl bg-[var(--color-gray-100)] dark:bg-[var(--color-gray-900)] border border-[var(--color-gray-200)] dark:border-[var(--color-gray-800)]">
-              <div className="text-3xl md:text-4xl font-bold text-[var(--color-primary-600)] dark:text-[var(--color-primary-400)]">
+              <div className="text-3xl md:text-4xl font-bold text-[var(--color-primary-900)] dark:text-[var(--color-primary-400)]">
                 {data.total_photos}
               </div>
               <div className="text-sm md:text-base text-[var(--color-gray-600)] dark:text-[var(--color-gray-400)] mt-1">
@@ -117,7 +117,7 @@ const PhotoTimeline: FC<PhotoTimelineProps> = ({
               </div>
             </div>
             <div className="px-6 py-4 rounded-2xl bg-[var(--color-gray-100)] dark:bg-[var(--color-gray-900)] border border-[var(--color-gray-200)] dark:border-[var(--color-gray-800)]">
-              <div className="text-3xl md:text-4xl font-bold text-[var(--color-primary-600)] dark:text-[var(--color-primary-400)]">
+              <div className="text-3xl md:text-4xl font-bold text-[var(--color-primary-900)] dark:text-[var(--color-primary-400)]">
                 {data.total_years}
               </div>
               <div className="text-sm md:text-base text-[var(--color-gray-600)] dark:text-[var(--color-gray-400)] mt-1">
@@ -125,7 +125,7 @@ const PhotoTimeline: FC<PhotoTimelineProps> = ({
               </div>
             </div>
             <div className="px-6 py-4 rounded-2xl bg-[var(--color-gray-100)] dark:bg-[var(--color-gray-900)] border border-[var(--color-gray-200)] dark:border-[var(--color-gray-800)]">
-              <div className="text-3xl md:text-4xl font-bold text-[var(--color-primary-600)] dark:text-[var(--color-primary-400)]">
+              <div className="text-3xl md:text-4xl font-bold text-[var(--color-primary-900)] dark:text-[var(--color-primary-400)]">
                 {groupedPhotos[0]?.year || new Date().getFullYear()}
               </div>
               <div className="text-sm md:text-base text-[var(--color-gray-600)] dark:text-[var(--color-gray-400)] mt-1">
