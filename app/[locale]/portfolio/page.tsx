@@ -34,6 +34,7 @@ const PortfolioPage = () => {
         description: project?.translations[locale]?.description || "",
         image: project?.images[0],
         slug: project?.slug || "",
+        summary: project?.translations[locale]?.summary || "",
       };
     },
     [locale]
@@ -47,7 +48,7 @@ const PortfolioPage = () => {
           className="md:col-span-1 lg:col-span-2"
         />
         <DetailCard
-          project={getProjectDetail()}
+          project={getProjectDetail(projectResponse?.[0])}
           type="latest"
           className="md:col-span-1 lg:col-span-3"
         />

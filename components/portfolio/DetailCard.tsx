@@ -15,6 +15,7 @@ interface ProjectDetail {
   description: string;
   image: string;
   slug: string;
+  summary?: string;
 }
 
 interface DetailCardProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -52,7 +53,7 @@ const DetailCard: FC<DetailCardProps> = ({
                 : "text-[var(--color-gray-700)]"
             )}
           >
-            {project.description}
+            {project.summary}
           </p>
           <Link
             href={`/portfolio/${project.slug}`}
