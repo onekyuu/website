@@ -1,7 +1,7 @@
 const Portfolio = {
   title: "ポートフォリオ。",
-  subtitleStart: "私の",
-  subtitleEnd: "コーディングアートの作品を紹介",
+  subtitleStart: "コーディングの作品",
+  subtitleEnd: "のコレクション",
   description:
     "私の作品をまとめたもので、専門性・スキル・品質へのこだわりを示しています。",
   latestProject: "最新のプロジェクト",
