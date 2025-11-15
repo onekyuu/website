@@ -2,42 +2,65 @@ import React, { FC } from "react";
 import ContentContainer from "../ContentContainer";
 import { useTranslations } from "next-intl";
 import { Input } from "../ui/input";
-import Form from "next/form";
 import { Button } from "../ui/button";
 
 import { Link } from "@/i18n/navigations";
 import { Textarea } from "../ui/textarea";
-import { Label } from "../ui/label";
 import { SocialMediaMap } from "@/lib/constants";
+import z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { sendContactMessage } from "@/hooks/useSendMessage";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "../ui/form";
 
 const ContactSection: FC = () => {
   const t = useTranslations("Home");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const SendMessageMap = [
-    {
-      name: "name",
-      placeholder: t("namePlaceholder"),
-      type: "text",
-    },
-    {
-      name: "email",
-      placeholder: t("emailPlaceholder"),
-      type: "email",
-    },
-    {
-      name: "phoneNumber",
-      placeholder: t("phonePlaceholder"),
-      type: "tel",
-    },
-    {
-      name: "message",
-      placeholder: t("messagePlaceholder"),
-      type: "textarea",
-    },
-  ];
+  const contactSchema = z.object({
+    name: z.string().min(2, "Name must be at least 2 characters"),
+    email: z.string().email("Invalid email address"),
+    phone: z.string().optional(),
+    message: z.string().min(10, "Message must be at least 10 characters"),
+  });
 
-  const handleSendMessage = async (formData: FormData) => {
-    console.log("Form submitted with data:", Object.fromEntries(formData));
+  type ContactFormData = z.infer<typeof contactSchema>;
+
+  const form = useForm<ContactFormData>({
+    resolver: zodResolver(contactSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      phone: "",
+      message: "",
+    },
+  });
+
+  const handleSendMessage = async (formData: ContactFormData) => {
+    setIsSubmitting(true);
+    try {
+      const result = await sendContactMessage(formData);
+
+      if (result.success) {
+        toast.success(result.message);
+        form.reset();
+      } else {
+        toast.error(result.message);
+      }
+    } catch (error) {
+      toast.error("Failed to send message. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -62,7 +85,7 @@ const ContactSection: FC = () => {
                     {t("email")}
                   </div>
                   <div className="mt-2 md:mt-6 font-semibold text-[var(--color-primary-700)] dark:text-[var(--color-primary-300)]">
-                    xxx.gmail.com
+                    me@keyu.email
                   </div>
                 </div>
                 {/* <div className="mt-8">
@@ -89,39 +112,87 @@ const ContactSection: FC = () => {
             </div>
           </div>
           <div className="w-full py-8 px-7 rounded-3xl bg-[var(--color-background-2)] dark:bg-[var(--color-background-dark-3)] mt-6 lg:mt-0 h-full">
-            <Form action={handleSendMessage} className="flex flex-col h-full">
-              {SendMessageMap.map((field) =>
-                field.type === "textarea" ? (
-                  <div key={field.name} className="pb-4 flex flex-col flex-1">
-                    <Label htmlFor={field.name}>{t(`${field.name}`)}</Label>
-                    <Textarea
-                      name={field.name}
-                      placeholder={field.placeholder}
-                      rows={10}
-                      className="mt-2 w-full flex-1 min-h-48"
-                      id={field.name}
-                    />
-                  </div>
-                ) : (
-                  <div key={field.name} className="pb-4">
-                    <Label htmlFor={field.name}>{t(`${field.name}`)}</Label>
-                    <Input
-                      name={field.name}
-                      type={field.type}
-                      placeholder={field.placeholder}
-                      className="mt-2 w-full"
-                      id={field.name}
-                    />
-                  </div>
-                )
-              )}
-              <Button
-                type="submit"
-                size={"lg"}
-                className="w-full h-10 md:h-12 bg-[var(--color-primary-600)] text-base md:text-lg font-bold rounded-xl"
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(handleSendMessage)}
+                className="space-y-6"
               >
-                {t("sendMessage")}
-              </Button>
+                <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t("name")}</FormLabel>
+                      <FormControl>
+                        <Input placeholder={t("namePlaceholder")} {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t("email")} *</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="email"
+                          placeholder={t("emailPlaceholder")}
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="phone"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t("phone")}</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="tel"
+                          placeholder={t("phonePlaceholder")}
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="message"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t("message")} *</FormLabel>
+                      <FormControl>
+                        <Textarea
+                          placeholder={t("messagePlaceholder")}
+                          rows={6}
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  size={"lg"}
+                  className="w-full cursor-pointer h-10 md:h-12 bg-[var(--color-primary-600)] text-base md:text-lg font-bold rounded-xl"
+                >
+                  {t("sendMessage")}
+                </Button>
+              </form>
             </Form>
           </div>
         </div>

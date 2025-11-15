@@ -20,5 +20,8 @@ export const API_CONFIG = {
       detail: (id: string) => `/gallery/detail/${id}`,
       timeline: "/gallery/timeline",
     },
+    contact: {
+      sendMessage: "/contact/",
+    },
   },
 };
