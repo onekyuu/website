@@ -136,7 +136,7 @@ const ContactSection: FC = () => {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{t("email")} *</FormLabel>
+                      <FormLabel>{t("email")}</FormLabel>
                       <FormControl>
                         <Input
                           type="email"
@@ -172,7 +172,7 @@ const ContactSection: FC = () => {
                   name="message"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{t("message")} *</FormLabel>
+                      <FormLabel>{t("message")}</FormLabel>
                       <FormControl>
                         <Textarea
                           placeholder={t("messagePlaceholder")}
