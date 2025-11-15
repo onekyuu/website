@@ -37,12 +37,6 @@ export default function Header() {
       <div className="flex lg:col-span-3 justify-end items-center gap-4">
         <ModeToggle />
         <LocaleSwitcher />
-        {/* <Link
-          href={"https://github.com/onekyuu/website"}
-          className="p-1 rounded-full bg-[var(--color-gray-50)] dark:bg-[var(--color-gray-500)] hover:bg-[var(--color-gray-200)] dark:hover:bg-[var(--color-gray-700)] transition-colors cursor-pointer"
-        >
-          <Github className="h-5 w-5" />
-        </Link> */}
         <div className="lg:hidden">
           <Drawer direction="right" open={isOpen} onOpenChange={setIsOpen}>
             <DrawerTrigger className="cursor-pointer flex items-center justify-center">
@@ -66,8 +60,7 @@ export default function Header() {
                 <div className="flex flex-col py-6 relative z-0 rounded-lg items-center justify-center text-[var(--color-gray-50)] text-xl">
                   <div className="absolute inset-0 z-[-1] opacity-80 menu-hero-bg rounded-lg"></div>
                   <span>Discover my</span>
-                  <span>world of coding</span>
-                  <span>art</span>
+                  <span>world of coding and photography</span>
                 </div>
                 {HeaderMenu.map((item) => (
                   <div key={item.name}>

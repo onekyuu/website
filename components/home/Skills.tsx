@@ -116,16 +116,9 @@ const SkillsSection: FC = () => {
     <div className="relative w-full">
       <div className="absolute inset-0 lines-wave-bg -z-1"></div>
       <ContentContainer>
-        <ScrollFloat
-          animationDuration={1}
-          ease="back.inOut(2)"
-          scrollStart="center bottom"
-          scrollEnd="bottom bottom-=40%"
-          stagger={0.03}
-          textClassName="text-3xl font-bold text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] pt-7 md:text-4xl md:pt-12 lg:text-5xl lg:pt-16"
-        >
+        <div className="text-3xl font-bold text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] pt-7 md:text-4xl md:pt-12 lg:text-5xl lg:pt-16">
           {t("skills")}
-        </ScrollFloat>
+        </div>
         <div
           ref={containerRef}
           className="min-h-[70vh] flex items-center justify-center py-12"

@@ -1,7 +1,7 @@
 const Blog = {
   title: "ブログ。",
-  subtitleStart: "Discover the Art of",
-  subtitleEnd: "Coding World",
+  subtitleStart: "コーディングの世界",
+  subtitleEnd: "を発見する",
   latestBlog: "最新記事",
   allPosts: "すべての記事",
   searchPlaceholder: "キーワードを入力してください",

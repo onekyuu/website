@@ -6,6 +6,7 @@ import { Carousel, CarouselContent, CarouselItem } from "./ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import { AspectRatio } from "./ui/aspect-ratio";
 import Image from "next/image";
+import { useLocale } from "next-intl";
 
 interface PageLayoutProps extends React.HTMLAttributes<HTMLDivElement> {
   heroContent: {
@@ -26,6 +27,7 @@ const PageLayout: FC<PageLayoutProps> = ({
   latestContent,
   children,
 }) => {
+  const locale = useLocale();
   return (
     <div className="min-h-screen w-full">
       <div className="relative w-full min-h-[50vh] lg:min-h-[60vh]">
@@ -42,13 +44,25 @@ const PageLayout: FC<PageLayoutProps> = ({
                   heroContent.subtitle
                 ) : (
                   <>
-                    <span className="text-[var(--color-gray-900)] dark:text-[var(--color-gray-50)]">
+                    <span
+                      className={cn(
+                        locale === "ja"
+                          ? "hero-text-gradient bg-clip-text text-transparent"
+                          : "text-[var(--color-gray-900)] dark:text-[var(--color-gray-50)]"
+                      )}
+                    >
                       {heroContent.subtitle.start}
                     </span>
                     {heroContent.subtitle.start &&
                       heroContent.subtitle.end &&
                       " "}
-                    <span className="hero-text-gradient bg-clip-text text-transparent">
+                    <span
+                      className={cn(
+                        locale !== "ja"
+                          ? "hero-text-gradient bg-clip-text text-transparent"
+                          : "text-[var(--color-gray-900)] dark:text-[var(--color-gray-50)]"
+                      )}
+                    >
                       {heroContent.subtitle.end}
                     </span>
                   </>

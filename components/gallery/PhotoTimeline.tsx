@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader } from "../ui/card";
 import Image from "next/image";
 import ContentContainer from "../ContentContainer";
 import PhotoViewer from "./PhotoViewer";
+import { useTranslations } from "next-intl";
 
 interface Photo {
   id: number;
@@ -39,6 +40,7 @@ const PhotoTimeline: FC<PhotoTimelineProps> = ({
   className,
   showStats = true,
 }) => {
+  const t = useTranslations("Gallery");
   const [groupedPhotos, setGroupedPhotos] = useState<YearGroup[]>([]);
   const [viewerOpen, setViewerOpen] = useState(false);
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
@@ -113,7 +115,7 @@ const PhotoTimeline: FC<PhotoTimelineProps> = ({
                 {data.total_photos}
               </div>
               <div className="text-sm md:text-base text-[var(--color-gray-600)] dark:text-[var(--color-gray-400)] mt-1">
-                Total Photos
+                {t("totalPhotos")}
               </div>
             </div>
             <div className="px-6 py-4 rounded-2xl bg-[var(--color-gray-100)] dark:bg-[var(--color-gray-900)] border border-[var(--color-gray-200)] dark:border-[var(--color-gray-800)]">
@@ -121,7 +123,7 @@ const PhotoTimeline: FC<PhotoTimelineProps> = ({
                 {data.total_years}
               </div>
               <div className="text-sm md:text-base text-[var(--color-gray-600)] dark:text-[var(--color-gray-400)] mt-1">
-                Years
+                {t("yearsOfPhotography")}
               </div>
             </div>
             <div className="px-6 py-4 rounded-2xl bg-[var(--color-gray-100)] dark:bg-[var(--color-gray-900)] border border-[var(--color-gray-200)] dark:border-[var(--color-gray-800)]">
@@ -129,7 +131,7 @@ const PhotoTimeline: FC<PhotoTimelineProps> = ({
                 {groupedPhotos[0]?.year || new Date().getFullYear()}
               </div>
               <div className="text-sm md:text-base text-[var(--color-gray-600)] dark:text-[var(--color-gray-400)] mt-1">
-                Latest Year
+                {t("latestYear")}
               </div>
             </div>
           </div>
@@ -150,8 +152,7 @@ const PhotoTimeline: FC<PhotoTimelineProps> = ({
                     {group.year}
                   </h2>
                   <p className="text-sm md:text-base text-[var(--color-gray-600)] dark:text-[var(--color-gray-400)] mt-1">
-                    {group.photos.length}{" "}
-                    {group.photos.length === 1 ? "photo" : "photos"}
+                    {t("photos", { count: group.photos.length })}
                   </p>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 md:ml-8">

@@ -1,7 +1,7 @@
 const Blog = {
-  title: "Blog.",
-  subtitleStart: "Discover the Art of",
-  subtitleEnd: "Coding World",
+  title: "博客。",
+  subtitleStart: "发现",
+  subtitleEnd: "编码世界的艺术",
   latestBlog: "最新文章",
   allPosts: "全部文章",
   searchPlaceholder: "输入关键词",

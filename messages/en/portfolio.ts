@@ -3,7 +3,7 @@ const Portfolio = {
   subtitleStart: "Showcasing my ",
   subtitleEnd: "Coding Art Masterpieces",
   description:
-    "A Collection of My Best Work, Showcasing My Expertise, Skill, and Dedication to Quality.",
+    "A Collection of My Work, Showcasing My Expertise, Skill, and Dedication to Quality.",
   latestProject: "Latest Project",
   projectSummary: "Project Summary:",
   learnMore: "Learn More",

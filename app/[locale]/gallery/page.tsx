@@ -9,13 +9,17 @@ import React, { FC } from "react";
 const GalleryPage: FC = () => {
   const t = useTranslations("Gallery");
   const { data } = useGalleryTimeline();
-  console.log("Gallery Timeline Data:", data);
 
   return (
     <PageLayout
       heroContent={{
         title: t("title"),
         subtitle: { start: t("subtitleStart"), end: t("subtitleEnd") },
+        extraContent: (
+          <div className="text-[var(--color-gray-700)] dark:text-[var(--color-gray-300)] text-base md:text-lg lg:text-xl text-center mt-4">
+            {t("description")}
+          </div>
+        ),
       }}
     >
       <ContentContainer className="py-4 ">
