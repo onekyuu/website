@@ -72,6 +72,7 @@ const PortfolioPage = () => {
         title: t("latestProject"),
         content: latestProjectNode,
       }}
+      isSubtitleReverse={true}
     >
       {isProjectLoading ? (
         <div>

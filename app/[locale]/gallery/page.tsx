@@ -21,6 +21,7 @@ const GalleryPage: FC = () => {
           </div>
         ),
       }}
+      isSubtitleReverse={true}
     >
       <ContentContainer className="py-4 ">
         <PhotoTimeline data={data} />

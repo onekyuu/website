@@ -107,6 +107,7 @@ const BlogPage: FC = () => {
         title: t("latestBlog"),
         content: latestBlogNode,
       }}
+      isSubtitleReverse={true}
     >
       <ContentContainer className="my-18">
         <div

@@ -20,11 +20,13 @@ interface PageLayoutProps extends React.HTMLAttributes<HTMLDivElement> {
     title: string;
     content: React.ReactNode;
   };
+  isSubtitleReverse?: boolean;
 }
 
 const PageLayout: FC<PageLayoutProps> = ({
   heroContent,
   latestContent,
+  isSubtitleReverse = false,
   children,
 }) => {
   const locale = useLocale();
@@ -46,21 +48,18 @@ const PageLayout: FC<PageLayoutProps> = ({
                   <>
                     <span
                       className={cn(
-                        locale === "ja"
+                        isSubtitleReverse && locale === "ja"
                           ? "hero-text-gradient bg-clip-text text-transparent"
                           : "text-[var(--color-gray-900)] dark:text-[var(--color-gray-50)]"
                       )}
                     >
                       {heroContent.subtitle.start}
                     </span>
-                    {heroContent.subtitle.start &&
-                      heroContent.subtitle.end &&
-                      " "}
                     <span
                       className={cn(
-                        locale !== "ja"
-                          ? "hero-text-gradient bg-clip-text text-transparent"
-                          : "text-[var(--color-gray-900)] dark:text-[var(--color-gray-50)]"
+                        isSubtitleReverse && locale === "ja"
+                          ? "text-[var(--color-gray-900)] dark:text-[var(--color-gray-50)]"
+                          : "hero-text-gradient bg-clip-text text-transparent"
                       )}
                     >
                       {heroContent.subtitle.end}
