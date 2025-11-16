@@ -54,7 +54,7 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
   if (headings.length === 0) return null;
 
   return (
-    <nav className={cn("sticky top-0 space-y-2", className)}>
+    <nav className={cn("sticky top-24 space-y-2", className)}>
       <h4 className="font-bold text-lg mb-4 text-[var(--color-primary-800)] dark:text-[var(--color-primary-100)]">
         {t("tableOfContents")}
       </h4>

@@ -1,7 +1,7 @@
 "use client";
 
 import { HeaderMenu } from "@/lib/constants";
-import React, { use, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { Link } from "@/i18n/navigations";
 import ModeToggle from "./ModeToggle";
 import LocaleSwitcher from "./LocaleSwitcher";
@@ -16,12 +16,36 @@ import {
 import { ArrowRight, List, X } from "lucide-react";
 import { Separator } from "./ui/separator";
 import { useTranslations } from "next-intl";
+import { cn } from "@/lib/utils";
 
 export default function Header() {
   const t = useTranslations("Home");
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollThreshold = 32;
+      setIsScrolled(window.scrollY > scrollThreshold);
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
   return (
-    <div className="w-full grid grid-cols-2 lg:grid-cols-12 justify-center items-center py-4 lg:py-8 px-8 lg:px-12 bg-transparent fixed top-0 left-0 z-10">
+    <div
+      className={cn(
+        "w-full grid grid-cols-2 lg:grid-cols-12 justify-center items-center py-4 lg:py-6 px-8 lg:px-12 fixed top-0 left-0 z-10",
+        "transition-all duration-300 ease-in-out",
+        isScrolled
+          ? "bg-white dark:bg-[var(--color-gray-950)] shadow-md backdrop-blur-sm"
+          : "bg-transparent"
+      )}
+    >
       <div className="flex lg:col-span-3 font-bold text-xl hero-text-gradient bg-clip-text text-transparent">
         OneKyuu
       </div>

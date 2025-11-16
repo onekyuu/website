@@ -97,14 +97,14 @@ const PortfolioPage = () => {
               key={project.translations[locale]?.title}
               className="w-screen flex items-center justify-center flex-shrink-0"
             >
-              <ContentContainer className="lg:min-h-1/2 grid grid-rows-2 grid-cols-1 md:grid-cols-2 md:grid-rows-1 lg:grid-cols-5 gap-6">
+              <ContentContainer className="lg:min-h-1/2 grid grid-rows-2 grid-cols-1 sm:grid-rows-1 sm:grid-cols-5 gap-4 md:gap-6">
                 <DetailCard
                   project={getProjectDetail(project)}
-                  className="project-card-bg row-span-1 md:col-span-1 lg:col-span-3"
+                  className="project-card-bg row-span-1 sm:col-span-3"
                 />
                 <SummaryCard
                   info={project?.translations[locale]?.info || []}
-                  className="row-span-1 md:col-span-1 lg:col-span-2"
+                  className="row-span-1 sm:col-span-2"
                 />
               </ContentContainer>
             </div>

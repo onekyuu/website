@@ -88,10 +88,16 @@ const HorizontalScroll: FC<React.HTMLAttributes<HTMLDivElement>> = ({
 
   return (
     <div ref={wrapperRef} className="relative w-full">
-      <div className="sticky top-0 w-full h-screen overflow-hidden flex items-center">
+      <div
+        className={cn(
+          "sticky top-0 w-full h-screen overflow-hidden flex items-center",
+          "top-[72px] lg:top-0",
+          "h-[calc(100vh-72px)] lg:h-screen"
+        )}
+      >
         <div
           ref={projectBoxRef}
-          className={cn("flex items-center h-screen gap-8", className)}
+          className={cn("flex items-center h-full gap-8", className)}
           {...props}
         >
           {children}
