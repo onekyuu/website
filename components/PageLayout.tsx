@@ -137,7 +137,7 @@ const HeaderImages: FC<{ images: string[] }> = ({ images }) => {
           <CarouselItem key={index} className="lg:basis-1/3">
             <AspectRatio
               ratio={9 / 5}
-              className="bg-[var(--color-background-dark-1)] rounded-2xl"
+              className="bg-gradient-to-br from-[var(--color-gray-100)] to-[var(--color-gray-200)] dark:from-[var(--color-gray-900)] dark:to-[var(--color-gray-800)] rounded-2xl"
             >
               <Image
                 src={image}
