@@ -55,6 +55,9 @@ const PageLayout: FC<PageLayoutProps> = ({
                     >
                       {heroContent.subtitle.start}
                     </span>
+                    {heroContent.subtitle.start &&
+                      heroContent.subtitle.end &&
+                      " "}
                     <span
                       className={cn(
                         isSubtitleReverse && locale === "ja"
@@ -132,12 +135,15 @@ const HeaderImages: FC<{ images: string[] }> = ({ images }) => {
       <CarouselContent>
         {images?.map((image, index) => (
           <CarouselItem key={index} className="lg:basis-1/3">
-            <AspectRatio ratio={9 / 5}>
+            <AspectRatio
+              ratio={9 / 5}
+              className="bg-[var(--color-background-dark-1)] rounded-2xl"
+            >
               <Image
                 src={image}
                 alt={`Project image ${index + 1}`}
                 fill
-                className="object-cover rounded-2xl"
+                className="object-contain rounded-2xl"
               />
             </AspectRatio>
           </CarouselItem>

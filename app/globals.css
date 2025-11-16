@@ -393,4 +393,11 @@
   .dark .title-color {
     color: var(--color-primary-50);
   }
+  .carousel-bg {
+    background-image: radial-gradient(
+      317.81% 324.93% at 50% 50%,
+      rgba(124, 126, 234, 0.6) 0%,
+      rgba(76, 77, 157, 0.6) 100%
+    );
+  }
 }

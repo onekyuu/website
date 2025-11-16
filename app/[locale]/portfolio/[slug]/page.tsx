@@ -65,24 +65,28 @@ const ProjectDetailPage: FC = () => {
         <section className="rounded-2xl project-gradient-radial-purple py-12 px-8 lg:p-10 flex flex-col gap-8 lg:gap-14">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="flex gap-8 justify-center md:justify-self-end items-center md:order-2">
-              <Link
-                href={formatProjectData.github_url}
-                target="_blank"
-                className="flex gap-2 text-base md:text-lg"
-              >
-                <Github className="w-5 h-5 md:w-6 md:h-6" />
-                {t("github")}
-                <ArrowRight className="w-5 h-5 md:w-6 md:h-6" />
-              </Link>
-              <Link
-                href={formatProjectData.live_demo_url}
-                target="_blank"
-                className="flex gap-2"
-              >
-                <TvMinimalPlay className="w-5 h-5 md:w-6 md:h-6" />
-                {t("liveDemo")}
-                <ArrowRight className="w-5 h-5 md:w-6 md:h-6" />
-              </Link>
+              {formatProjectData.github_url && (
+                <Link
+                  href={formatProjectData.github_url}
+                  target="_blank"
+                  className="flex gap-2 text-base md:text-lg"
+                >
+                  <Github className="w-5 h-5 md:w-6 md:h-6" />
+                  {t("github")}
+                  <ArrowRight className="w-5 h-5 md:w-6 md:h-6" />
+                </Link>
+              )}
+              {formatProjectData.live_demo_url && (
+                <Link
+                  href={formatProjectData.live_demo_url}
+                  target="_blank"
+                  className="flex gap-2"
+                >
+                  <TvMinimalPlay className="w-5 h-5 md:w-6 md:h-6" />
+                  {t("liveDemo")}
+                  <ArrowRight className="w-5 h-5 md:w-6 md:h-6" />
+                </Link>
+              )}
             </div>
             <div className="section-title flex items-center justify-center md:justify-self-start md:order-1 text-center md:text-start">
               {formatProjectData.tech_summary}
