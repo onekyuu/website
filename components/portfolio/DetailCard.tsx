@@ -34,7 +34,7 @@ const DetailCard: FC<DetailCardProps> = ({
       <div className="absolute inset-0 card-gradient-bg bg-cover opacity-60 z-[-1] rounded-xl"></div>
       <CardContent
         className={cn(
-          "flex flex-col justify-between min-h-[37vh] md:min-h-[50vh] lg:min-h-[60vh] gap-2 md:gap-8 px-8",
+          "flex flex-col justify-between min-h-[36vh] md:min-h-[50vh] lg:min-h-[60vh] gap-2 md:gap-8 px-8",
           type === "latest"
             ? "text-(--color-primary-100)"
             : "dark:text-(--color-gray-900)",
@@ -63,8 +63,8 @@ const DetailCard: FC<DetailCardProps> = ({
             <ArrowUpRight />
           </Link>
         </div>
-        <div className="p-2 md:p-4 lg:p-5 picture-gradient-bg rounded-xl">
-          <AspectRatio ratio={16 / 9} className="w-full ">
+        <div className="p-2 mx-3 md:mx-0 md:p-4 lg:p-5 picture-gradient-bg rounded-xl">
+          <AspectRatio ratio={16 / 9} className="w-full">
             <Image
               src={project.image || "/project-cover.jpeg"}
               alt="Project Cover"
