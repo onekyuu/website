@@ -83,7 +83,7 @@ const BlogPage: FC = () => {
           <ContentContainer className="flex items-center justify-center mt-4 md:mt-8">
             <form
               onSubmit={handleSearch}
-              className="flex flex-col md:flex-row w-full max-w-4xl items-center gap-2 p-4 bg-[var(--color-secondary-300)] rounded-xl"
+              className="flex flex-col md:flex-row w-full max-w-4xl items-center gap-2 p-4 bg-(--color-secondary-300) rounded-xl"
             >
               <Input
                 type="text"
@@ -112,7 +112,7 @@ const BlogPage: FC = () => {
       <ContentContainer className="my-18">
         <div
           id="all-posts"
-          className="text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] text-2xl md:text-3xl lg:text-4xl font-bold"
+          className="text-(--color-primary-900) dark:text-(--color-primary-50) text-2xl md:text-3xl lg:text-4xl font-bold"
         >
           {t("allPosts")}
         </div>

@@ -15,11 +15,11 @@ const SummaryCard: FC<SummaryCardProps> = ({ info, className }) => {
   return (
     <Card
       className={cn(
-        "dark:bg-[var(--color-primary-600)] dark:text-[var(--color-gray-50)]",
+        "dark:bg-(--color-primary-600) dark:text-(--color-gray-50)",
         className
       )}
     >
-      <CardContent className="flex flex-col gap-2">
+      <CardContent className="flex flex-col gap-2 px-8">
         <p className="font-bold text-lg md:text-xl lg:text-2xl mb-2 md:mb-4">
           {t("projectSummary")}
         </p>
@@ -28,8 +28,8 @@ const SummaryCard: FC<SummaryCardProps> = ({ info, className }) => {
             key={`latest-${index}`}
             className="flex items-start justify-start gap-1 md:gap-2 text-xl font-semibold lg:font-bold"
           >
-            <span className="mr-4 flex-shrink-0 mt-1">
-              <BadgeCheck className="h-4 w-4 lg:h-5 lg:w-5 text-[var(--color-primary-700)]" />
+            <span className="mr-4 shrink-0 mt-1">
+              <BadgeCheck className="h-4 w-4 lg:h-5 lg:w-5 text-(--color-primary-700) dark:text-(--color-primary-50)" />
             </span>
             <span className="text-base md:text-lg self-center">{line}</span>
           </div>

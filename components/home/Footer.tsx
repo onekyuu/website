@@ -18,16 +18,16 @@ const FooterSection: FC = () => {
   const recentProjects = projectList?.slice(0, 4) || [];
 
   return (
-    <div className="bg-[var(--color-gray-900)] mx-2 my-4 py-8 md:m-4 md:py-12 lg:m-8 lg:py-16 rounded-3xl">
+    <div className="bg-(--color-gray-900) mx-2 my-4 py-8 md:m-4 md:py-12 lg:m-8 lg:py-16 rounded-3xl">
       <ContentContainer className="px-2">
-        <Separator className="my-4 bg-[var(--color-gray-600)]" />
-        <div className="grid grid-cols-1 grid-rows-1 md:grid-cols-2 md:grid-rows-1 lg:grid-cols-4 lg:grid-rows-1 lg:justify-items-center text-[var(--color-gray-50)]">
+        <Separator className="my-4 bg-(--color-gray-600)" />
+        <div className="grid grid-cols-1 grid-rows-1 md:grid-cols-2 md:grid-rows-1 lg:grid-cols-4 lg:grid-rows-1 lg:justify-items-center text-(--color-gray-50)">
           <div className="mt-8 md:mt-4">
             <Link href="/">Home</Link>
           </div>
           <div className="mt-8 md:mt-4">
             <Link href="/portfolio">Portfolio</Link>
-            <div className="text-[var(--color-gray-400)] text-sm md:text-base flex flex-col mt-4">
+            <div className="text-(--color-gray-400) text-sm md:text-base flex flex-col mt-4">
               {recentProjects?.map((project) => (
                 <Link
                   href={`/portfolio/${project.slug}`}
@@ -41,7 +41,7 @@ const FooterSection: FC = () => {
           </div>
           <div className="mt-8 md:mt-4">
             <Link href="/blog">Blog</Link>
-            <div className="text-[var(--color-gray-400)] text-sm md:text-base flex flex-col mt-4">
+            <div className="text-(--color-gray-400) text-sm md:text-base flex flex-col mt-4">
               {recentPosts?.map((post) => (
                 <Link
                   href={`/blog/${post.slug}`}
@@ -57,14 +57,14 @@ const FooterSection: FC = () => {
             Gallery
           </Link>
         </div>
-        <Separator className="my-4 bg-[var(--color-gray-600)]" />
+        <Separator className="my-4 bg-(--color-gray-600)" />
         <div className="flex justify-between items-center">
-          <div className="flex items-center justify-center gap-2 text-[var(--color-gray-50)] text-xl">
+          <div className="flex items-center justify-center gap-2 text-(--color-gray-50) text-xl">
             <div className="font-bold text-xl hero-text-gradient bg-clip-text text-transparent">
               OneKyuu
             </div>
           </div>
-          <div className="text-sm md:text-base text-[var(--color-gray-300)] text-center align-middle">
+          <div className="text-sm md:text-base text-(--color-gray-300) text-center align-middle">
             © {new Date().getFullYear()}. All rights reserved.
           </div>
         </div>

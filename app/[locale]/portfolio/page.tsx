@@ -63,7 +63,7 @@ const PortfolioPage = () => {
         title: t("title"),
         subtitle: { start: t("subtitleStart"), end: t("subtitleEnd") },
         extraContent: (
-          <div className="text-[var(--color-gray-700)] dark:text-[var(--color-gray-300)] text-base md:text-lg lg:text-xl text-center mt-4">
+          <div className="text-(--color-gray-700) dark:text-(--color-gray-300) text-base md:text-lg lg:text-xl text-center mt-4">
             {t("description")}
           </div>
         ),
@@ -77,7 +77,7 @@ const PortfolioPage = () => {
       {isProjectLoading ? (
         <div>
           <ContentContainer>
-            <div className=" w-[60vw] lg:w-[50vw] text-center text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] text-2xl md:text-3xl lg:text-4xl font-bold">
+            <div className=" w-[60vw] lg:w-[50vw] text-center text-(--color-primary-900) dark:text-(--color-primary-50) text-2xl md:text-3xl lg:text-4xl font-bold">
               {t("allProjects")}
             </div>
           </ContentContainer>
@@ -86,16 +86,16 @@ const PortfolioPage = () => {
           </ContentContainer>
         </div>
       ) : (
-        <HorizontalScroll className="gap-6">
+        <HorizontalScroll className="gap-10 lg:gap-8">
           <ContentContainer>
-            <div className=" w-[60vw] lg:w-[50vw] text-center text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] text-2xl md:text-3xl lg:text-4xl font-bold">
+            <div className=" w-[60vw] lg:w-[50vw] text-center text-(--color-primary-900) dark:text-(--color-primary-50) text-2xl md:text-3xl lg:text-4xl font-bold">
               {t("allProjects")}
             </div>
           </ContentContainer>
           {projectResponse?.map((project) => (
             <div
               key={project.translations[locale]?.title}
-              className="w-screen flex items-center justify-center flex-shrink-0"
+              className="w-screen flex items-center justify-center shrink-0"
             >
               <ContentContainer className="lg:min-h-1/2 grid grid-rows-2 grid-cols-1 sm:grid-rows-1 sm:grid-cols-5 gap-4 md:gap-6">
                 <DetailCard

@@ -66,25 +66,25 @@ const ContactSection: FC = () => {
   return (
     <div id="contact-section">
       <ContentContainer className="my-7 md:my-12 lg:my-16">
-        <div className="text-3xl font-bold text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] md:text-4xl lg:text-5xl">
+        <div className="text-3xl font-bold text-(--color-primary-900) dark:text-(--color-primary-50) md:text-4xl lg:text-5xl">
           {t("contactMe")}
         </div>
         <div className="flex flex-col lg:grid lg:grid-cols-[40%_55%] items-start justify-between mt-6 lg:mt-12 w-full gap-6">
           <div className="w-full lg:h-full contact-bg rounded-3xl py-8 px-6 flex flex-1 flex-col items-center justify-between">
             <div className="flex flex-col items-center md:w-[70%] lg:items-start lg:w-full">
-              <div className="text-3xl font-bold dark:text-[var(--color-gray-50)]">
+              <div className="text-3xl font-bold dark:text-(--color-gray-50)">
                 {t("sayHello")}
               </div>
-              <div className="text-lg text-[var(--color-gray-600)] dark:text-[var(--color-gray-300)] mt-6">
+              <div className="text-lg text-(--color-gray-600) dark:text-(--color-gray-300) mt-6">
                 {t("contactDescription")}
               </div>
 
               <div className="flex flex-row justify-between lg:flex-col w-full">
                 <div className="mt-8">
-                  <div className="text-xl font-semibold dark:text-[var(--color-gray-100)] text-center lg:text-start">
+                  <div className="text-xl font-semibold dark:text-(--color-gray-100) text-center lg:text-start">
                     {t("email")}
                   </div>
-                  <div className="mt-2 md:mt-6 font-semibold text-[var(--color-primary-700)] dark:text-[var(--color-primary-300)]">
+                  <div className="mt-2 md:mt-6 font-semibold text-(--color-primary-700) dark:text-(--color-primary-300)">
                     me@keyu.email
                   </div>
                 </div>
@@ -106,12 +106,12 @@ const ContactSection: FC = () => {
                   className="mx-4"
                   target="_blank"
                 >
-                  <social.icon className="h-6 w-6 text-[var(--color-gray-600)] dark:text-[var(--color-gray-300)]" />
+                  <social.icon className="h-6 w-6 text-(--color-gray-600) dark:text-(--color-gray-300)" />
                 </Link>
               ))}
             </div>
           </div>
-          <div className="w-full py-8 px-7 rounded-3xl bg-[var(--color-background-2)] dark:bg-[var(--color-background-dark-3)] mt-6 lg:mt-0 h-full">
+          <div className="w-full py-8 px-7 rounded-3xl bg-(--color-background-2) dark:bg-(--color-background-dark-3) mt-6 lg:mt-0 h-full">
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(handleSendMessage)}
@@ -188,7 +188,7 @@ const ContactSection: FC = () => {
                   type="submit"
                   disabled={isSubmitting}
                   size={"lg"}
-                  className="w-full cursor-pointer h-10 md:h-12 bg-[var(--color-primary-600)] text-base md:text-lg font-bold rounded-xl"
+                  className="w-full cursor-pointer h-10 md:h-12 bg-(--color-primary-600) text-base md:text-lg font-bold rounded-xl"
                 >
                   {t("sendMessage")}
                 </Button>

@@ -49,7 +49,7 @@ const BlogSection: FC<BlogSectionProps> = ({
   return (
     <div className="min-h-screen flex items-center justify-center">
       <ContentContainer>
-        <div className="text-3xl font-bold text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] mt-7 md:text-4xl md:mt-12 lg:text-5xl lg:mt-16">
+        <div className="text-3xl font-bold text-(--color-primary-900) dark:text-(--color-primary-50) mt-7 md:text-4xl md:mt-12 lg:text-5xl lg:mt-16">
           {t("blog")}
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
@@ -67,13 +67,13 @@ const BlogSection: FC<BlogSectionProps> = ({
                 <CardTitle className="mt-4 lg:mt-8 text-xl font-bold md:text-2xl">
                   {blog.title}
                 </CardTitle>
-                <CardDescription className="mt-2 lg:mt-4 font-semibold text-base text-[var(--color-gray-600)]">
+                <CardDescription className="mt-2 lg:mt-4 font-semibold text-base text-(--color-gray-600)">
                   {blog.description}
                 </CardDescription>
               </CardContent>
               <CardFooter>
                 <Link
-                  className="text-[var(--color-primary-700)] font-bold"
+                  className="text-(--color-primary-700) font-bold"
                   href={"/blog"}
                 >
                   {t("readPost")}

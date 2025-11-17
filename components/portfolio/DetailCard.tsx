@@ -34,10 +34,10 @@ const DetailCard: FC<DetailCardProps> = ({
       <div className="absolute inset-0 card-gradient-bg bg-cover opacity-60 z-[-1] rounded-xl"></div>
       <CardContent
         className={cn(
-          "flex flex-col justify-between min-h-[37vh] md:min-h-[50vh] lg:min-h-[60vh] gap-4 md:gap-8",
+          "flex flex-col justify-between min-h-[37vh] md:min-h-[50vh] lg:min-h-[60vh] gap-2 md:gap-8 px-8",
           type === "latest"
-            ? "text-[var(--color-primary-100)]"
-            : "dark:text-[var(--color-gray-900)]",
+            ? "text-(--color-primary-100)"
+            : "dark:text-(--color-gray-900)",
           className
         )}
       >
@@ -49,8 +49,8 @@ const DetailCard: FC<DetailCardProps> = ({
             className={cn(
               "text-base lg:text-lg",
               type === "latest"
-                ? "text-[var(--color-primary-100)]"
-                : "text-[var(--color-gray-700)]"
+                ? "text-(--color-primary-100)"
+                : "text-(--color-gray-700)"
             )}
           >
             {project.summary}
