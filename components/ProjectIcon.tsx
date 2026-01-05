@@ -27,6 +27,14 @@ import {
   FilePenLine,
   BookUp2,
   MoonStar,
+  MonitorPlay,
+  Proportions,
+  Hammer,
+  MessageCircle,
+  GitCompareArrows,
+  Sparkles,
+  BookOpen,
+  RefreshCw,
 } from "lucide-react";
 
 const iconMap: Record<string, LucideIcon> = {
@@ -56,6 +64,14 @@ const iconMap: Record<string, LucideIcon> = {
   filepenline: FilePenLine,
   bookup2: BookUp2,
   moonstar: MoonStar,
+  monitorplay: MonitorPlay,
+  proportions: Proportions,
+  hammer: Hammer,
+  messagecircle: MessageCircle,
+  gitcomparearrows: GitCompareArrows,
+  sparkles: Sparkles,
+  bookopen: BookOpen,
+  refreshcw: RefreshCw,
 };
 
 interface ProjectIconProps {
