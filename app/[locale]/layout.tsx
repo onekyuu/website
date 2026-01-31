@@ -19,16 +19,6 @@ const nunito = Nunito({
   subsets: ["latin"],
 });
 
-// const notoSansJP = Noto_Sans_JP({
-//   variable: "--font-noto-sans-jp",
-//   subsets: ["latin"],
-// });
-
-// const notoSansSC = Noto_Sans_SC({
-//   variable: "--font-noto-sans-sc",
-//   subsets: ["latin"],
-// });
-
 export default async function LocaleLayout({ children, params }: Props) {
   // Ensure that the incoming `locale` is valid
   const { locale } = await params;
@@ -49,7 +39,7 @@ export default async function LocaleLayout({ children, params }: Props) {
         <QueryProvider>
           <ThemeProvider
             attribute="class"
-            defaultTheme="light"
+            defaultTheme="dark"
             enableSystem
             disableTransitionOnChange
           >

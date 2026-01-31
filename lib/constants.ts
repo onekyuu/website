@@ -1,4 +1,4 @@
-import JavsScriptIcon from "@/assets/dev-icons/javascript.svg";
+import JavaScriptIcon from "@/assets/dev-icons/javascript.svg";
 import TypeScriptIcon from "@/assets/dev-icons/typescript.svg";
 import ReactIcon from "@/assets/dev-icons/react.svg";
 import NextJsIcon from "@/assets/dev-icons/nextjs.svg";
@@ -42,7 +42,7 @@ export const skillsList = [
   {
     key: "javascript",
     name: "JavaScript",
-    icon: JavsScriptIcon,
+    icon: JavaScriptIcon,
     order: 2,
   },
   {
