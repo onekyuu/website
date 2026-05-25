@@ -1,74 +1,97 @@
 "use client";
 
 import React, { FC } from "react";
-import ContentContainer from "../ContentContainer";
-import { Separator } from "../ui/separator";
+import { MailIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
+
 import { Link } from "@/i18n/navigations";
-import { useLocale } from "next-intl";
-import { LanguageCode } from "@/types/common";
-import { useProjects } from "@/hooks/useProjects";
-import { usePosts } from "@/hooks/usePosts";
+import { HeaderMenu, SocialMediaMap } from "@/lib/constants";
+import { Marquee } from "@/components/site";
+import { Separator } from "@/components/ui/separator";
 
 const FooterSection: FC = () => {
-  const locale = useLocale() as LanguageCode;
-  const { data: projectList } = useProjects({ page: 1, pageSize: 4 });
-  const { data: blogList } = usePosts({ page: 1, pageSize: 10 });
-
-  const recentPosts = blogList?.results?.slice(0, 4) || [];
-  const recentProjects = projectList?.slice(0, 4) || [];
+  const t = useTranslations("Home");
+  const year = new Date().getFullYear();
 
   return (
-    <div className="bg-(--color-gray-900) mx-2 my-4 py-8 md:m-4 md:py-12 lg:m-8 lg:py-16 rounded-3xl">
-      <ContentContainer className="px-2">
-        <Separator className="my-4 bg-(--color-gray-600)" />
-        <div className="grid grid-cols-1 grid-rows-1 md:grid-cols-2 md:grid-rows-1 lg:grid-cols-4 lg:grid-rows-1 lg:justify-items-center text-(--color-gray-50)">
-          <div className="mt-8 md:mt-4">
-            <Link href="/">Home</Link>
+    <div className="bg-site-paper text-site-ink">
+      <footer className="border-t border-site-line bg-site-paper py-site-footer">
+        <div className="mx-auto grid w-[var(--site-content-width)] gap-10 lg:grid-cols-[var(--site-footer-grid)] lg:gap-16">
+          <div className="flex flex-col gap-4">
+            <div className="text-site-footer-brand font-extrabold leading-none text-site-ink">
+              <span className="grid size-7 place-items-center border border-site-ink text-xs">
+                九
+              </span>
+              <span className="mt-4 block">OneKyuu</span>
+            </div>
+            <div className="inline-flex w-fit items-center gap-2.5 border border-site-line-strong px-3 py-2.5 text-site-nav text-site-ink-2 before:size-2 before:bg-site-ink">
+              Available for selected projects
+            </div>
           </div>
-          <div className="mt-8 md:mt-4">
-            <Link href="/portfolio">Portfolio</Link>
-            <div className="text-(--color-gray-400) text-sm md:text-base flex flex-col mt-4">
-              {recentProjects?.map((project) => (
+
+          <nav aria-label="Footer navigation" className="flex flex-col gap-4">
+            <div className="text-site-control uppercase tracking-site-label text-site-muted">
+              Navigation
+            </div>
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
+              {HeaderMenu.map((item) => (
                 <Link
-                  href={`/portfolio/${project.slug}`}
-                  className="my-1"
-                  key={project.slug}
+                  key={item.key}
+                  href={item.href}
+                  className="w-fit border-b border-transparent pb-0.5 text-site-footer-link leading-tight text-site-ink transition-colors hover:border-site-ink"
                 >
-                  {project.translations[locale]?.title}
+                  {t(item.key)}
                 </Link>
               ))}
             </div>
-          </div>
-          <div className="mt-8 md:mt-4">
-            <Link href="/blog">Blog</Link>
-            <div className="text-(--color-gray-400) text-sm md:text-base flex flex-col mt-4">
-              {recentPosts?.map((post) => (
-                <Link
-                  href={`/blog/${post.slug}`}
-                  className="my-1"
-                  key={post.slug}
+          </nav>
+
+          <div className="flex flex-col gap-6">
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-1">
+              <div className="flex flex-col gap-3">
+                <div className="text-site-control uppercase tracking-site-label text-site-muted">
+                  Contact
+                </div>
+                <a
+                  href="mailto:me@keyu.email"
+                  className="inline-flex w-fit items-center gap-2 border-b border-transparent pb-0.5 text-site-footer-link leading-tight text-site-ink transition-colors hover:border-site-ink"
                 >
-                  {post.translations[locale]?.title}
-                </Link>
-              ))}
+                  <MailIcon data-icon="inline-start" className="size-4" />
+                  <span>me@keyu.email</span>
+                </a>
+              </div>
+
+              <div className="flex flex-col gap-3">
+                <div className="text-site-control uppercase tracking-site-label text-site-muted">
+                  Socials
+                </div>
+                <div className="flex flex-wrap gap-3">
+                  {SocialMediaMap.map((social) => (
+                    <Link
+                      key={social.name}
+                      href={social.url}
+                      target="_blank"
+                      aria-label={social.name}
+                      className="grid size-9 place-items-center border border-site-line text-site-ink transition-colors hover:border-site-line-strong hover:bg-site-paper-2"
+                    >
+                      <social.icon data-icon="icon" className="size-4" />
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <Separator />
+            <div className="flex flex-col gap-2 text-sm text-site-muted sm:flex-row sm:justify-between lg:flex-col">
+              <span>Full-stack development, interface systems, writing, and photography.</span>
+              <span>© {year}. All rights reserved.</span>
             </div>
           </div>
-          <Link className="mt-8 md:mt-4" href="/gallery">
-            Gallery
-          </Link>
         </div>
-        <Separator className="my-4 bg-(--color-gray-600)" />
-        <div className="flex justify-between items-center">
-          <div className="flex items-center justify-center gap-2 text-(--color-gray-50) text-xl">
-            <div className="font-bold text-xl hero-text-gradient bg-clip-text text-transparent">
-              OneKyuu
-            </div>
-          </div>
-          <div className="text-sm md:text-base text-(--color-gray-300) text-center align-middle">
-            © {new Date().getFullYear()}. All rights reserved.
-          </div>
-        </div>
-      </ContentContainer>
+      </footer>
+
+      <Marquee
+        items={["OneKyuu", "Full-Stack Developer", "Photography", "Blog"]}
+      />
     </div>
   );
 };

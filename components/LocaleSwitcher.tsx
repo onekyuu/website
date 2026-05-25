@@ -1,14 +1,17 @@
 "use client";
+
 import { FC } from "react";
 import { useLocale } from "next-intl";
+
+import { Button } from "@/components/ui/button";
 import { localeItems, usePathname, useRouter } from "@/i18n/navigations";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { cn } from "@/lib/utils";
+
+const localeLabels: Record<string, string> = {
+  zh: "中",
+  en: "EN",
+  ja: "日",
+};
 
 const LocaleSwitcher: FC = () => {
   const locale = useLocale();
@@ -20,25 +23,29 @@ const LocaleSwitcher: FC = () => {
   };
 
   return (
-    <div>
-      <Select defaultValue={locale} value={locale} onValueChange={handleChange}>
-        <SelectTrigger className="w-22 lg:w-24 px-2 py-1 lg:px-3 lg:py-2 cursor-pointer font-light">
-          <SelectValue />
-        </SelectTrigger>
-        <SelectContent>
-          {localeItems.map((item) => {
-            return (
-              <SelectItem
-                key={item.code}
-                value={item.code}
-                className="cursor-pointer font-light"
-              >
-                {item.name}
-              </SelectItem>
-            );
-          })}
-        </SelectContent>
-      </Select>
+    <div
+      className="flex items-center gap-1 border border-site-line bg-site-paper p-[var(--site-lang-switch-padding)]"
+      aria-label="Language"
+    >
+      {localeItems.map((item) => {
+        const isActive = locale === item.code;
+
+        return (
+          <Button
+            key={item.code}
+            type="button"
+            variant="ghost"
+            onClick={() => handleChange(item.code)}
+            aria-pressed={isActive}
+            className={cn(
+              "h-auto rounded-none px-2.5 py-1.5 [font-size:var(--site-control-font-size)] uppercase tracking-normal text-site-muted hover:bg-site-paper-2 hover:text-site-ink",
+              isActive && "bg-site-ink text-site-paper hover:bg-site-ink hover:text-site-paper"
+            )}
+          >
+            {localeLabels[item.code] ?? item.code.toUpperCase()}
+          </Button>
+        );
+      })}
     </div>
   );
 };

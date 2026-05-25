@@ -56,7 +56,7 @@ export function MetadataRow({
       )}
       {...props}
     >
-      <dt className="text-xs uppercase tracking-widest text-site-muted">
+      <dt className="text-site-control uppercase tracking-site-label text-site-muted">
         {label}
       </dt>
       <dd className="text-base leading-relaxed text-site-ink">{children}</dd>

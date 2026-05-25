@@ -28,7 +28,7 @@ export function SplitHeader({
     >
       <div className="flex flex-col gap-5">
         {eyebrow && (
-          <div className="flex items-center gap-3 text-xs uppercase tracking-widest text-site-muted before:h-px before:w-11 before:bg-site-muted">
+          <div className="flex items-center gap-3 text-site-control uppercase tracking-site-label text-site-muted before:h-px before:w-11 before:bg-site-muted">
             {eyebrow}
           </div>
         )}

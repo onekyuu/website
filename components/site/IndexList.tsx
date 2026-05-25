@@ -43,7 +43,7 @@ export function IndexListItem({
 }: IndexListItemProps) {
   const content = (
     <div className="grid gap-4 py-6 md:grid-cols-[var(--site-index-grid)] md:items-center md:py-8">
-      <span className="text-sm text-site-muted">{index}</span>
+      <span className="text-site-nav text-site-muted">{index}</span>
       <strong className="text-2xl font-semibold leading-tight text-site-ink transition-transform group-hover:translate-x-1 md:text-3xl">
         {title}
       </strong>
@@ -52,7 +52,7 @@ export function IndexListItem({
           {summary}
         </span>
       )}
-      <span className="flex items-center justify-between gap-3 text-sm uppercase tracking-widest text-site-muted md:justify-end">
+      <span className="flex items-center justify-between gap-3 text-site-control uppercase tracking-site-label text-site-muted md:justify-end">
         {meta ?? actionLabel}
         <ArrowRightIcon data-icon="inline-end" className="size-4" />
       </span>

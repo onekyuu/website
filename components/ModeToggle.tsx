@@ -1,7 +1,6 @@
 "use client";
 
-import * as React from "react";
-import { Moon, Sun } from "lucide-react";
+import { MoonIcon, SunIcon } from "lucide-react";
 import { useTheme } from "next-themes";
 
 import { Button } from "@/components/ui/button";
@@ -9,22 +8,21 @@ import { FC } from "react";
 
 const ModeToggle: FC = () => {
   const { setTheme, theme } = useTheme();
+  const isLight = theme === "light";
 
-  return theme === "light" ? (
+  return (
     <Button
       variant="ghost"
-      onClick={() => setTheme("dark")}
-      className="cursor-pointer h-7 w-7 lg:h-9 lg:w-9"
+      size="icon"
+      onClick={() => setTheme(isLight ? "dark" : "light")}
+      className="size-10 rounded-none border border-site-line bg-transparent text-site-ink hover:bg-site-paper-2"
+      aria-label={isLight ? "Switch to dark theme" : "Switch to light theme"}
     >
-      <Sun />
-    </Button>
-  ) : (
-    <Button
-      variant="ghost"
-      onClick={() => setTheme("light")}
-      className="cursor-pointer h-7 w-7 lg:h-9  lg:w-9"
-    >
-      <Moon />
+      {isLight ? (
+        <SunIcon data-icon="icon" />
+      ) : (
+        <MoonIcon data-icon="icon" />
+      )}
     </Button>
   );
 };

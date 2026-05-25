@@ -44,9 +44,16 @@
   --color-site-line: var(--site-line);
   --color-site-line-strong: var(--site-line-strong);
 
-  --font-sans: var(--font-sans);
+  --font-sans: var(--site-font-sans);
   --font-mono: var(--font-mono);
   --font-serif: var(--font-serif);
+  --text-site-nav: var(--site-nav-font-size);
+  --text-site-control: var(--site-control-font-size);
+  --text-site-footer-link: var(--site-footer-link-font-size);
+  --text-site-footer-brand: var(--site-footer-brand-font-size);
+  --text-site-marquee-word: var(--site-marquee-word-font-size);
+  --tracking-site-brand: var(--site-brand-tracking);
+  --tracking-site-label: var(--site-label-tracking);
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -172,6 +179,8 @@
   --site-muted: #77746c;
   --site-line: #d8d5cb;
   --site-line-strong: #2a2a27;
+  --site-font-sans: ui-sans-serif, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", "Noto Sans SC", "Noto Sans JP", sans-serif;
   --site-max: 73.75rem;
   --site-radius: 0.5rem;
   --site-header-height: 4.5rem;
@@ -183,6 +192,24 @@
   --site-page-grid: minmax(0, 1fr) minmax(0, 0.64fr);
   --site-index-grid: auto minmax(0, 1fr) minmax(0, 0.45fr) auto;
   --site-metadata-grid: auto 1fr;
+  --site-header-grid: 1fr auto;
+  --site-header-grid-wide: 1fr auto 1fr;
+  --site-footer-grid: minmax(0, 1fr) minmax(0, 0.72fr) minmax(0, 1fr);
+  --site-drawer-width: min(100vw, 28rem);
+  --site-header-bg: color-mix(in srgb, var(--site-paper) 88%, transparent);
+  --site-nav-gap: 1.875rem;
+  --site-nav-font-size: 0.8125rem;
+  --site-control-font-size: 0.75rem;
+  --site-footer-link-font-size: clamp(1.125rem, 2vw, 1.5rem);
+  --site-footer-brand-font-size: clamp(2.625rem, 6vw, 5.375rem);
+  --site-marquee-word-font-size: clamp(3.625rem, 12vw, 10.75rem);
+  --site-marquee-gap: clamp(1.125rem, 3vw, 2.625rem);
+  --site-marquee-padding-y: clamp(1.25rem, 4vw, 3rem);
+  --site-marquee-padding-x: clamp(1.125rem, 3vw, 2.625rem);
+  --site-marquee-dot: clamp(0.625rem, 1.4vw, 1.125rem);
+  --site-brand-tracking: 0.08em;
+  --site-label-tracking: 0.12em;
+  --site-lang-switch-padding: 0.1875rem;
   --background: var(--site-paper);
   --foreground: var(--site-ink);
   --card: var(--site-paper);
@@ -297,7 +324,7 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background font-sans text-foreground;
   }
   html {
     /* 隐藏滚动条但保持滚动功能 */

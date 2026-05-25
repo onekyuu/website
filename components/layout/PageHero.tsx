@@ -29,7 +29,7 @@ export function PageHero({
       <div className="mx-auto grid min-h-[calc(92vh_-_var(--site-header-height))] w-[var(--site-content-width)] gap-10 py-site-section md:grid-cols-[var(--site-page-grid)] md:items-end lg:gap-16">
         <div className="flex flex-col gap-6">
           {eyebrow && (
-            <div className="text-xs uppercase tracking-widest text-site-muted">
+            <div className="text-site-control uppercase tracking-site-label text-site-muted">
               {eyebrow}
             </div>
           )}

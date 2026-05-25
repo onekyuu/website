@@ -11,9 +11,9 @@ import TailwindCSSIcon from "@/assets/dev-icons/tailwindcss.svg";
 import GitIcon from "@/assets/dev-icons/git.svg";
 import DockerIcon from "@/assets/dev-icons/docker.svg";
 import GithubIcon from "@/assets/github.svg";
+import InstagramIcon from "@/assets/instagram.svg";
 import LeetcodeIcon from "@/assets/leetcode.svg";
 import ZennIcon from "@/assets/zenn.svg";
-import InstagramIcon from "@/assets/instagram.svg";
 
 export const HeaderMenu = [
   {
@@ -23,7 +23,7 @@ export const HeaderMenu = [
   },
   {
     key: "portfolio",
-    name: "Protfolio",
+    name: "Portfolio",
     href: "/portfolio",
   },
   {

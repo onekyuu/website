@@ -19,7 +19,10 @@ export function Marquee({
     "--marquee-duration": duration,
   } as React.CSSProperties;
   const marker = separator ?? (
-    <span className="size-2 shrink-0 bg-site-ink" aria-hidden="true" />
+    <span
+      className="size-[var(--site-marquee-dot)] shrink-0 bg-site-ink"
+      aria-hidden="true"
+    />
   );
 
   return (
@@ -53,7 +56,7 @@ function MarqueeGroup({
   return (
     <div
       className={cn(
-        "flex h-site-marquee shrink-0 items-center gap-8 px-8 text-5xl font-semibold uppercase leading-none md:text-7xl lg:text-8xl",
+        "flex shrink-0 items-center gap-[var(--site-marquee-gap)] px-[var(--site-marquee-padding-x)] py-[var(--site-marquee-padding-y)] text-site-marquee-word font-extrabold uppercase leading-none",
         className
       )}
       {...props}
