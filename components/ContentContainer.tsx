@@ -12,7 +12,7 @@ const ContentContainer: FC<ContentContainerProps> = ({
 }) => {
   return (
     <div
-      className={cn("w-full max-w-7xl mx-auto px-4 md:px-6 lg:px-8", className)}
+      className={cn("mx-auto w-[var(--site-content-width)]", className)}
     >
       {children}
     </div>

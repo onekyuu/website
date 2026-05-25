@@ -41,5 +41,6 @@ yarn-error.log*
 next-env.d.ts
 
 # ai
-./opencode
-./sisyphus
+/.opencode
+/.sisyphus
+design-reference/
