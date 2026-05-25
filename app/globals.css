@@ -179,6 +179,10 @@
   --site-footer-y: 5rem;
   --site-marquee-height: 8.5rem;
   --site-content-width: min(var(--site-max), calc(100vw - 2rem));
+  --site-split-grid: minmax(0, 0.72fr) minmax(0, 1fr);
+  --site-page-grid: minmax(0, 1fr) minmax(0, 0.64fr);
+  --site-index-grid: auto minmax(0, 1fr) minmax(0, 0.45fr) auto;
+  --site-metadata-grid: auto 1fr;
   --background: var(--site-paper);
   --foreground: var(--site-ink);
   --card: var(--site-paper);
@@ -434,5 +438,28 @@
       rgba(124, 126, 234, 0.6) 0%,
       rgba(76, 77, 157, 0.6) 100%
     );
+  }
+
+  .site-marquee-track {
+    animation: site-marquee var(--marquee-duration, 24s) linear infinite;
+  }
+
+  .site-marquee:hover .site-marquee-track {
+    animation-play-state: paused;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .site-marquee-track {
+      animation: none;
+    }
+  }
+
+  @keyframes site-marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
   }
 }
