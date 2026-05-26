@@ -22,6 +22,10 @@ interface Photo {
   thumbnail?: string;
   exif?: string;
   cameraInfo?: string;
+  location?: string;
+  camera?: string;
+  lens?: string;
+  settings?: string;
 }
 
 interface YearGroup {
@@ -69,6 +73,21 @@ const PhotoTimeline: FC<PhotoTimelineProps> = ({
             photo.camera_make && photo.camera_model
               ? `${photo.camera_make} ${photo.camera_model}`
               : undefined,
+          location: photo.location_info?.location,
+          camera:
+            photo.camera_make && photo.camera_model
+              ? `${photo.camera_make} ${photo.camera_model}`
+              : undefined,
+          lens: photo.lens_model,
+          settings: [
+            photo.shooting_params?.shutter_speed,
+            photo.shooting_params?.aperture,
+            photo.shooting_params?.iso
+              ? `ISO ${photo.shooting_params.iso}`
+              : undefined,
+          ]
+            .filter(Boolean)
+            .join(" / "),
         }));
 
         return {

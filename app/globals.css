@@ -182,7 +182,7 @@
   --site-font-sans: ui-sans-serif, -apple-system, BlinkMacSystemFont,
     "Segoe UI", "Noto Sans SC", "Noto Sans JP", sans-serif;
   --site-max: 73.75rem;
-  --site-radius: 0.5rem;
+  --site-radius: 0;
   --site-header-height: 4.5rem;
   --site-section-y: 7rem;
   --site-footer-y: 5rem;
@@ -198,8 +198,42 @@
   --site-drawer-width: min(100vw, 28rem);
   --site-header-bg: color-mix(in srgb, var(--site-paper) 88%, transparent);
   --site-nav-gap: 1.875rem;
+  --site-home-hero-grid: minmax(0, 1.08fr) minmax(20rem, 0.68fr);
+  --site-home-work-grid: 0.9fr 1.15fr 1.15fr 1.15fr;
+  --site-home-gallery-grid: minmax(0, 1.35fr) minmax(17.5rem, 0.72fr);
+  --site-home-contact-grid: minmax(0, 0.75fr) minmax(0, 1fr);
+  --site-home-blog-grid: minmax(0, 1.3fr) minmax(18rem, 0.7fr);
   --site-nav-font-size: 0.8125rem;
   --site-control-font-size: 0.75rem;
+  --site-hero-title-weight: 760;
+  --site-hero-title-leading: 0.94;
+  --site-hero-title-tracking: -0.02em;
+  --site-hero-title-max: 55rem;
+  --site-hero-title-max-en: 58.75rem;
+  --site-hero-intro-font-size: clamp(2.625rem, 5.8vw, 5.25rem);
+  --site-hero-intro-font-size-ja: clamp(2.375rem, 5vw, 4.625rem);
+  --site-hero-role-font-size: clamp(3.5rem, 8vw, 7.625rem);
+  --site-hero-role-font-size-ja: clamp(3rem, 7vw, 6rem);
+  --site-hero-role-leading-ja: 1.02;
+  --site-hero-copy-font-size: clamp(1.0625rem, 2vw, 1.375rem);
+  --site-section-title-font-size: clamp(2.375rem, 6vw, 5.125rem);
+  --site-section-title-leading: 0.98;
+  --site-section-title-tracking: -0.02em;
+  --site-section-copy-font-size: 1.1875rem;
+  --site-skill-word-font-size: clamp(3.125rem, 8.8vw, 7.75rem);
+  --site-skill-word-leading: 0.86;
+  --site-skill-word-weight: 780;
+  --site-skill-word-tracking: -0.045em;
+  --site-action-height: 3rem;
+  --site-action-padding-x: 1.125rem;
+  --site-action-gap: 0.875rem;
+  --site-feature-post-min-height: 32.5rem;
+  --site-feature-post-title-font-size: clamp(2.25rem, 5vw, 4.5rem);
+  --site-work-card-min-height: 28.75rem;
+  --site-work-thumb-height: 14rem;
+  --site-gallery-preview-height: 42rem;
+  --site-gallery-main-photo-height: 38.75rem;
+  --site-gallery-secondary-photo-height: 18.875rem;
   --site-footer-link-font-size: clamp(1.125rem, 2vw, 1.5rem);
   --site-footer-brand-font-size: clamp(2.625rem, 6vw, 5.375rem);
   --site-marquee-word-font-size: clamp(3.625rem, 12vw, 10.75rem);
@@ -258,6 +292,16 @@
   --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.1),
     0 8px 10px -1px hsl(0 0% 0% / 0.1);
   --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+}
+
+@media (max-width: 600px) {
+  :root {
+    --site-hero-intro-font-size: clamp(2.125rem, 11vw, 3rem);
+    --site-hero-role-font-size: 3rem;
+    --site-section-title-font-size: 2.375rem;
+    --site-skill-word-font-size: clamp(2.875rem, 15vw, 5.25rem);
+    --site-skill-word-leading: 0.92;
+  }
 }
 
 .dark {
@@ -354,6 +398,18 @@
 
   *::-webkit-scrollbar {
     display: none;
+  }
+}
+
+@keyframes scroll-dot {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.35;
+  }
+  55% {
+    transform: translateY(0.75rem);
+    opacity: 1;
   }
 }
 

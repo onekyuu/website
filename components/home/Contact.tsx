@@ -1,18 +1,14 @@
-import React, { FC } from "react";
-import ContentContainer from "../ContentContainer";
-import { useTranslations } from "next-intl";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
+"use client";
 
-import { Link } from "@/i18n/navigations";
-import { Textarea } from "../ui/textarea";
-import { SocialMediaMap } from "@/lib/constants";
-import z from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
+import React, { FC, useState } from "react";
+import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { sendContactMessage } from "@/hooks/useSendMessage";
+import z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+import { SectionShell, SplitHeader } from "@/components/layout";
+import { SiteButton } from "@/components/site";
 import {
   Form,
   FormControl,
@@ -20,21 +16,23 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../ui/form";
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { sendContactMessage } from "@/hooks/useSendMessage";
+
+const contactSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Invalid email address"),
+  phone: z.string().optional(),
+  message: z.string().min(10, "Message must be at least 10 characters"),
+});
+
+type ContactFormData = z.infer<typeof contactSchema>;
 
 const ContactSection: FC = () => {
   const t = useTranslations("Home");
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const contactSchema = z.object({
-    name: z.string().min(2, "Name must be at least 2 characters"),
-    email: z.string().email("Invalid email address"),
-    phone: z.string().optional(),
-    message: z.string().min(10, "Message must be at least 10 characters"),
-  });
-
-  type ContactFormData = z.infer<typeof contactSchema>;
-
   const form = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
     defaultValues: {
@@ -56,7 +54,7 @@ const ContactSection: FC = () => {
       } else {
         toast.error(result.message);
       }
-    } catch (error) {
+    } catch {
       toast.error("Failed to send message. Please try again.");
     } finally {
       setIsSubmitting(false);
@@ -64,132 +62,109 @@ const ContactSection: FC = () => {
   };
 
   return (
-    <div id="contact-section">
-      <ContentContainer className="my-7 md:my-12 lg:my-16">
-        <div className="text-3xl font-bold text-(--color-primary-900) dark:text-(--color-primary-50) md:text-4xl lg:text-5xl">
-          {t("contactMe")}
-        </div>
-        <div className="flex flex-col lg:grid lg:grid-cols-[40%_55%] items-start justify-between mt-6 lg:mt-12 w-full gap-6">
-          <div className="w-full lg:h-full contact-bg rounded-3xl py-8 px-6 flex flex-1 flex-col items-center justify-between">
-            <div className="flex flex-col items-center md:w-[70%] lg:items-start lg:w-full">
-              <div className="text-3xl font-bold dark:text-(--color-gray-50)">
+    <SectionShell id="contact-section">
+      <SplitHeader
+        eyebrow="Contact / 06"
+        title={t("contactMe")}
+        className="mb-[3.625rem] lg:gap-[4.5rem]"
+      />
+
+      <Form {...form}>
+        <div
+          data-home-contact-panel
+          className="grid border border-site-ink lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]"
+        >
+          <div className="flex min-h-[21.25rem] flex-col justify-between bg-site-ink p-8 text-site-paper lg:min-h-[32.5rem]">
+            <div>
+              <h3 className="text-[1.625rem] leading-[1.05]">
                 {t("sayHello")}
-              </div>
-              <div className="text-lg text-(--color-gray-600) dark:text-(--color-gray-300) mt-6">
+              </h3>
+              <p className="mt-5 leading-[1.6] text-[#aaa8a1] dark:text-[#8f8a80]">
                 {t("contactDescription")}
-              </div>
-
-              <div className="flex flex-row justify-between lg:flex-col w-full">
-                <div className="mt-8">
-                  <div className="text-xl font-semibold dark:text-(--color-gray-100) text-center lg:text-start">
-                    {t("email")}
-                  </div>
-                  <div className="mt-2 md:mt-6 font-semibold text-(--color-primary-700) dark:text-(--color-primary-300)">
-                    me@keyu.email
-                  </div>
-                </div>
-              </div>
+              </p>
             </div>
-            <div className="self-center flex flex-row mt-12">
-              {SocialMediaMap.map((social) => (
-                <Link
-                  key={social.name}
-                  href={social.url}
-                  className="mx-4"
-                  target="_blank"
-                >
-                  <social.icon className="h-6 w-6 text-(--color-gray-600) dark:text-(--color-gray-300)" />
-                </Link>
-              ))}
-            </div>
-          </div>
-          <div className="w-full py-8 px-7 rounded-3xl bg-(--color-background-2) dark:bg-(--color-background-dark-3) mt-6 lg:mt-0 h-full">
-            <Form {...form}>
-              <form
-                onSubmit={form.handleSubmit(handleSendMessage)}
-                className="space-y-6"
+            <div>
+              <div className="text-site-control uppercase tracking-[0.14em] text-[#aaa8a1] dark:text-[#8f8a80]">
+                {t("email")}
+              </div>
+              <a
+                href="mailto:me@keyu.email"
+                className="mt-3 block text-2xl leading-tight text-site-paper"
               >
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t("name")}</FormLabel>
-                      <FormControl>
-                        <Input placeholder={t("namePlaceholder")} {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t("email")}</FormLabel>
-                      <FormControl>
-                        <Input
-                          type="email"
-                          placeholder={t("emailPlaceholder")}
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="phone"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t("phone")}</FormLabel>
-                      <FormControl>
-                        <Input
-                          type="tel"
-                          placeholder={t("phonePlaceholder")}
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="message"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t("message")}</FormLabel>
-                      <FormControl>
-                        <Textarea
-                          placeholder={t("messagePlaceholder")}
-                          rows={6}
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <Button
-                  type="submit"
-                  disabled={isSubmitting}
-                  size={"lg"}
-                  className="w-full cursor-pointer h-10 md:h-12 bg-(--color-primary-600) text-base md:text-lg font-bold rounded-xl"
-                >
-                  {t("sendMessage")}
-                </Button>
-              </form>
-            </Form>
+                me@keyu.email
+              </a>
+            </div>
           </div>
+          <form
+            onSubmit={form.handleSubmit(handleSendMessage)}
+            className="grid gap-4 p-8"
+          >
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-site-control uppercase tracking-site-label text-site-muted">
+                    {t("name")}
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder={t("namePlaceholder")}
+                      className="h-auto border-0 border-b border-site-ink bg-transparent px-0 py-3 text-base focus-visible:border-site-ink focus-visible:ring-0"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-site-control uppercase tracking-site-label text-site-muted">
+                    {t("email")}
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      type="email"
+                      placeholder={t("emailPlaceholder")}
+                      className="h-auto border-0 border-b border-site-ink bg-transparent px-0 py-3 text-base focus-visible:border-site-ink focus-visible:ring-0"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="message"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-site-control uppercase tracking-site-label text-site-muted">
+                    {t("message")}
+                  </FormLabel>
+                  <FormControl>
+                    <Textarea
+                      placeholder={t("messagePlaceholder")}
+                      rows={5}
+                      className="border-0 border-b border-site-ink bg-transparent px-0 py-3 text-base focus-visible:border-site-ink focus-visible:ring-0"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <SiteButton type="submit" disabled={isSubmitting}>
+              {t("sendMessage")}
+            </SiteButton>
+          </form>
         </div>
-      </ContentContainer>
-    </div>
+      </Form>
+    </SectionShell>
   );
 };
 

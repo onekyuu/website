@@ -1,89 +1,120 @@
 "use client";
 
-import React, { FC, useEffect } from "react";
-import ContentContainer from "../ContentContainer";
+import React, { FC } from "react";
 import { useTranslations } from "next-intl";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardTitle,
-} from "../ui/card";
+
+import { SectionShell, SplitHeader } from "@/components/layout";
 import { Link } from "@/i18n/navigations";
-import Image from "next/image";
-import { AspectRatio } from "../ui/aspect-ratio";
-import { BlogPost } from "@/types/post";
+
+export interface HomeBlogPost {
+  id: number;
+  slug: string;
+  title: string;
+  description?: string;
+  date?: string;
+  image?: string;
+}
 
 interface BlogSectionProps {
-  blogList: BlogPost[] | undefined;
+  blogList: HomeBlogPost[] | undefined;
   isLoading: boolean;
   isError: boolean;
   error: Error | null;
 }
 
-const BlogSection: FC<BlogSectionProps> = ({
-  blogList,
-  isLoading,
-  isError,
-  error,
-}) => {
+const BlogSection: FC<BlogSectionProps> = ({ blogList, isLoading }) => {
   const t = useTranslations("Home");
-  const [displayPosts, setDisplayPosts] = React.useState<BlogPost[]>([]);
-
-  useEffect(() => {
-    const updatePosts = () => {
-      const width = window.innerWidth;
-      if (width >= 768) {
-        setDisplayPosts(blogList?.slice(0, 4) || []);
-      } else {
-        setDisplayPosts(blogList?.slice(0, 3) || []);
-      }
-    };
-
-    updatePosts();
-    window.addEventListener("resize", updatePosts);
-    return () => window.removeEventListener("resize", updatePosts);
-  }, [blogList]);
+  const posts = blogList ?? [];
+  const fallbackPosts = [
+    {
+      id: -1,
+      slug: "",
+      title: t("featurePost"),
+      description: t("postDesc"),
+    },
+    {
+      id: -2,
+      slug: "",
+      title: t("postOne"),
+      description: t("postDesc"),
+    },
+    {
+      id: -3,
+      slug: "",
+      title: t("postTwo"),
+      description: t("postDesc"),
+    },
+    {
+      id: -4,
+      slug: "",
+      title: t("postThree"),
+      description: t("postDesc"),
+    },
+  ];
+  const featured = posts[0] ?? fallbackPosts[0];
+  const rest = Array.from(
+    { length: 3 },
+    (_, index) => posts[index + 1] ?? fallbackPosts[index + 1]
+  );
+  const postCategories = ["Engineering", "Design", "Build log"];
+  const postHref = (slug?: string) => (slug ? `/blog/${slug}` : "/blog");
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <ContentContainer>
-        <div className="text-3xl font-bold text-(--color-primary-900) dark:text-(--color-primary-50) mt-7 md:text-4xl md:mt-12 lg:text-5xl lg:mt-16">
-          {t("blog")}
+    <SectionShell id="blog">
+      <SplitHeader
+        eyebrow="Blog / 04"
+        title={t("latestWriting")}
+        className="mb-[3.625rem] lg:gap-[4.5rem]"
+      />
+
+      {isLoading ? (
+        <div className="grid gap-[2.125rem] lg:grid-cols-[var(--site-home-blog-grid)] lg:gap-4">
+          <div className="min-h-[var(--site-feature-post-min-height)] border border-site-ink bg-site-paper-2" />
+          <div className="border-t border-site-ink">
+            {Array.from({ length: 3 }).map((_, index) => (
+              <div
+                key={index}
+                className="border-b border-site-line-strong py-6"
+              />
+            ))}
+          </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
-          {displayPosts.map((blog) => (
-            <Card key={blog.id} className="flex flex-col">
-              <CardContent className="flex-1">
-                <AspectRatio ratio={1}>
-                  <Image
-                    src={blog.image || "/blog-cover.jpeg"}
-                    alt={blog.title}
-                    className="rounded-lg object-cover"
-                    fill
-                  />
-                </AspectRatio>
-                <CardTitle className="mt-4 lg:mt-8 text-xl font-bold md:text-2xl">
-                  {blog.title}
-                </CardTitle>
-                <CardDescription className="mt-2 lg:mt-4 font-semibold text-base text-(--color-gray-600)">
-                  {blog.description}
-                </CardDescription>
-              </CardContent>
-              <CardFooter>
-                <Link
-                  className="text-(--color-primary-700) font-bold"
-                  href={"/blog"}
-                >
-                  {t("readPost")}
-                </Link>
-              </CardFooter>
-            </Card>
-          ))}
+      ) : (
+        <div className="grid gap-[2.125rem] lg:grid-cols-[var(--site-home-blog-grid)] lg:gap-4">
+          <Link
+            href={postHref(featured.slug)}
+            className="grid min-h-[var(--site-feature-post-min-height)] grid-rows-[1fr_auto] border border-site-ink p-7 text-site-ink no-underline transition-colors hover:bg-site-paper-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-site-line-strong"
+          >
+            <div className="text-site-control uppercase tracking-[0.14em] text-site-muted">
+              Latest / Technical note
+            </div>
+            <h3 className="self-end max-w-[42.5rem] text-[length:var(--site-feature-post-title-font-size)] leading-[0.98] tracking-[var(--site-section-title-tracking)]">
+              {featured.title}
+            </h3>
+          </Link>
+
+          <div className="border-t border-site-ink">
+            {rest.map((post, index) => (
+              <Link
+                key={post.id}
+                href={postHref(post.slug)}
+                className="grid gap-3 border-b border-site-line-strong py-6 text-site-ink no-underline transition-colors hover:text-site-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-site-line-strong"
+              >
+                <div className="text-site-control uppercase tracking-[0.14em] text-site-muted">
+                  {postCategories[index]}
+                </div>
+                <h3 className="text-[1.375rem] leading-[1.14]">{post.title}</h3>
+                {post.description && (
+                  <p className="leading-[1.5] text-site-muted">
+                    {post.description}
+                  </p>
+                )}
+              </Link>
+            ))}
+          </div>
         </div>
-      </ContentContainer>
-    </div>
+      )}
+    </SectionShell>
   );
 };
 

@@ -10,8 +10,8 @@ export function SiteButton({ className, variant, ...props }: SiteButtonProps) {
     <Button
       variant={variant}
       className={cn(
-        "rounded-site border-site-line text-sm uppercase tracking-widest",
-        "focus-visible:border-site-line-strong focus-visible:ring-site-line-strong/30",
+        "h-auto min-h-[var(--site-action-height)] rounded-none border-site-ink px-[var(--site-action-padding-x)] text-base font-normal normal-case tracking-normal",
+        "gap-[var(--site-action-gap)] transition-transform hover:-translate-y-0.5 focus-visible:border-site-line-strong focus-visible:ring-site-line-strong/30",
         className
       )}
       {...props}

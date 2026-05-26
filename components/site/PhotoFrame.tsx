@@ -11,6 +11,8 @@ type PhotoFrameProps = Omit<React.ComponentProps<"button">, "children"> & {
   sizes?: string;
   priority?: boolean;
   imageClassName?: string;
+  mediaClassName?: string;
+  fillFrame?: boolean;
   children?: React.ReactNode;
 };
 
@@ -21,6 +23,8 @@ export function PhotoFrame({
   sizes = "(max-width: 768px) 100vw, 50vw",
   priority,
   imageClassName,
+  mediaClassName,
+  fillFrame = false,
   className,
   children,
   type = "button",
@@ -30,25 +34,44 @@ export function PhotoFrame({
     <button
       type={type}
       className={cn(
-        "group block w-full overflow-hidden rounded-site border border-site-line bg-site-paper-2 text-left",
+        "group block w-full overflow-hidden rounded-none border border-site-line-strong bg-site-paper-2 text-left",
         "transition-transform hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-site-line-strong",
         className
       )}
       {...props}
     >
-      <AspectRatio ratio={ratio} className="relative overflow-hidden">
-        <Image
-          src={src}
-          alt={alt}
-          fill
-          priority={priority}
-          sizes={sizes}
-          className={cn(
-            "object-cover transition-transform duration-300 group-hover:scale-105",
-            imageClassName
-          )}
-        />
-      </AspectRatio>
+      {fillFrame ? (
+        <div className={cn("relative h-full overflow-hidden", mediaClassName)}>
+          <Image
+            src={src}
+            alt={alt}
+            fill
+            priority={priority}
+            sizes={sizes}
+            className={cn(
+              "object-cover transition-transform duration-300 group-hover:scale-105",
+              imageClassName
+            )}
+          />
+        </div>
+      ) : (
+        <AspectRatio
+          ratio={ratio}
+          className={cn("relative overflow-hidden", mediaClassName)}
+        >
+          <Image
+            src={src}
+            alt={alt}
+            fill
+            priority={priority}
+            sizes={sizes}
+            className={cn(
+              "object-cover transition-transform duration-300 group-hover:scale-105",
+              imageClassName
+            )}
+          />
+        </AspectRatio>
+      )}
       {children}
     </button>
   );

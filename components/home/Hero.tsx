@@ -1,59 +1,98 @@
 "use client";
 
-import { DotLottiePlayer } from "@dotlottie/react-player";
-import ContentContainer from "../ContentContainer";
-import { useTranslations } from "next-intl";
-import { Button } from "../ui/button";
-import { useRouter } from "@/i18n/navigations";
+import { useLocale, useTranslations } from "next-intl";
+
+import { SiteButton } from "@/components/site";
 import { useScrollTo } from "@/hooks/useScrollTo";
+import { Link } from "@/i18n/navigations";
+import { cn } from "@/lib/utils";
 
 const HeroSection = () => {
-  const t = useTranslations();
-  const router = useRouter();
+  const t = useTranslations("Home");
+  const locale = useLocale();
   const { scrollToElement } = useScrollTo();
 
   return (
-    <div className="w-full flex items-center justify-between relative z-0 h-screen">
-      <div className="hero-bg absolute inset-0 z-[-1]"></div>
-      <ContentContainer>
-        <section className="flex flex-col-reverse lg:flex-row items-center justify-between py-4 lg:py-12">
-          <div className="flex flex-col font-bold text-4xl/11 md:text-5xl/17 lg:text-7xl/21 gap-4 mt-8 lg:mt-0 lg:w-1/2">
-            <span className="text-(--color-gray-900)] dark:text-(--color-gray-50) text-center lg:text-start">
-              {t("Home.greetingLineOne")}
-            </span>
-            <span className="hero-text-gradient bg-clip-text text-transparent text-center lg:text-start">
-              {t("Home.greetingLineTwo")}
-            </span>
-            <span className="text-lg/6 lg:text-xl/7 mt-4 lg:mt-8 text-center lg:text-start font-light text-(--color-gray-600) dark:text-(--color-gray-300)">
-              {t("Home.introduce")}
-            </span>
-            <div className="flex gap-8 mt-4 lg:mt-8 justify-center lg:justify-start">
-              <Button
-                className="h-12 px-3 py-2.5 md:h-14 md:px-5 md:py-3 md:text-lg md:font-normal lg:h-16 lg:text-xl lg:px-8 lg:py-5 rounded-xl md:rounded-2xl cursor-pointer"
-                onClick={() => scrollToElement("contact-section")}
-              >
-                {t("Home.workWithMe")}
-              </Button>
-              <Button
-                variant={"ghost"}
-                className="h-12 px-3 py-5 md:h-14 md:px-5 md:py-3 md:text-lg md:font-normal lg:h-16 lg:text-xl lg:px-8 lg:py-5 rounded-xl md:rounded-2xl border-2 border-(--color-primary-700) cursor-pointer"
-                onClick={() => router.push("/portfolio")}
-              >
-                {t("Home.myWork")}
-              </Button>
-            </div>
+    <section
+      id="home"
+      className="grid min-h-screen items-center border-b border-site-line bg-site-paper py-site-section text-site-ink scroll-mt-site-header"
+    >
+      <div className="mx-auto grid w-[var(--site-content-width)] gap-12 lg:grid-cols-[var(--site-home-hero-grid)] lg:items-end lg:gap-[4.5rem]">
+        <div>
+          <div className="mb-[1.375rem] flex items-center gap-3 text-site-control uppercase tracking-site-label text-site-muted before:h-px before:w-11 before:bg-site-muted">
+            Homepage concept / 01
           </div>
-          <div className="w-2/3 md:w-1/2 max-w-lg lg:w-1/2">
-            <DotLottiePlayer
-              className="w-full"
-              src="/animations/coding.lottie"
-              loop
-              autoplay
+          <h1
+            className={cn(
+              "max-w-[var(--site-hero-title-max)] text-site-ink [font-weight:var(--site-hero-title-weight)] [letter-spacing:var(--site-hero-title-tracking)] [line-height:var(--site-hero-title-leading)]",
+              locale === "en" && "max-w-[var(--site-hero-title-max-en)]"
+            )}
+          >
+            <span
+              className={cn(
+                "block whitespace-nowrap text-[length:var(--site-hero-intro-font-size)] leading-none",
+                locale === "ja" && "text-[length:var(--site-hero-intro-font-size-ja)]"
+              )}
+            >
+              {t("greetingLineOne")}
+            </span>
+            <span
+              className={cn(
+                "block text-[length:var(--site-hero-role-font-size)] leading-[0.94] text-transparent [-webkit-text-stroke:1.2px_var(--site-ink)]",
+                locale === "ja" &&
+                  "text-[length:var(--site-hero-role-font-size-ja)] leading-[var(--site-hero-role-leading-ja)]"
+              )}
+            >
+              {t("greetingLineTwo")}
+            </span>
+          </h1>
+          <p className="mt-[2.125rem] max-w-[38.125rem] text-[length:var(--site-hero-copy-font-size)] leading-[1.58] text-site-ink-2">
+            {t("introduce")}
+          </p>
+          <div className="mt-[2.625rem] flex flex-wrap gap-3.5">
+            <SiteButton onClick={() => scrollToElement("contact-section")}>
+              {t("workWithMe")}
+            </SiteButton>
+            <SiteButton variant="outline" asChild>
+              <Link href="#works">{t("myWork")}</Link>
+            </SiteButton>
+          </div>
+        </div>
+
+        <div className="border-y border-site-ink">
+          <div>
+            {[
+              ["Focus", t("focus")],
+              ["Now", t("now")],
+              ["Also", t("also")],
+            ].map(([label, value], index, rows) => (
+              <div
+                key={label}
+                className={cn(
+                  "grid grid-cols-[6.125rem_minmax(0,1fr)] gap-[1.375rem] py-5",
+                  index < rows.length - 1 && "border-b border-site-line"
+                )}
+              >
+                <div className="text-site-control uppercase tracking-site-label text-site-muted">
+                  {label}
+                </div>
+                <div className="text-base leading-[1.45] text-site-ink">
+                  {value}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-[2.375rem] flex items-center gap-3 text-[0.8125rem] leading-normal text-site-muted">
+            <span
+              aria-hidden="true"
+              className="grid h-14 w-9 place-items-start justify-center border border-site-ink pt-2 before:block before:h-2.5 before:w-[3px] before:animate-[scroll-dot_1.5s_ease-in-out_infinite] before:bg-site-ink"
             />
+            <p className="m-0">{t("scrollHint")}</p>
           </div>
-        </section>
-      </ContentContainer>
-    </div>
+        </div>
+      </div>
+    </section>
   );
 };
 

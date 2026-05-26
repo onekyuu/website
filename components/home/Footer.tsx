@@ -1,7 +1,6 @@
 "use client";
 
 import React, { FC } from "react";
-import { MailIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import { Link } from "@/i18n/navigations";
@@ -24,9 +23,6 @@ const FooterSection: FC = () => {
               </span>
               <span className="mt-4 block">OneKyuu</span>
             </div>
-            <div className="inline-flex w-fit items-center gap-2.5 border border-site-line-strong px-3 py-2.5 text-site-nav text-site-ink-2 before:size-2 before:bg-site-ink">
-              Available for selected projects
-            </div>
           </div>
 
           <nav aria-label="Footer navigation" className="flex flex-col gap-4">
@@ -47,20 +43,7 @@ const FooterSection: FC = () => {
           </nav>
 
           <div className="flex flex-col gap-6">
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-1">
-              <div className="flex flex-col gap-3">
-                <div className="text-site-control uppercase tracking-site-label text-site-muted">
-                  Contact
-                </div>
-                <a
-                  href="mailto:me@keyu.email"
-                  className="inline-flex w-fit items-center gap-2 border-b border-transparent pb-0.5 text-site-footer-link leading-tight text-site-ink transition-colors hover:border-site-ink"
-                >
-                  <MailIcon data-icon="inline-start" className="size-4" />
-                  <span>me@keyu.email</span>
-                </a>
-              </div>
-
+            <div className="grid gap-6">
               <div className="flex flex-col gap-3">
                 <div className="text-site-control uppercase tracking-site-label text-site-muted">
                   Socials

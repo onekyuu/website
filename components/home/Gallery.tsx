@@ -1,12 +1,14 @@
+"use client";
+
 import React, { FC, useState } from "react";
-import Image from "next/image";
-import ContentContainer from "../ContentContainer";
 import { useTranslations } from "next-intl";
-import HeadSVG from "@/public/head.svg";
+
+import PhotoViewer from "@/components/gallery/PhotoViewer";
+import { SectionShell, SplitHeader } from "@/components/layout";
+import { PhotoFrame } from "@/components/site";
+import { Link } from "@/i18n/navigations";
+import { cn } from "@/lib/utils";
 import { GalleryPhoto } from "@/types/gallery";
-import dayjs from "dayjs";
-import { Camera } from "lucide-react";
-import PhotoViewer from "../gallery/PhotoViewer";
 
 interface GallerySectionProps {
   galleryList: GalleryPhoto[];
@@ -22,7 +24,11 @@ const GallerySection: FC<GallerySectionProps> = ({
   const t = useTranslations("Home");
   const [viewerOpen, setViewerOpen] = useState(false);
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
-  const allPhotos = galleryList.flatMap((photo) => ({
+  const previewPhotos =
+    galleryList.length > 0
+      ? Array.from({ length: 3 }, (_, index) => galleryList[index % galleryList.length])
+      : [];
+  const allPhotos = galleryList.map((photo) => ({
     id: photo.id,
     slug: photo.slug,
     img: photo.image_url,
@@ -30,60 +36,79 @@ const GallerySection: FC<GallerySectionProps> = ({
     description: photo.description,
     exif: photo.exif_summary,
     thumbnail: photo.thumbnail_url,
+    location: photo.location_info?.location,
+    camera:
+      photo.camera_make && photo.camera_model
+        ? `${photo.camera_make} ${photo.camera_model}`
+        : undefined,
+    lens: photo.lens_model,
+    settings: [
+      photo.shooting_params?.shutter_speed,
+      photo.shooting_params?.aperture,
+      photo.shooting_params?.iso ? `ISO ${photo.shooting_params.iso}` : undefined,
+    ]
+      .filter(Boolean)
+      .join(" / "),
   }));
 
   const handlePhotoClick = (photoId: number) => {
-    const index = allPhotos.findIndex((p) => p.id === photoId);
-    setCurrentPhotoIndex(index);
+    const index = allPhotos.findIndex((photo) => photo.id === photoId);
+    setCurrentPhotoIndex(Math.max(0, index));
     setViewerOpen(true);
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen mt-12 lg:mt-0">
-      <ContentContainer className="my-4">
-        <div className="text-3xl font-bold text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] md:text-4xl lg:text-5xl text-end">
+    <SectionShell id="gallery">
+      <SplitHeader
+        eyebrow="Gallery / 05"
+        title={t("galleryTitle")}
+        className="mb-[3.625rem] lg:gap-[4.5rem]"
+      />
+
+      {isLoading ? (
+        <div className="min-h-[var(--site-gallery-preview-height)] border border-site-line bg-site-paper-2" />
+      ) : previewPhotos.length > 0 ? (
+        <div
+          data-home-gallery-strip
+          className="-mt-7 grid gap-4 overflow-hidden pt-7 lg:-mt-[3.25rem] lg:h-[var(--site-gallery-preview-height)] lg:grid-cols-[var(--site-home-gallery-grid)] lg:grid-rows-2 lg:pt-[3.25rem]"
+        >
+          {previewPhotos.map((photo, index) => (
+            <PhotoFrame
+              key={`${photo.id}-${index}`}
+              src={photo.image_url}
+              alt={photo.title || "Gallery photo"}
+              ratio={16 / 10}
+              fillFrame
+              onClick={() => handlePhotoClick(photo.id)}
+              className={cn(
+                "relative h-80 cursor-pointer transition-colors duration-150 hover:translate-y-0 hover:border-site-ink focus-visible:translate-y-0",
+                index === 0
+                  ? "lg:row-span-2 lg:h-full"
+                  : "lg:h-full"
+              )}
+              imageClassName="object-cover duration-200 ease-out group-hover:scale-[1.025]"
+            >
+              <span className="absolute inset-x-[1.125rem] bottom-[1.125rem] h-px bg-site-ink/20" />
+            </PhotoFrame>
+          ))}
+        </div>
+      ) : (
+        <div className="border-y border-site-line-strong py-12 text-site-muted">
           {t("gallery")}
         </div>
-      </ContentContainer>
-      {galleryList.map((image, index) => (
-        <div
-          key={index}
-          className={
-            "sticky top-0 h-[80vh] py-8 w-full flex items-center justify-center even:bg-[var(--color-primary-50)] odd:bg-[var(--color-primary-100)] even:text-[var(--color-primary-50)] odd:text-[var(--color-primary-100)] dark:even:bg-[var(--color-gray-800)] dark:odd:bg-[var(--color-gray-900)] dark:even:text-[var(--color-gray-800)] dark:odd:text-[var(--color-gray-900)]"
-          }
-        >
-          <div className="absolute top-0 left-0 w-[25%] scale-[-1] translate-y-[-100%]">
-            <HeadSVG className="w-full scale-200 lg:scale-500" />
-          </div>
-          <ContentContainer className="flex flex-col items-center justify-center gap-4">
-            <div className="relative w-full h-[50vh] lg:h-[60vh]">
-              <Image
-                src={image.image_url}
-                alt={image.title || "Gallery Image"}
-                fill
-                className="object-contain"
-                onClick={() => handlePhotoClick(image.id)}
-              />
-            </div>
-            <div className="text-[var(--color-gray-900)] dark:text-[var(--color-gray-100)]">
-              <p>{image.title || ""}</p>
-              <p>
-                {`${
-                  image.location_info.location
-                    ? image.location_info.location + " - "
-                    : ""
-                }${
-                  image.taken_at && dayjs(image.taken_at).format("YYYY-MM-DD")
-                }`}
-              </p>
-              <div className="flex items-start justify-center align-middle gap-2">
-                <Camera className="h-5 w-5 mt-0.5" />
-                {`${image.camera_make} - ${image.camera_model} - ${image.exif_summary}`}
-              </div>
-            </div>
-          </ContentContainer>
+      )}
+
+      {!isLoading && previewPhotos.length > 0 && (
+        <div className="mt-6 flex flex-wrap items-center justify-between gap-6 leading-[1.5] text-site-muted">
+          <span>{t("galleryMeta")}</span>
+          <Link
+            href="/gallery"
+            className="border-b border-site-ink text-site-ink transition-colors hover:text-site-ink-2"
+          >
+            {t("openGallery")}
+          </Link>
         </div>
-      ))}
+      )}
 
       <PhotoViewer
         photos={allPhotos}
@@ -91,7 +116,7 @@ const GallerySection: FC<GallerySectionProps> = ({
         open={viewerOpen}
         onClose={() => setViewerOpen(false)}
       />
-    </div>
+    </SectionShell>
   );
 };
 

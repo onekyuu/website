@@ -25,8 +25,7 @@ export default async function LocaleLayout({ children, params }: Props) {
         <QueryProvider>
           <ThemeProvider
             attribute="class"
-            defaultTheme="dark"
-            enableSystem
+            defaultTheme="light"
             disableTransitionOnChange
           >
             <NextIntlClientProvider>

@@ -18,6 +18,8 @@ export function SplitHeader({
   children,
   ...props
 }: SplitHeaderProps) {
+  const hasAside = copy || children || action;
+
   return (
     <div
       className={cn(
@@ -32,15 +34,17 @@ export function SplitHeader({
             {eyebrow}
           </div>
         )}
-        <h2 className="text-4xl font-semibold leading-none text-site-ink md:text-6xl lg:text-7xl">
+        <h2 className="text-[length:var(--site-section-title-font-size)] leading-[var(--site-section-title-leading)] tracking-[var(--site-section-title-tracking)] text-site-ink">
           {title}
         </h2>
       </div>
-      <div className="flex max-w-2xl flex-col gap-6 text-lg leading-relaxed text-site-ink-2">
-        {copy && <div>{copy}</div>}
-        {children}
-        {action && <div>{action}</div>}
-      </div>
+      {hasAside && (
+        <div className="flex max-w-2xl flex-col gap-6 text-lg leading-relaxed text-site-ink-2">
+          {copy && <div>{copy}</div>}
+          {children}
+          {action && <div>{action}</div>}
+        </div>
+      )}
     </div>
   );
 }
