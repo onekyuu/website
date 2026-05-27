@@ -44,7 +44,7 @@ export function IndexListItem({
   const content = (
     <div className="grid gap-4 py-6 md:grid-cols-[var(--site-index-grid)] md:items-center md:py-8">
       <span className="text-site-nav text-site-muted">{index}</span>
-      <strong className="text-2xl font-semibold leading-tight text-site-ink transition-transform group-hover:translate-x-1 md:text-3xl">
+      <strong className="text-[length:var(--site-index-title-font-size)] font-[760] leading-[0.92] tracking-[-0.04em] text-site-ink transition-transform group-hover:translate-x-3.5">
         {title}
       </strong>
       {summary && (

@@ -1,10 +1,12 @@
 import * as React from "react";
 
+import { Eyebrow } from "@/components/layout/Eyebrow";
 import { cn } from "@/lib/utils";
 
 type PageHeroProps = React.ComponentProps<"section"> & {
   eyebrow?: React.ReactNode;
   title: React.ReactNode;
+  titleClassName?: string;
   copy?: React.ReactNode;
   aside?: React.ReactNode;
 };
@@ -12,6 +14,7 @@ type PageHeroProps = React.ComponentProps<"section"> & {
 export function PageHero({
   eyebrow,
   title,
+  titleClassName,
   copy,
   aside,
   className,
@@ -26,27 +29,28 @@ export function PageHero({
       )}
       {...props}
     >
-      <div className="mx-auto grid min-h-[calc(92vh_-_var(--site-header-height))] w-[var(--site-content-width)] gap-10 py-site-section md:grid-cols-[var(--site-page-grid)] md:items-end lg:gap-16">
+      <div className="mx-auto grid min-h-[calc(100vh_-_var(--site-header-height))] w-[var(--site-content-width)] items-center gap-10 py-site-section md:grid-cols-[var(--site-page-grid)] lg:gap-16">
         <div className="flex flex-col gap-6">
-          {eyebrow && (
-            <div className="text-site-control uppercase tracking-site-label text-site-muted">
-              {eyebrow}
-            </div>
-          )}
-          <h1 className="max-w-5xl text-6xl font-semibold leading-none text-site-ink md:text-8xl lg:text-9xl">
+          {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
+          <h1
+            className={cn(
+              "text-[length:var(--site-page-title-font-size)] font-extrabold leading-[0.88] tracking-[-0.055em] text-site-ink",
+              titleClassName
+            )}
+          >
             {title}
           </h1>
           {copy && (
-            <div className="max-w-2xl text-lg leading-relaxed text-site-ink-2">
+            <div className="max-w-2xl text-[length:var(--site-section-copy-font-size)] leading-relaxed text-site-ink-2">
               {copy}
             </div>
           )}
           {children}
         </div>
         {aside && (
-          <div className="border-y border-site-line-strong py-5 text-site-ink-2">
+          <aside className="border-t border-site-line-strong pt-5 text-site-ink-2">
             {aside}
-          </div>
+          </aside>
         )}
       </div>
     </section>

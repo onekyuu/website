@@ -8,7 +8,7 @@ export type MetadataItem = {
   value: React.ReactNode;
 };
 
-type MetadataListProps = React.ComponentProps<"dl"> & {
+type MetadataListProps = React.ComponentProps<"div"> & {
   items?: MetadataItem[];
 };
 
@@ -26,14 +26,14 @@ export function MetadataList({
   const content = rows ?? React.Children.toArray(children);
 
   return (
-    <dl className={cn("border-y border-site-line-strong", className)} {...props}>
+    <div className={cn("border-y border-site-line-strong", className)} {...props}>
       {content.map((child, index) => (
         <React.Fragment key={index}>
           {child}
           {index < content.length - 1 && <Separator />}
         </React.Fragment>
       ))}
-    </dl>
+    </div>
   );
 }
 
@@ -51,15 +51,15 @@ export function MetadataRow({
   return (
     <div
       className={cn(
-        "grid gap-3 py-5 text-sm sm:grid-cols-[var(--site-metadata-grid)] sm:gap-6",
+        "grid items-center gap-3 py-5 text-sm sm:grid-cols-[var(--site-metadata-grid)] sm:gap-6",
         className
       )}
       {...props}
     >
-      <dt className="text-site-control uppercase tracking-site-label text-site-muted">
+      <span className="text-site-control uppercase tracking-site-label text-site-muted">
         {label}
-      </dt>
-      <dd className="text-base leading-relaxed text-site-ink">{children}</dd>
+      </span>
+      <span className="text-base leading-relaxed text-site-ink">{children}</span>
     </div>
   );
 }

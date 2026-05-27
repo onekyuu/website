@@ -49,6 +49,10 @@
   --font-serif: var(--font-serif);
   --text-site-nav: var(--site-nav-font-size);
   --text-site-control: var(--site-control-font-size);
+  --text-site-page-title: var(--site-page-title-font-size);
+  --text-site-index-title: var(--site-index-title-font-size);
+  --text-site-portfolio-detail: var(--site-portfolio-detail-title-font-size);
+  --text-site-case-section: var(--site-case-section-title-font-size);
   --text-site-footer-link: var(--site-footer-link-font-size);
   --text-site-footer-brand: var(--site-footer-brand-font-size);
   --text-site-marquee-word: var(--site-marquee-word-font-size);
@@ -66,6 +70,9 @@
   --spacing-site-section: var(--site-section-y);
   --spacing-site-footer: var(--site-footer-y);
   --spacing-site-marquee: var(--site-marquee-height);
+  --spacing-site-latest-copy: var(--site-latest-project-copy-min-height);
+  --spacing-site-latest-visual: var(--site-latest-project-visual-min-height);
+  --spacing-site-capability-card: var(--site-capability-card-min-height);
 
   --shadow-2xs: var(--shadow-2xs);
   --shadow-xs: var(--shadow-xs);
@@ -231,6 +238,17 @@
   --site-feature-post-title-font-size: clamp(2.25rem, 5vw, 4.5rem);
   --site-work-card-min-height: 28.75rem;
   --site-work-thumb-height: 14rem;
+  --site-page-title-font-size: clamp(4.75rem, 14vw, 11.25rem);
+  --site-index-title-font-size: clamp(2.125rem, 5vw, 4.75rem);
+  --site-portfolio-detail-title-font-size: clamp(3.625rem, 9vw, 8.25rem);
+  --site-case-section-title-font-size: clamp(1.75rem, 4vw, 3.375rem);
+  --site-latest-project-copy-min-height: 22.5rem;
+  --site-latest-project-visual-min-height: 32.5rem;
+  --site-capability-card-min-height: 16.25rem;
+  --site-portfolio-latest-grid: 0.86fr 1.14fr;
+  --site-portfolio-detail-grid: minmax(0, 1.08fr) minmax(20rem, 0.72fr);
+  --site-portfolio-gallery-grid: 1.2fr 0.8fr;
+  --site-case-section-grid: 0.35fr minmax(0, 0.65fr);
   --site-gallery-preview-height: 42rem;
   --site-gallery-main-photo-height: 38.75rem;
   --site-gallery-secondary-photo-height: 18.875rem;
