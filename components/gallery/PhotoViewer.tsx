@@ -2,6 +2,7 @@
 
 import React, { FC, useEffect, useMemo, useState } from "react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 import { cn } from "@/lib/utils";
 
@@ -26,16 +27,13 @@ interface PhotoViewerProps {
   onClose: () => void;
 }
 
-const PhotoViewer: FC<PhotoViewerProps> = ({
-  photos,
-  index,
-  open,
-  onClose,
-}) => {
-  const [activeIndex, setActiveIndex] = useState(index);
+export const PhotoViewer: FC<PhotoViewerProps> = ({ photos, index, open, onClose }) => {
+  const t = useTranslations("Gallery");
+  const [navIndex, setNavIndex] = useState<number | null>(null);
+  const activeIndex = navIndex !== null ? navIndex : index;
 
   useEffect(() => {
-    if (open) setActiveIndex(index);
+    setNavIndex(null);
   }, [index, open]);
 
   useEffect(() => {
@@ -88,14 +86,10 @@ const PhotoViewer: FC<PhotoViewerProps> = ({
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") onClose();
       if (event.key === "ArrowLeft") {
-        setActiveIndex((current) =>
-          photos.length ? (current - 1 + photos.length) % photos.length : 0
-        );
+        setNavIndex(photos.length ? (activeIndex - 1 + photos.length) % photos.length : 0);
       }
       if (event.key === "ArrowRight") {
-        setActiveIndex((current) =>
-          photos.length ? (current + 1) % photos.length : 0
-        );
+        setNavIndex(photos.length ? (activeIndex + 1) % photos.length : 0);
       }
     };
 
@@ -130,12 +124,12 @@ const PhotoViewer: FC<PhotoViewerProps> = ({
   const activePhoto = photos[activeIndex];
   const specs = useMemo(
     () => [
-      ["Location", activePhoto?.location],
-      ["Camera", activePhoto?.camera],
-      ["Lens", activePhoto?.lens],
-      ["Settings", activePhoto?.settings || activePhoto?.exif],
+      [t("locationLabel"), activePhoto?.location],
+      [t("cameraLabel"), activePhoto?.camera],
+      [t("lensLabel"), activePhoto?.lens],
+      [t("settingsLabel"), activePhoto?.settings || activePhoto?.exif],
     ],
-    [activePhoto]
+    [activePhoto, t]
   );
 
   if (!open || !activePhoto) return null;
@@ -165,7 +159,6 @@ const PhotoViewer: FC<PhotoViewerProps> = ({
         <div className="absolute left-[1.375rem] top-5 text-site-control uppercase tracking-[0.12em] text-site-ink">
           {label}
         </div>
-        <span className="absolute inset-x-[1.375rem] bottom-[1.375rem] h-px bg-site-ink/20" />
       </div>
 
       <aside className="flex flex-col justify-between gap-9 border-t border-site-ink p-6 lg:border-l lg:border-t-0 lg:p-[clamp(1.5rem,4vw,3.25rem)]">
@@ -179,13 +172,13 @@ const PhotoViewer: FC<PhotoViewerProps> = ({
             onClick={onClose}
             className="min-h-10 border border-site-ink bg-transparent px-3.5 text-site-nav text-site-ink transition-colors hover:bg-site-ink hover:text-site-paper focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-site-ink"
           >
-            Close
+            {t("closeLabel")}
           </button>
         </div>
 
         <div>
           <div className="text-site-control uppercase tracking-[0.14em] text-site-muted">
-            Photo detail
+            {t("photoDetail")}
           </div>
           <h3 className="mt-3 text-[clamp(2.625rem,5vw,4.75rem)] leading-[0.95] tracking-[-0.04em]">
             {label}
@@ -201,23 +194,17 @@ const PhotoViewer: FC<PhotoViewerProps> = ({
           <div className="mb-4 flex gap-2">
             <button
               type="button"
-              onClick={() =>
-                setActiveIndex((current) =>
-                  (current - 1 + photos.length) % photos.length
-                )
-              }
+              onClick={() => setNavIndex((activeIndex - 1 + photos.length) % photos.length)}
               className="min-h-10 border border-site-ink bg-transparent px-3.5 text-site-nav text-site-ink transition-colors hover:bg-site-ink hover:text-site-paper focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-site-ink"
             >
-              Prev
+              {t("prevLabel")}
             </button>
             <button
               type="button"
-              onClick={() =>
-                setActiveIndex((current) => (current + 1) % photos.length)
-              }
+              onClick={() => setNavIndex((activeIndex + 1) % photos.length)}
               className="min-h-10 border border-site-ink bg-transparent px-3.5 text-site-nav text-site-ink transition-colors hover:bg-site-ink hover:text-site-paper focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-site-ink"
             >
-              Next
+              {t("nextLabel")}
             </button>
           </div>
           <div className="border-t border-site-ink">

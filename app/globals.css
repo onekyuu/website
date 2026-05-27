@@ -772,3 +772,179 @@
   padding: 0.75rem 1rem;
   color: var(--site-ink-2);
 }
+
+.photo-axis {
+  width: var(--site-content-width);
+  margin: 0 auto;
+  padding: 6.5rem 0 8rem;
+  position: relative;
+}
+
+.photo-axis::before {
+  content: "";
+  position: absolute;
+  top: 4.5rem;
+  bottom: 4.5rem;
+  left: 50%;
+  width: 1px;
+  background: var(--site-line);
+}
+
+.axis-list {
+  display: grid;
+  gap: clamp(1.5rem, 4vw, 3rem);
+}
+
+.axis-entry {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 8.25rem minmax(0, 1fr);
+  align-items: center;
+  min-height: 26.25rem;
+}
+
+.axis-entry.is-left .axis-photo-wrap {
+  grid-column: 1;
+  justify-self: end;
+  margin-right: clamp(1.5rem, 4vw, 3.875rem);
+}
+
+.axis-entry.is-right .axis-photo-wrap {
+  grid-column: 3;
+  justify-self: start;
+  margin-left: clamp(1.5rem, 4vw, 3.875rem);
+}
+
+.axis-photo-wrap {
+  width: min(100%, var(--axis-width, 32.5rem));
+}
+
+.axis-photo {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: var(--axis-ratio, 4 / 5);
+  border: 1px solid var(--site-line-strong);
+  background: var(--site-paper-2);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 220ms ease, border-color 180ms ease;
+}
+
+.axis-photo:hover,
+.axis-photo:focus-visible {
+  border-color: var(--site-ink);
+  transform: translateY(-8px);
+  outline: 0;
+}
+
+.axis-copy {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  width: min(22vw, 20rem);
+  padding: 1.5rem 0 1.75rem;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.axis-entry.is-left .axis-copy {
+  right: calc(50% - 1.75rem);
+  text-align: right;
+  --axis-point: calc(100% - 1.75rem);
+}
+
+.axis-entry.is-right .axis-copy {
+  left: calc(50% - 1.75rem);
+  text-align: left;
+  --axis-point: 1.75rem;
+}
+
+.axis-copy::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--axis-point);
+  width: 1.25rem;
+  background: var(--site-paper);
+  transform: translateX(-50%);
+}
+
+.axis-copy::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: var(--axis-point);
+  width: 0.5625rem;
+  height: 0.5625rem;
+  background: var(--site-ink);
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+
+.axis-entry:hover .axis-copy::after {
+  opacity: 1;
+}
+
+.axis-year {
+  display: block;
+  margin-bottom: 1rem;
+  color: var(--site-muted);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.axis-copy h2 {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  font-size: clamp(1.5rem, 3vw, 3rem);
+  line-height: 1.05;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: var(--site-ink);
+  transition: transform 220ms ease;
+}
+
+.axis-entry[data-state="active"] .axis-copy h2 {
+  transform: translateX(var(--axis-title-x, 0));
+}
+
+@media (max-width: 768px) {
+  .photo-axis::before {
+    display: none;
+  }
+
+  .axis-entry {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .axis-entry.is-left .axis-photo-wrap,
+  .axis-entry.is-right .axis-photo-wrap {
+    grid-column: auto;
+    justify-self: stretch;
+    margin: 0;
+    width: 100%;
+  }
+
+  .axis-copy {
+    position: static;
+    transform: none;
+    width: 100%;
+    padding: 1rem 0 0;
+  }
+
+  .axis-entry.is-left .axis-copy,
+  .axis-entry.is-right .axis-copy {
+    text-align: left;
+  }
+
+  .axis-copy::before,
+  .axis-copy::after {
+    display: none;
+  }
+}
