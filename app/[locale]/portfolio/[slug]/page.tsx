@@ -95,7 +95,7 @@ const ProjectDetailPage: FC = () => {
 
   return (
     <main className="bg-site-paper text-site-ink">
-      <section className="border-b border-site-line pt-site-header">
+      <section className="border-b border-site-line">
         <div className="mx-auto grid min-h-[calc(100vh_-_var(--site-header-height))] w-[var(--site-content-width)] items-center gap-10 py-site-section lg:grid-cols-[var(--site-portfolio-detail-grid)] lg:gap-16">
           <div className="flex flex-col gap-6">
             <Eyebrow>{t("caseStudyEyebrow")}</Eyebrow>

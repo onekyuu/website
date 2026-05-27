@@ -32,6 +32,7 @@ export function ArticleRow({
       summary={summary}
       meta={meta}
       actionLabel="Read"
+      titleClassName="text-xl font-semibold leading-snug tracking-normal md:text-2xl"
       {...props}
     />
   );

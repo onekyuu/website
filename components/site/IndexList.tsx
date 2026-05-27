@@ -25,6 +25,7 @@ export function IndexList({ className, children, ...props }: IndexListProps) {
 type IndexListItemProps = Omit<React.ComponentProps<"li">, "title"> & {
   index: React.ReactNode;
   title: React.ReactNode;
+  titleClassName?: string;
   summary?: React.ReactNode;
   meta?: React.ReactNode;
   href?: React.ComponentProps<typeof Link>["href"];
@@ -34,6 +35,7 @@ type IndexListItemProps = Omit<React.ComponentProps<"li">, "title"> & {
 export function IndexListItem({
   index,
   title,
+  titleClassName,
   summary,
   meta,
   href,
@@ -44,7 +46,7 @@ export function IndexListItem({
   const content = (
     <div className="grid gap-4 py-6 md:grid-cols-[var(--site-index-grid)] md:items-center md:py-8">
       <span className="text-site-nav text-site-muted">{index}</span>
-      <strong className="text-[length:var(--site-index-title-font-size)] font-[760] leading-[0.92] tracking-[-0.04em] text-site-ink transition-transform group-hover:translate-x-3.5">
+      <strong className={cn("text-[length:var(--site-index-title-font-size)] font-[760] leading-[0.92] tracking-[-0.04em] text-site-ink transition-transform group-hover:translate-x-3.5", titleClassName)}>
         {title}
       </strong>
       {summary && (

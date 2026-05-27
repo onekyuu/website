@@ -24,7 +24,7 @@ export function PageHero({
   return (
     <section
       className={cn(
-        "border-b border-site-line bg-site-paper pt-site-header text-site-ink",
+        "border-b border-site-line bg-site-paper text-site-ink",
         className
       )}
       {...props}
