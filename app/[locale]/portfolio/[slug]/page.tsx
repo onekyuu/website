@@ -99,7 +99,7 @@ const ProjectDetailPage: FC = () => {
         <div className="mx-auto grid min-h-[calc(100vh_-_var(--site-header-height))] w-[var(--site-content-width)] items-center gap-10 py-site-section lg:grid-cols-[var(--site-portfolio-detail-grid)] lg:gap-16">
           <div className="flex flex-col gap-6">
             <Eyebrow>{t("caseStudyEyebrow")}</Eyebrow>
-            <h1 className="text-[length:var(--site-portfolio-detail-title-font-size)] font-extrabold leading-[0.88] tracking-[-0.055em]">
+            <h1 className="text-[length:var(--site-section-title-font-size)] font-bold leading-[1.1] tracking-[-0.025em]">
               {data.title}
             </h1>
           </div>

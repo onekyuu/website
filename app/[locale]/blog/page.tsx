@@ -8,6 +8,7 @@ import React, { useState } from "react";
 import { FeaturedArticle } from "@/components/blog/FeaturedArticle";
 import { WritingSystem } from "@/components/blog/WritingSystem";
 import { Eyebrow } from "@/components/layout/Eyebrow";
+import { HeroStats } from "@/components/layout/HeroStats";
 import { PageHero } from "@/components/layout/PageHero";
 import { SectionShell } from "@/components/layout/SectionShell";
 import { ArticleRow } from "@/components/site/ArticleRow";
@@ -39,6 +40,7 @@ export default function BlogPage() {
 
   const blogList = postsData?.results || [];
   const totalPages = postsData?.totalPages || 0;
+  const totalCount = postsData?.count || blogList.length;
   const latestPost = blogList[0];
 
   const handleSearch = (e: React.FormEvent) => {
@@ -58,11 +60,18 @@ export default function BlogPage() {
       <PageHero
         eyebrow={t("eyebrow")}
         title={t("heroTitle")}
+        backgroundWord="BLOG"
         aside={
           <div className="flex flex-col gap-6">
             <p className="text-[length:var(--site-section-copy-font-size)] leading-relaxed">
               {t("description")}
             </p>
+            <HeroStats
+              items={[
+                { label: t("allPosts"), value: isLoading ? "—" : `${totalCount} ${t("posts")}` },
+                { label: t("latestEyebrow"), value: isLoading || !latestPost ? "—" : (latestPost.translations[locale]?.title || latestPost.title) },
+              ]}
+            />
             <div className="flex flex-wrap gap-3">
               <SiteButton asChild variant="outline" className="self-start">
                 <Link href="/">

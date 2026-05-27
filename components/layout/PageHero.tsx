@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import { Eyebrow } from "@/components/layout/Eyebrow";
+import { HeroParallaxWord } from "@/components/layout/HeroParallaxWord";
 import { cn } from "@/lib/utils";
 
 type PageHeroProps = React.ComponentProps<"section"> & {
@@ -9,6 +10,7 @@ type PageHeroProps = React.ComponentProps<"section"> & {
   titleClassName?: string;
   copy?: React.ReactNode;
   aside?: React.ReactNode;
+  backgroundWord?: string;
 };
 
 export function PageHero({
@@ -17,6 +19,7 @@ export function PageHero({
   titleClassName,
   copy,
   aside,
+  backgroundWord,
   className,
   children,
   ...props
@@ -24,12 +27,13 @@ export function PageHero({
   return (
     <section
       className={cn(
-        "border-b border-site-line bg-site-paper text-site-ink",
+        "relative overflow-hidden border-b border-site-line bg-site-paper text-site-ink",
         className
       )}
       {...props}
     >
-      <div className="mx-auto grid min-h-[calc(100vh_-_var(--site-header-height))] w-[var(--site-content-width)] items-center gap-10 py-site-section md:grid-cols-[var(--site-page-grid)] lg:gap-16">
+      {backgroundWord && <HeroParallaxWord word={backgroundWord} />}
+      <div className="relative mx-auto grid min-h-[calc(100vh_-_var(--site-header-height))] w-[var(--site-content-width)] items-center gap-10 py-site-section md:grid-cols-[var(--site-page-grid)] lg:gap-16">
         <div className="flex flex-col gap-6">
           {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
           <h1

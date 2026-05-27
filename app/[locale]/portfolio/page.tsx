@@ -6,6 +6,7 @@ import React, { useMemo } from "react";
 
 import ErrorState from "@/components/ErrorState";
 import { Eyebrow } from "@/components/layout/Eyebrow";
+import { HeroStats } from "@/components/layout/HeroStats";
 import { PageHero } from "@/components/layout/PageHero";
 import { SectionShell } from "@/components/layout/SectionShell";
 import { SplitHeader } from "@/components/layout/SplitHeader";
@@ -88,11 +89,18 @@ export default function PortfolioPage() {
       <PageHero
         eyebrow={t("eyebrow")}
         title={t("heroTitle")}
+        backgroundWord="WORKS"
         aside={
           <div className="flex flex-col gap-6">
             <p className="text-[length:var(--site-section-copy-font-size)] leading-relaxed">
               {t("description")}
             </p>
+            <HeroStats
+              items={[
+                { label: t("allProjects"), value: isLoading ? "—" : `${projectViews.length} ${t("projects")}` },
+                { label: t("latestProject"), value: isLoading || !latest ? "—" : latest.title },
+              ]}
+            />
             <SiteButton asChild variant="outline" className="self-start">
               <Link href="/">
                 {t("backHome")}

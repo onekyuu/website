@@ -238,7 +238,7 @@
   --site-feature-post-title-font-size: clamp(2.25rem, 5vw, 4.5rem);
   --site-work-card-min-height: 28.75rem;
   --site-work-thumb-height: 14rem;
-  --site-page-title-font-size: clamp(4.75rem, 14vw, 8.75rem);
+  --site-page-title-font-size: clamp(3rem, 8vw, 6rem);
   --site-index-title-font-size: clamp(2.125rem, 5vw, 4.75rem);
   --site-portfolio-detail-title-font-size: clamp(3.625rem, 9vw, 8.25rem);
   --site-case-section-title-font-size: clamp(1.75rem, 4vw, 3.375rem);

@@ -21,6 +21,7 @@ export function ProjectRow({
       summary={summary}
       meta={category}
       actionLabel="View"
+      titleClassName="text-xl font-semibold leading-snug tracking-normal md:text-2xl"
       {...props}
     />
   );

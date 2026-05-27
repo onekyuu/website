@@ -6,6 +6,7 @@ import React, { useMemo, useState } from "react";
 
 import { PhotoAxis } from "@/components/gallery/PhotoAxis";
 import { PhotoViewer } from "@/components/gallery/PhotoViewer";
+import { HeroStats } from "@/components/layout/HeroStats";
 import { PageHero } from "@/components/layout/PageHero";
 import { SiteButton } from "@/components/site/SiteButton";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -32,6 +33,9 @@ export default function GalleryPage() {
       );
   }, [data]);
 
+  const years = data?.timeline ? Object.keys(data.timeline).sort((a, b) => Number(b) - Number(a)) : [];
+  const latestYear = years[0] ?? "—";
+
   const [clickRect, setClickRect] = useState<DOMRect | null>(null);
 
   const handlePhotoClick = (photo: GalleryPhoto, index: number, rect: DOMRect) => {
@@ -45,11 +49,18 @@ export default function GalleryPage() {
       <PageHero
         eyebrow={t("eyebrow")}
         title={t("heroTitle")}
+        backgroundWord="GALLERY"
         aside={
           <div className="flex flex-col gap-6">
             <p className="text-[length:var(--site-section-copy-font-size)] leading-relaxed">
               {t("description")}
             </p>
+            <HeroStats
+              items={[
+                { label: t("totalPhotos"), value: isLoading ? "—" : t("photos", { count: photos.length }) },
+                { label: t("latestYear"), value: isLoading ? "—" : latestYear },
+              ]}
+            />
             <div className="flex flex-wrap gap-3">
               <SiteButton asChild variant="outline" className="self-start">
                 <Link href="/">
