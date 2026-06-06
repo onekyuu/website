@@ -10,7 +10,7 @@ import Image from "next/image";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import ContentContainer from "@/components/ContentContainer";
 import { ArrowRight, Github, TvMinimalPlay } from "lucide-react";
-import { Link } from "@/i18n/navigations";
+import Link from "@/components/TransitionLink";
 import { ProjectIcon } from "@/components/ProjectIcon";
 
 const ProjectDetailPage: FC = () => {

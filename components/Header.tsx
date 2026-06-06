@@ -2,7 +2,7 @@
 
 import { HeaderMenu } from "@/lib/constants";
 import React, { use, useEffect, useState } from "react";
-import { Link } from "@/i18n/navigations";
+import Link from "@/components/TransitionLink";
 import ModeToggle from "./ModeToggle";
 import LocaleSwitcher from "./LocaleSwitcher";
 import {

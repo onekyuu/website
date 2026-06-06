@@ -4,12 +4,11 @@ import { DotLottiePlayer } from "@dotlottie/react-player";
 import ContentContainer from "../ContentContainer";
 import { useTranslations } from "next-intl";
 import { Button } from "../ui/button";
-import { useRouter } from "@/i18n/navigations";
+import Link from "@/components/TransitionLink";
 import { useScrollTo } from "@/hooks/useScrollTo";
 
 const HeroSection = () => {
   const t = useTranslations();
-  const router = useRouter();
   const { scrollToElement } = useScrollTo();
 
   return (
@@ -35,11 +34,11 @@ const HeroSection = () => {
                 {t("Home.workWithMe")}
               </Button>
               <Button
+                asChild
                 variant={"ghost"}
                 className="h-12 px-3 py-5 md:h-14 md:px-5 md:py-3 md:text-lg md:font-normal lg:h-16 lg:text-xl lg:px-8 lg:py-5 rounded-xl md:rounded-2xl border-2 border-(--color-primary-700) cursor-pointer"
-                onClick={() => router.push("/portfolio")}
               >
-                {t("Home.myWork")}
+                <Link href="/portfolio">{t("Home.myWork")}</Link>
               </Button>
             </div>
           </div>

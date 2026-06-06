@@ -5,7 +5,7 @@ import ContentContainer from "../ContentContainer";
 import { useLocale, useTranslations } from "next-intl";
 import { BadgeCheck } from "lucide-react";
 import { Button } from "../ui/button";
-import { Link } from "@/i18n/navigations";
+import Link from "@/components/TransitionLink";
 import { AspectRatio } from "../ui/aspect-ratio";
 import Image from "next/image";
 import HorizontalScroll from "../HorizontalScroll";

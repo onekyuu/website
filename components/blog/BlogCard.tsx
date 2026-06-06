@@ -5,7 +5,7 @@ import { Card, CardContent } from "../ui/card";
 import { AspectRatio } from "../ui/aspect-ratio";
 import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { Link } from "@/i18n/navigations";
+import Link from "@/components/TransitionLink";
 import { cn } from "@/lib/utils";
 import { Badge } from "../ui/badge";
 import { useLocale, useTranslations } from "next-intl";

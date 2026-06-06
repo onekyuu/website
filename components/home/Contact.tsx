@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 
-import { Link } from "@/i18n/navigations";
+import Link from "@/components/TransitionLink";
 import { Textarea } from "../ui/textarea";
 import { SocialMediaMap } from "@/lib/constants";
 import z from "zod";

@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { Button } from "./ui/button";
 import { AlertCircle, ArrowLeft, Home } from "lucide-react";
-import { Link } from "@/i18n/navigations";
+import Link from "@/components/TransitionLink";
 import { useRouter } from "next/navigation";
 import ContentContainer from "./ContentContainer";
 
