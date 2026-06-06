@@ -1,7 +1,7 @@
 "use client";
 
 import { HeaderMenu } from "@/lib/constants";
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "@/components/TransitionLink";
 import ModeToggle from "./ModeToggle";
 import LocaleSwitcher from "./LocaleSwitcher";
