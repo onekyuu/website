@@ -3,7 +3,7 @@
 import React, { FC } from "react";
 import ContentContainer from "../ContentContainer";
 import { Separator } from "../ui/separator";
-import { Link } from "@/i18n/navigations";
+import Link from "@/components/TransitionLink";
 import { useLocale } from "next-intl";
 import { LanguageCode } from "@/types/common";
 import { useProjects } from "@/hooks/useProjects";

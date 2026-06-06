@@ -10,7 +10,7 @@ import {
   CardFooter,
   CardTitle,
 } from "../ui/card";
-import { Link } from "@/i18n/navigations";
+import Link from "@/components/TransitionLink";
 import Image from "next/image";
 import { AspectRatio } from "../ui/aspect-ratio";
 import { BlogPost } from "@/types/post";

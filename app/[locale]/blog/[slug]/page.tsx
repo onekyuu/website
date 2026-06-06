@@ -7,7 +7,7 @@ import { TiptapContent } from "@/components/TiptapContent";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { usePostDetail } from "@/hooks/usePosts";
 import { useTiptapHeadings } from "@/hooks/useTiptapHeadings";
-import { Link } from "@/i18n/navigations";
+import Link from "@/components/TransitionLink";
 import { SocialMediaMap } from "@/lib/constants";
 import { LanguageCode } from "@/types/common";
 import dayjs from "dayjs";

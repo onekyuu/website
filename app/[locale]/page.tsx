@@ -10,7 +10,7 @@ import HeroSection from "@/components/home/Hero";
 import SkillsSection from "@/components/home/Skills";
 import PortfolioSection from "@/components/home/Portfolio";
 import BlogSection from "@/components/home/Blog";
-import GallerySection from "@/components/home/Gallery";
+import GalleryParallaxSection from "@/components/home/GalleryParallax";
 import ContactSection from "@/components/home/Contact";
 import FooterSection from "@/components/home/Footer";
 import { useMemo } from "react";
@@ -86,7 +86,7 @@ export default function HomePage() {
         isError={isBlogError}
         error={blogError}
       />
-      <GallerySection
+      <GalleryParallaxSection
         galleryList={galleryResponse?.results || []}
         isLoading={isGalleryLoading}
         isError={isGalleryError}

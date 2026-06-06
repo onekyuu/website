@@ -2,7 +2,7 @@
 
 import React, { FC } from "react";
 import { Card, CardContent } from "../ui/card";
-import { Link } from "@/i18n/navigations";
+import Link from "@/components/TransitionLink";
 import { ArrowUpRight } from "lucide-react";
 import { AspectRatio } from "../ui/aspect-ratio";
 import Image from "next/image";

@@ -8,6 +8,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import Header from "@/components/Header";
 import QueryProvider from "@/providers/QueryProvider";
 import SmoothScroll from "@/components/SmoothScroll";
+import PageTransition from "@/components/PageTransition";
 
 type Props = {
   children: ReactNode;
@@ -33,19 +34,21 @@ export default async function LocaleLayout({ children, params }: Props) {
   };
 
   return (
-    <html lang={locale}>
+    <html lang={locale} className="dark" suppressHydrationWarning>
       <body className={cn(fonts[locale])}>
         <SmoothScroll />
         <QueryProvider>
           <ThemeProvider
             attribute="class"
             defaultTheme="dark"
-            enableSystem
+            enableSystem={false}
             disableTransitionOnChange
           >
             <NextIntlClientProvider>
-              <Header />
-              {children}
+              <PageTransition>
+                <Header />
+                {children}
+              </PageTransition>
             </NextIntlClientProvider>
           </ThemeProvider>
         </QueryProvider>
