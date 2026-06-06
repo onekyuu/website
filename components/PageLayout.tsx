@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import ContentContainer from "./ContentContainer";
-import FooterSection from "./home/Footer";
+import StickyFooter from "./home/StickyFooter";
 import { cn } from "@/lib/utils";
 import { Carousel, CarouselContent, CarouselItem } from "./ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
@@ -95,7 +95,7 @@ const PageLayout: FC<PageLayoutProps> = ({
         </div>
       )}
       {children}
-      <FooterSection />
+      <StickyFooter />
     </div>
   );
 };

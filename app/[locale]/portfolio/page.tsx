@@ -1,17 +1,15 @@
 "use client";
 
-import ContentContainer from "@/components/ContentContainer";
 import { useTranslations } from "next-intl";
 import React, { useCallback, useMemo } from "react";
-import HorizontalScroll from "@/components/HorizontalScroll";
 import SummaryCard from "@/components/portfolio/SummaryCard";
 import DetailCard from "@/components/portfolio/DetailCard";
+import ProjectAxis from "@/components/portfolio/ProjectAxis";
 import PageLayout from "@/components/PageLayout";
 import { useLocale } from "next-intl";
 import { LanguageCode } from "@/types/common";
 import { Project } from "@/types/project";
 import { useProjects } from "@/hooks/useProjects";
-import { Skeleton } from "@/components/ui/skeleton";
 
 const PortfolioPage = () => {
   const t = useTranslations("Portfolio");
@@ -74,43 +72,10 @@ const PortfolioPage = () => {
       }}
       isSubtitleReverse={true}
     >
-      {isProjectLoading ? (
-        <div>
-          <ContentContainer>
-            <div className=" w-[60vw] lg:w-[50vw] text-center text-(--color-primary-900) dark:text-(--color-primary-50) text-2xl md:text-3xl lg:text-4xl font-bold">
-              {t("allProjects")}
-            </div>
-          </ContentContainer>
-          <ContentContainer className="lg:min-h-1/2 grid grid-rows-2 grid-cols-1 md:grid-cols-2 md:grid-rows-1 lg:grid-cols-5 gap-6">
-            <Skeleton className="h-[400px] w-full rounded-xl" />
-          </ContentContainer>
-        </div>
-      ) : (
-        <HorizontalScroll className="gap-10 lg:gap-8">
-          <ContentContainer>
-            <div className=" w-[60vw] lg:w-[50vw] text-center text-(--color-primary-900) dark:text-(--color-primary-50) text-2xl md:text-3xl lg:text-4xl font-bold">
-              {t("allProjects")}
-            </div>
-          </ContentContainer>
-          {projectResponse?.map((project) => (
-            <div
-              key={project.translations[locale]?.title}
-              className="w-screen flex items-center justify-center shrink-0"
-            >
-              <ContentContainer className="lg:min-h-1/2 grid grid-rows-2 grid-cols-1 sm:grid-rows-1 sm:grid-cols-5 gap-4 md:gap-6">
-                <DetailCard
-                  project={getProjectDetail(project)}
-                  className="project-card-bg row-span-1 sm:col-span-3"
-                />
-                <SummaryCard
-                  info={project?.translations[locale]?.info || []}
-                  className="row-span-1 sm:col-span-2"
-                />
-              </ContentContainer>
-            </div>
-          ))}
-        </HorizontalScroll>
-      )}
+      <ProjectAxis
+        projects={projectResponse}
+        isLoading={isProjectLoading}
+      />
     </PageLayout>
   );
 };

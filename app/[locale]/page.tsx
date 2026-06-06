@@ -12,7 +12,7 @@ import PortfolioSection from "@/components/home/Portfolio";
 import BlogSection from "@/components/home/Blog";
 import GalleryParallaxSection from "@/components/home/GalleryParallax";
 import ContactSection from "@/components/home/Contact";
-import FooterSection from "@/components/home/Footer";
+import StickyFooter from "@/components/home/StickyFooter";
 import { useMemo } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -93,7 +93,7 @@ export default function HomePage() {
         error={galleryError}
       />
       <ContactSection />
-      <FooterSection />
+      <StickyFooter />
     </div>
   );
 }

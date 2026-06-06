@@ -67,6 +67,40 @@ const opacity: Variants = {
   },
   exit: {
     opacity: 1,
+    transition: {
+      duration: 1.2,
+      ease: easing,
+    },
+  },
+};
+
+const backdrop: Variants = {
+  initial: {
+    opacity: 0,
+  },
+  enter: {
+    opacity: 0,
+  },
+  exit: {
+    opacity: 1,
+    transition: {
+      duration: 0,
+    },
+  },
+};
+
+const reducedBackdrop: Variants = {
+  initial: {
+    opacity: 0,
+  },
+  enter: {
+    opacity: 0,
+  },
+  exit: {
+    opacity: 0,
+    transition: {
+      duration: 0,
+    },
   },
 };
 
@@ -129,6 +163,9 @@ export default function PageTransition({ children }: PageTransitionProps) {
     : perspective;
   const slideVariants = prefersReducedMotion ? reducedMotion : slide;
   const opacityVariants = prefersReducedMotion ? reducedMotion : opacity;
+  const backdropVariants = prefersReducedMotion
+    ? reducedBackdrop
+    : backdrop;
 
   const startTransition = useCallback(
     (href: string) => {
@@ -163,14 +200,21 @@ export default function PageTransition({ children }: PageTransitionProps) {
         {!isExiting && (
           <motion.div
             key={pathname}
-            className="relative isolate min-h-screen origin-top overflow-clip bg-white dark:bg-[var(--color-gray-950)]"
-            {...animation(perspectiveVariants)}
+            className="relative isolate min-h-screen"
+            {...animation(opacityVariants)}
           >
+            <motion.div
+              className="pointer-events-none fixed inset-0 -z-10 bg-white dark:bg-[var(--color-gray-950)]"
+              {...animation(backdropVariants)}
+            />
             <motion.div
               className="pointer-events-none fixed inset-0 z-50 bg-white dark:bg-[var(--color-gray-950)]"
               {...animation(slideVariants)}
             />
-            <motion.div {...animation(opacityVariants)}>
+            <motion.div
+              className="relative min-h-screen origin-top overflow-clip"
+              {...animation(perspectiveVariants)}
+            >
               {children}
             </motion.div>
           </motion.div>
