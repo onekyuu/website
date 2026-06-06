@@ -8,6 +8,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 60
     steps:
       - name: 🛎️ Checkout code
         uses: actions/checkout@v4
@@ -52,15 +53,42 @@ jobs:
 
       - name: 🐳 SSH and deploy with Docker Compose
         run: |
-          ssh -o StrictHostKeyChecking=no -o ServerAliveInterval=3000 -o ServerAliveCountMax=3 \
+          ssh \
+            -o StrictHostKeyChecking=no \
+            -o ServerAliveInterval=30 \
+            -o ServerAliveCountMax=20 \
+            -o TCPKeepAlive=yes \
             ${{ secrets.ALIYUN_USER }}@${{ secrets.ALIYUN_HOST }} << 'EOF'
+              set -eu
               cd /var/www/website
               
               echo "🐳 Stopping existing containers..."
               sudo docker compose down || true
               
               echo "🐳 Building Docker images..."
-              sudo docker compose build --progress=plain
+              sudo docker compose build --progress=plain &
+              build_pid=$!
+
+              (
+                while kill -0 "$build_pid" 2>/dev/null; do
+                  sleep 30
+                  if kill -0 "$build_pid" 2>/dev/null; then
+                    echo "⏳ Docker build is still running..."
+                  fi
+                done
+              ) &
+              heartbeat_pid=$!
+
+              build_status=0
+              wait "$build_pid" || build_status=$?
+
+              kill "$heartbeat_pid" 2>/dev/null || true
+              wait "$heartbeat_pid" 2>/dev/null || true
+
+              if [ "$build_status" -ne 0 ]; then
+                echo "❌ Docker build failed with exit code $build_status"
+                exit "$build_status"
+              fi
               
               echo "🚀 Starting containers..."
               sudo docker compose up -d
