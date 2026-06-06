@@ -39,7 +39,7 @@ export default function Header() {
   return (
     <div
       className={cn(
-        "w-full grid grid-cols-2 lg:grid-cols-12 justify-center items-center py-4 lg:py-6 px-8 lg:px-12 fixed top-0 left-0 z-10",
+        "w-full grid grid-cols-2 lg:grid-cols-12 justify-center items-center py-4 lg:py-6 px-8 lg:px-12 fixed top-0 left-0 z-40",
         "transition-all duration-300 ease-in-out",
         isScrolled
           ? "bg-white dark:bg-[var(--color-gray-950)] shadow-md backdrop-blur-sm"
