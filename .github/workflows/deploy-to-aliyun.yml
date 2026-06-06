@@ -36,6 +36,20 @@ jobs:
             cp /var/www/env/website.env /var/www/website/.env
           EOF
 
+      - name: 🔐 Log in to Aliyun Container Registry
+        env:
+          ACR_REGISTRY: registry.cn-hangzhou.aliyuncs.com
+          ACR_USERNAME: ${{ secrets.ALIYUN_ACR_USERNAME }}
+          ACR_PASSWORD: ${{ secrets.ALIYUN_ACR_PASSWORD }}
+        run: |
+          test -n "$ACR_USERNAME"
+          test -n "$ACR_PASSWORD"
+
+          printf '%s' "$ACR_PASSWORD" | ssh \
+            -o StrictHostKeyChecking=no \
+            ${{ secrets.ALIYUN_USER }}@${{ secrets.ALIYUN_HOST }} \
+            "sudo docker login '$ACR_REGISTRY' --username '$ACR_USERNAME' --password-stdin"
+
       - name: 🐳 SSH and deploy with Docker Compose
         run: |
           ssh -o StrictHostKeyChecking=no -o ServerAliveInterval=3000 -o ServerAliveCountMax=3 \
