@@ -18,12 +18,12 @@ type ProjectAxisProps = {
 
 function ProjectAxisSkeleton() {
   return (
-    <div className="px-4 py-12 md:px-0 md:py-0">
+    <div className="py-12 md:py-0">
       {[0, 1, 2].map((index) => (
         <div
           key={index}
           className={cn(
-            "relative grid grid-cols-1 gap-6 py-12 md:grid-cols-2 md:content-center md:gap-0 md:py-10 lg:py-12",
+            "relative flex flex-col gap-6 px-4 py-10 md:grid md:grid-cols-2 md:content-center md:gap-0 md:px-0 md:py-10 lg:py-12",
             index > 0 && "md:-mt-[8vh] lg:-mt-[10vh]"
           )}
         >
@@ -37,10 +37,10 @@ function ProjectAxisSkeleton() {
           />
           <div
             className={cn(
-              "space-y-3 md:absolute md:top-1/2 md:z-10 md:w-[min(34vw,30rem)] md:-translate-y-1/2",
+              "flex w-full flex-col items-center space-y-3 text-center md:absolute md:top-1/2 md:z-10 md:w-[min(34vw,30rem)] md:-translate-y-1/2",
               index % 2 === 0
-                ? "md:left-[calc(50%-0.75rem)] md:text-left"
-                : "md:right-[calc(50%-0.75rem)] md:text-right"
+                ? "md:left-[calc(50%-0.75rem)] md:items-start md:text-left"
+                : "md:right-[calc(50%-0.75rem)] md:items-end md:text-right"
             )}
           >
             <Skeleton className="h-4 w-20 rounded-none" />
@@ -107,7 +107,7 @@ export default function ProjectAxis({
               <motion.article
                 data-project-axis-item={index}
                 className={cn(
-                  "relative grid grid-cols-1 gap-7 px-4 py-12 md:grid-cols-2 md:content-center md:gap-0 md:px-0 md:py-10 lg:py-12",
+                  "relative flex flex-col gap-7 px-4 py-10 md:grid md:grid-cols-2 md:content-center md:gap-0 md:px-0 md:py-10 lg:py-12",
                   index > 0 && "md:-mt-[8vh] lg:-mt-[10vh]"
                 )}
                 initial={
@@ -141,7 +141,7 @@ export default function ProjectAxis({
 
                 <div
                   className={cn(
-                    "relative z-10 flex flex-col justify-center md:absolute md:top-1/2 md:w-[min(34vw,30rem)] md:-translate-y-1/2",
+                    "relative z-10 flex w-full flex-col items-center justify-center text-center md:absolute md:top-1/2 md:w-[min(34vw,30rem)] md:-translate-y-1/2",
                     isRight
                       ? "md:left-[calc(50%-0.75rem)] md:items-start md:text-left"
                       : "md:right-[calc(50%-0.75rem)] md:items-end md:text-right"
@@ -150,7 +150,7 @@ export default function ProjectAxis({
                   <span className="text-xs font-normal text-[var(--color-gray-600)] dark:text-[var(--color-gray-400)]">
                     {category}
                   </span>
-                  <span className="mt-5 max-w-[13ch] text-3xl font-normal leading-[1.08] text-[var(--color-gray-900)] transition-opacity group-hover:opacity-55 dark:text-[var(--color-gray-50)] md:text-4xl lg:text-5xl">
+                  <span className="mt-3 max-w-full text-3xl font-normal leading-[1.08] text-[var(--color-gray-900)] transition-opacity group-hover:opacity-55 dark:text-[var(--color-gray-50)] md:mt-5 md:max-w-[13ch] md:text-4xl lg:text-5xl">
                     {title}
                   </span>
                 </div>

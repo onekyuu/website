@@ -8,6 +8,7 @@ import { useProjects } from "@/hooks/useProjects";
 import { useGallery } from "@/hooks/useGallery";
 import HeroSection from "@/components/home/Hero";
 import SkillsSection from "@/components/home/Skills";
+import SkillsMarquee from "@/components/home/SkillsMarquee";
 import PortfolioSection from "@/components/home/Portfolio";
 import BlogSection from "@/components/home/Blog";
 import GalleryParallaxSection from "@/components/home/GalleryParallax";
@@ -76,6 +77,7 @@ export default function HomePage() {
     <div className="min-h-screen pb-4 lg:pb-0">
       <HeroSection />
       <SkillsSection />
+      <SkillsMarquee />
       <PortfolioSection
         projectList={sortedProjectList}
         isLoading={isProjectLoading}
