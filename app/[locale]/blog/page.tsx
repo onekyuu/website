@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { useTranslations } from "next-intl";
 import React, { FC, useState } from "react";
 import BlogCard from "@/components/blog/BlogCard";
+import FlowingMenu from "@/components/blog/FlowingMenu";
 import {
   Pagination,
   PaginationContent,
@@ -20,9 +21,11 @@ import { Separator } from "@/components/ui/separator";
 import { usePosts, usePrefetchPosts } from "@/hooks/usePosts";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useScrollTo } from "@/hooks/useScrollTo";
+import { useLocale } from "next-intl";
 
 const BlogPage: FC = () => {
   const t = useTranslations("Blog");
+  const locale = useLocale();
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchInput, setSearchInput] = useState("");
@@ -67,6 +70,11 @@ const BlogPage: FC = () => {
   const totalPages = postsData?.totalPages || 0;
   const blogList = postsData?.results || [];
   const latestPost = blogList[0];
+  const flowingMenuItems = blogList.map((post) => ({
+    link: `/blog/${post.slug}`,
+    text: post.translations[locale]?.title || post.title,
+    image: post.image || "/blog-cover.jpeg",
+  }));
 
   const latestBlogNode = latestPost ? (
     <ContentContainer>
@@ -118,11 +126,12 @@ const BlogPage: FC = () => {
         </div>
 
         {isLoading && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
+          <div className="mt-8 overflow-hidden">
             {Array.from({ length: pageSize }).map((_, index) => (
-              <div key={index} className="w-full">
-                <Skeleton className="h-[500px] w-full rounded-xl" />
-              </div>
+              <Skeleton
+                key={index}
+                className="h-[clamp(7rem,11vw,10rem)] w-full rounded-none border-t border-[var(--color-gray-300)] first:border-t-0 dark:border-[var(--color-gray-700)]"
+              />
             ))}
           </div>
         )}
@@ -136,10 +145,16 @@ const BlogPage: FC = () => {
         )}
 
         {!isLoading && !isError && blogList.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
-            {blogList.map((post) => (
-              <BlogCard key={post.id} post={post} />
-            ))}
+          <div className="mt-8 overflow-hidden">
+            <FlowingMenu
+              items={flowingMenuItems}
+              speed={15}
+              bgColor="var(--color-gray-950)"
+              textColor="var(--color-gray-50)"
+              marqueeBgColor="var(--color-primary-100)"
+              marqueeTextColor="var(--color-gray-950)"
+              borderColor="var(--color-gray-700)"
+            />
           </div>
         )}
 

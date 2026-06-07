@@ -58,6 +58,7 @@ export default function HomePage() {
     if (!blogResponse?.results) return [];
     return blogResponse.results.map((post) => ({
       id: post.id,
+      slug: post.slug,
       title: post.translations[locale]?.title || post.title,
       description: post.translations[locale]?.description || post.description,
       date: post.date || "",
