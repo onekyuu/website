@@ -1,0 +1,41 @@
+<svg
+  viewBox="0 0 28 28"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <style>
+    :root {
+      color: #111111;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        color: #ffffff;
+      }
+    }
+  </style>
+  <rect
+    x="0.75"
+    y="0.75"
+    width="26.5"
+    height="26.5"
+    rx="3.25"
+    stroke="currentColor"
+    stroke-width="1.5"
+  />
+  <g transform="translate(1.68 1.68) scale(0.88)">
+    <path
+      d="M14.05 5.65C13.76 10.92 12.64 16.92 7.08 22.08"
+      stroke="currentColor"
+      stroke-width="2.1"
+      stroke-linecap="square"
+    />
+    <path
+      d="M8.15 10.35H19.1V18.42C19.1 20.74 19.91 21.74 21.43 21.74C22.08 21.74 22.57 21.57 22.95 21.33"
+      stroke="currentColor"
+      stroke-width="2.1"
+      stroke-linecap="square"
+      stroke-linejoin="miter"
+    />
+  </g>
+</svg>
