@@ -4,14 +4,11 @@ export const metadata = {
   title: "OneKyuu Website",
   description: "OneKyuu's personal website.",
   icons: {
-    icons: {
-      icon: [
-        // { url: "/favicon.ico", type: "image/x-icon" },
-        { url: "/favicon.png", type: "image/png" },
-      ],
-      // 也可以指定不同尺寸的图标
-      // apple: { url: "/favicon.png", type: "image/png" },
-    },
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", type: "image/x-icon" },
+      { url: "/favicon.png", type: "image/png", sizes: "512x512" },
+    ],
   },
   openGraph: {
     title: "OneKyuu Website",
