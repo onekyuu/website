@@ -17,7 +17,7 @@ export default function StickyFooter({
       aria-label="Site footer"
       className={cn(
         "relative h-[var(--sticky-footer-height)]",
-        "[--sticky-footer-height:620px] md:[--sticky-footer-height:480px] lg:[--sticky-footer-height:420px]",
+        "[--sticky-footer-height:720px] md:[--sticky-footer-height:700px] lg:[--sticky-footer-height:560px]",
         "[clip-path:polygon(0_0,100%_0,100%_100%,0_100%)]",
         className
       )}

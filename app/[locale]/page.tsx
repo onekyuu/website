@@ -39,6 +39,8 @@ export default function HomePage() {
   } = useProjects({
     page: 1,
     pageSize: 4,
+    featured: true,
+    ordering: "-priority",
   });
 
   const {
@@ -63,23 +65,13 @@ export default function HomePage() {
     }));
   }, [blogResponse?.results, locale]);
 
-  const sortedProjectList = useMemo(() => {
-    if (!projectResponse) return [];
-
-    return projectResponse.sort((a, b) => {
-      const dateA = new Date(a.created_at).getTime();
-      const dateB = new Date(b.created_at).getTime();
-      return dateA - dateB;
-    });
-  }, [projectResponse]);
-
   return (
     <div className="min-h-screen pb-4 lg:pb-0">
       <HeroSection />
       <SkillsSection />
       <SkillsMarquee />
       <PortfolioSection
-        projectList={sortedProjectList}
+        projectList={projectResponse || []}
         isLoading={isProjectLoading}
       />
       <BlogSection
