@@ -1,3 +1,5 @@
+import "@fontsource-variable/noto-sans-sc";
+import "@fontsource-variable/noto-sans-jp";
 import "./globals.css";
 
 export const metadata = {
