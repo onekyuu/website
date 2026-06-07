@@ -49,6 +49,7 @@ export interface PostsParams {
 
 export interface BlogPost {
   id: number;
+  slug: string;
   title: string;
   description?: string;
   date?: string;
