@@ -2,8 +2,7 @@ import { notFound } from "next/navigation";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { ReactNode } from "react";
 import { routing } from "@/i18n/config";
-import { Nunito } from "next/font/google";
-import { cn } from "@/lib/utils";
+import localFont from "next/font/local";
 import { ThemeProvider } from "@/components/theme-provider";
 import Header from "@/components/Header";
 import QueryProvider from "@/providers/QueryProvider";
@@ -15,10 +14,19 @@ type Props = {
   params: Promise<{ locale: string }>;
 };
 
-const nunito = Nunito({
+const nunito = localFont({
+  src: "../fonts/nunito-latin-variable.woff2",
   variable: "--font-nunito",
-  subsets: ["latin"],
+  display: "swap",
+  style: "normal",
+  weight: "200 1000",
 });
+
+const localeFontClasses: Record<string, string> = {
+  en: nunito.className,
+  zh: "font-noto-sans-sc",
+  ja: "font-noto-sans-jp",
+};
 
 export default async function LocaleLayout({ children, params }: Props) {
   // Ensure that the incoming `locale` is valid
@@ -27,15 +35,9 @@ export default async function LocaleLayout({ children, params }: Props) {
     notFound();
   }
 
-  const fonts: { [K: string]: string } = {
-    en: nunito.className,
-    zh: nunito.className,
-    ja: nunito.className,
-  };
-
   return (
     <html lang={locale} className="dark" suppressHydrationWarning>
-      <body className={cn(fonts[locale])}>
+      <body className={localeFontClasses[locale]}>
         <SmoothScroll />
         <QueryProvider>
           <ThemeProvider

@@ -2,14 +2,17 @@
   "name": "website",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@10.34.1",
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build --turbopack",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
     "@dotlottie/react-player": "^1.6.19",
+    "@fontsource-variable/noto-sans-jp": "5.2.10",
+    "@fontsource-variable/noto-sans-sc": "5.2.10",
     "@gsap/react": "^2.1.2",
     "@hookform/resolvers": "^5.2.2",
     "@radix-ui/react-aspect-ratio": "^1.1.8",
