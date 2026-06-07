@@ -126,7 +126,7 @@ const BlogPage: FC = () => {
         </div>
 
         {isLoading && (
-          <div className="mt-8 overflow-hidden">
+          <div className="mt-12 overflow-hidden md:mt-14">
             {Array.from({ length: pageSize }).map((_, index) => (
               <Skeleton
                 key={index}
@@ -137,7 +137,7 @@ const BlogPage: FC = () => {
         )}
 
         {isError && (
-          <div className="mt-8 p-6 bg-red-50 dark:bg-red-900/20 rounded-xl">
+          <div className="mt-12 rounded-xl bg-red-50 p-6 dark:bg-red-900/20 md:mt-14">
             <p className="text-red-600 dark:text-red-400">
               {t("errorMessage")}: {error?.message}
             </p>
@@ -145,7 +145,7 @@ const BlogPage: FC = () => {
         )}
 
         {!isLoading && !isError && blogList.length > 0 && (
-          <div className="mt-8 overflow-hidden">
+          <div className="mt-12 overflow-hidden md:mt-14">
             <FlowingMenu
               items={flowingMenuItems}
               speed={15}
@@ -159,7 +159,7 @@ const BlogPage: FC = () => {
         )}
 
         {!isLoading && !isError && blogList.length === 0 && (
-          <div className="mt-8 p-6 text-center text-gray-500 dark:text-gray-400">
+          <div className="mt-12 p-6 text-center text-gray-500 dark:text-gray-400 md:mt-14">
             {t("noResults")}
           </div>
         )}

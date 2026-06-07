@@ -83,19 +83,15 @@ const GalleryParallaxSection: FC<GalleryParallaxSectionProps> = ({
     if (prefersReducedMotion || galleryList.length === 0) return;
 
     const context = gsap.context(() => {
-      cardRefs.current.forEach((card, index) => {
-        if (!card || !containerRef.current) return;
+      const cards = cardRefs.current.filter(Boolean) as HTMLElement[];
 
-        const targetScale = Math.max(
-          0.78,
-          1 - (galleryList.length - index) * 0.045
-        );
-
+      if (cards.length && containerRef.current) {
         gsap.fromTo(
-          card,
+          cards,
           { scale: 1 },
           {
-            scale: targetScale,
+            scale: (index) =>
+              Math.max(0.78, 1 - (galleryList.length - index) * 0.045),
             ease: "none",
             scrollTrigger: {
               trigger: containerRef.current,
@@ -105,7 +101,7 @@ const GalleryParallaxSection: FC<GalleryParallaxSectionProps> = ({
             },
           }
         );
-      });
+      }
 
       imageRefs.current.forEach((image, index) => {
         const shell = shellRefs.current[index];
@@ -146,7 +142,7 @@ const GalleryParallaxSection: FC<GalleryParallaxSectionProps> = ({
     return (
       <section className="min-h-screen py-24">
         <ContentContainer>
-          <div className="h-10 w-48 ml-auto rounded bg-[var(--color-gray-200)] dark:bg-[var(--color-gray-800)] animate-pulse" />
+          <div className="h-10 w-48 rounded bg-[var(--color-gray-200)] dark:bg-[var(--color-gray-800)] animate-pulse" />
           <div className="mt-12 h-[68vh] rounded-lg bg-[var(--color-gray-200)] dark:bg-[var(--color-gray-900)] animate-pulse" />
         </ContentContainer>
       </section>
@@ -162,7 +158,7 @@ const GalleryParallaxSection: FC<GalleryParallaxSectionProps> = ({
         className="relative min-h-screen py-16 md:py-24"
       >
         <ContentContainer className="mb-8 md:mb-14">
-          <div className="text-3xl font-bold text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] md:text-4xl lg:text-5xl text-end">
+          <div className="text-3xl font-bold text-[var(--color-primary-900)] dark:text-[var(--color-primary-50)] md:text-4xl lg:text-5xl">
             {t("gallery")}
           </div>
         </ContentContainer>
@@ -186,7 +182,7 @@ const GalleryParallaxSection: FC<GalleryParallaxSectionProps> = ({
                   cardRefs.current[index] = node;
                 }}
                 className={cn(
-                  "relative top-0 grid w-full max-w-6xl overflow-hidden rounded-lg shadow-2xl md:grid-cols-[0.9fr_1.25fr]",
+                  "relative top-0 grid w-full max-w-6xl transform-gpu overflow-hidden rounded-lg shadow-2xl will-change-transform [backface-visibility:hidden] md:grid-cols-[0.9fr_1.25fr]",
                   "min-h-[72vh]",
                   CARD_COLORS[index % CARD_COLORS.length]
                 )}
@@ -249,7 +245,7 @@ const GalleryParallaxSection: FC<GalleryParallaxSectionProps> = ({
                       imageRefs.current[index] = node;
                     }}
                     className={cn(
-                      "absolute inset-0",
+                      "absolute inset-0 transform-gpu will-change-transform [backface-visibility:hidden]",
                       prefersReducedMotion && "scale-100"
                     )}
                   >
@@ -257,8 +253,10 @@ const GalleryParallaxSection: FC<GalleryParallaxSectionProps> = ({
                       src={photo.image_url}
                       alt={photo.title || "Gallery image"}
                       fill
+                      priority={index < 4}
+                      decoding="async"
                       className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                      sizes="(max-width: 768px) 100vw, 58vw"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1280px) 58vw, 680px"
                     />
                   </div>
                 </button>

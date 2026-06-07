@@ -35,7 +35,7 @@ const BlogSection: FC<BlogSectionProps> = ({
         </div>
 
         {isLoading && (
-          <div className="mt-8 overflow-hidden">
+          <div className="mt-8 overflow-hidden md:mt-14">
             {Array.from({ length: 4 }).map((_, index) => (
               <Skeleton
                 key={index}
@@ -46,13 +46,13 @@ const BlogSection: FC<BlogSectionProps> = ({
         )}
 
         {isError && (
-          <div className="mt-8 p-6 text-center text-red-600 dark:text-red-400">
+          <div className="mt-8 p-6 text-center text-red-600 dark:text-red-400 md:mt-14">
             {error?.message}
           </div>
         )}
 
         {!isLoading && !isError && menuItems.length > 0 && (
-          <div className="mt-8 overflow-hidden">
+          <div className="mt-8 overflow-hidden md:mt-14">
             <FlowingMenu
               items={menuItems}
               speed={15}
