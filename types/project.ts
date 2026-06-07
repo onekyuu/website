@@ -60,6 +60,7 @@ export interface ProjectBase {
   detail_images?: string[];
   skills: Skill[];
   is_featured: boolean;
+  priority: number;
   github_url?: string;
   live_demo_url?: string;
   involved_areas?: string;
@@ -77,6 +78,8 @@ export interface ProjectsParams {
   page?: number;
   pageSize?: number;
   search?: string;
+  featured?: boolean;
+  ordering?: "priority" | "-priority";
 }
 
 export interface ProjectsResponse {

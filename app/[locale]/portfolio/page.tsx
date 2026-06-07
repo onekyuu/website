@@ -22,6 +22,7 @@ const PortfolioPage = () => {
   } = useProjects({
     page: 1,
     pageSize: 10,
+    ordering: "-priority",
   });
 
   const getProjectDetail = useCallback(
