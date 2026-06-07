@@ -41,7 +41,7 @@ export default function FlowingMenu({
 }: FlowingMenuProps) {
   return (
     <div
-      className="h-full w-full overflow-hidden"
+      className="h-full w-full overflow-hidden py-16 md:py-24"
       style={{ backgroundColor: bgColor }}
     >
       <nav className="m-0 flex h-full flex-col p-0">
@@ -212,7 +212,7 @@ function MenuItem({
     >
       <TransitionLink
         href={link}
-        className="relative flex h-full cursor-pointer items-center justify-center px-4 text-center text-[clamp(1.5rem,3.5vw,3.5rem)] font-semibold uppercase leading-[1.05] text-balance no-underline [overflow-wrap:anywhere]"
+        className="relative flex h-full cursor-pointer items-center justify-center px-2 text-center text-[clamp(1.125rem,2.2vw,2.35rem)] font-semibold leading-[1.1] text-balance no-underline [overflow-wrap:anywhere] md:px-3"
         style={{ color: textColor }}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
@@ -234,7 +234,7 @@ function MenuItem({
               className="marquee-part flex shrink-0 items-center"
               style={{ color: marqueeTextColor }}
             >
-              <span className="whitespace-nowrap px-[1vw] text-[clamp(1.75rem,4vw,4rem)] font-normal uppercase leading-none">
+              <span className="whitespace-nowrap px-[1vw] text-[clamp(1.2rem,2.5vw,2.5rem)] font-normal leading-none">
                 {text}
               </span>
               <div
