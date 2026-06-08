@@ -20,7 +20,7 @@ export default function SectionNavigation() {
     () => [
       { id: "home-hero", label: t("home") },
       { id: "home-skills", label: t("skills") },
-      { id: "home-portfolio", label: t("portfolio") },
+      { id: "home-portfolio", label: t("selectedProjects") },
       { id: "home-blog", label: t("blog") },
       { id: "home-gallery", label: t("gallery") },
       { id: "home-contact", label: t("contactMe") },

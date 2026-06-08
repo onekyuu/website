@@ -9,6 +9,7 @@ const Home = {
   checkProject: "プロジェクトの詳細を見る",
   home: "ホーム",
   portfolio: "作品",
+  selectedProjects: "厳選作品",
   blog: "記事",
   gallery: "ギャラリー",
   readPost: "記事を読む",

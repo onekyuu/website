@@ -9,6 +9,7 @@ const Home = {
   checkProject: "Check Project",
   home: "Home",
   portfolio: "Portfolio",
+  selectedProjects: "Selected Projects",
   blog: "Blog",
   gallery: "Gallery",
   readPost: "Read Post",
