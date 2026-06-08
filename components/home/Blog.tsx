@@ -56,11 +56,6 @@ const BlogSection: FC<BlogSectionProps> = ({
             <FlowingMenu
               items={menuItems}
               speed={15}
-              bgColor="var(--color-gray-950)"
-              textColor="var(--color-gray-50)"
-              marqueeBgColor="var(--color-primary-100)"
-              marqueeTextColor="var(--color-gray-950)"
-              borderColor="var(--color-gray-700)"
             />
           </div>
         )}
