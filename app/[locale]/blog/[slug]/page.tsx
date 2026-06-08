@@ -29,7 +29,9 @@ const BlogDetailPage: FC = () => {
     };
   }, [postData, locale]);
 
-  const headings = useTiptapHeadings(formatBlogData.content);
+  const headings = useTiptapHeadings(formatBlogData.content).filter(
+    (heading) => heading.level <= 2
+  );
 
   return (
     <PageLayout
@@ -44,7 +46,7 @@ const BlogDetailPage: FC = () => {
         images: formatBlogData.image ? [formatBlogData.image] : [],
       }}
     >
-      <ContentContainer className="mt-16">
+      <ContentContainer className="mt-16 pb-20 md:pb-28 lg:pb-32">
         <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-8 lg:gap-12">
           {headings.length > 0 && (
             <aside className="hidden lg:block">
