@@ -51,7 +51,7 @@ const PortfolioSection: FC<PortfolioSectionProps> = ({
           {projectList?.map((project, index) => {
             const translation = project.translations[locale];
             const projectTitle = translation?.title || project.slug;
-            const projectInfo = translation?.info.slice(0, 3) || [];
+            const projectInfo = translation?.info || [];
 
             return (
               <article
