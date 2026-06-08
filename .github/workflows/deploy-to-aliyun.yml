@@ -13,6 +13,26 @@ jobs:
       - name: 🛎️ Checkout code
         uses: actions/checkout@v4
 
+      - name: 📦 Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.34.1
+          run_install: false
+
+      - name: 🧰 Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: 📦 Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: ✅ Validate frontend
+        run: |
+          pnpm lint
+          pnpm typecheck
+
       - name: 🐧 Set up SSH
         uses: webfactory/ssh-agent@v0.9.1
         with:
