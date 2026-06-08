@@ -5,6 +5,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { motion, useReducedMotion } from "motion/react";
 import { useState } from "react";
 
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 import TransitionLink from "@/components/TransitionLink";
 import { Skeleton } from "@/components/ui/skeleton";
 import { LanguageCode } from "@/types/common";
@@ -29,7 +30,7 @@ function ProjectAxisSkeleton() {
         >
           <Skeleton
             className={cn(
-              "aspect-[4/3] w-full rounded-none md:w-[46vw] md:max-w-[900px]",
+              "aspect-video w-full rounded-none md:w-[46vw] md:max-w-[900px]",
               index % 2 === 0
                 ? "md:col-start-2 md:justify-self-end"
                 : "md:col-start-1 md:row-start-1"
@@ -128,7 +129,7 @@ export default function ProjectAxis({
                 href={projectHref}
                 aria-label={`${t("learnMore")}: ${title}`}
                 className={cn(
-                  "project-axis-trigger group/project-axis-media relative block aspect-[4/3] w-full overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary-500)]",
+                  "project-axis-trigger group/project-axis-media relative block w-full overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary-500)]",
                   "md:row-start-1 md:w-[46vw] md:max-w-[900px]",
                   isRight
                     ? "md:col-start-2 md:justify-self-end"
@@ -176,18 +177,18 @@ export default function ProjectAxis({
 
 function BrowserProjectCover({ src, title }: { src: string; title: string }) {
   return (
-    <div className="h-full w-full overflow-hidden rounded-lg border border-[var(--color-gray-300)] bg-[var(--color-gray-950)] shadow-2xl dark:border-[var(--color-gray-700)]">
+    <div className="w-full overflow-hidden rounded-lg border border-[var(--color-gray-300)] bg-[var(--color-gray-950)] shadow-2xl dark:border-[var(--color-gray-700)]">
       <div className="flex h-8 items-center gap-2 border-b border-white/10 bg-[var(--color-gray-900)] px-4">
         <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
         <span className="h-2.5 w-2.5 rounded-full bg-[#ffbd2e]" />
         <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
         <span className="ml-3 h-3 w-28 rounded-full bg-white/12" />
       </div>
-      <div className="relative h-[calc(100%-2rem)] w-full overflow-hidden bg-white">
+      <AspectRatio ratio={16 / 9} className="overflow-hidden bg-white">
         <div className="absolute inset-0 scale-100 transition-[scale] duration-700 ease-out group-hover/project-axis-media:scale-[1.025] group-focus-visible/project-axis-media:scale-[1.025]">
           <ProjectCover src={src} title={title} />
         </div>
-      </div>
+      </AspectRatio>
     </div>
   );
 }
@@ -200,7 +201,7 @@ function ProjectCover({ src, title }: { src: string; title: string }) {
       src={imageSrc}
       alt={title}
       fill
-      className="object-cover object-top"
+      className="object-contain"
       sizes="(max-width: 767px) 100vw, 46vw"
       onError={() => {
         if (imageSrc !== "/project-cover.jpeg") {
