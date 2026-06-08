@@ -7,6 +7,10 @@ import gsap from "gsap";
 
 gsap.registerPlugin(ScrollTrigger);
 
+type WindowWithLenis = Window & {
+  lenis?: Lenis;
+};
+
 export default function SmoothScroll() {
   useEffect(() => {
     const lenis = new Lenis({
@@ -15,6 +19,9 @@ export default function SmoothScroll() {
       smoothWheel: true,
       autoRaf: false,
     });
+    const windowWithLenis = window as WindowWithLenis;
+
+    windowWithLenis.lenis = lenis;
 
     lenis.on("scroll", ScrollTrigger.update);
 
@@ -27,6 +34,9 @@ export default function SmoothScroll() {
 
     return () => {
       gsap.ticker.remove(update);
+      if (windowWithLenis.lenis === lenis) {
+        delete windowWithLenis.lenis;
+      }
       lenis.destroy();
     };
   }, []);

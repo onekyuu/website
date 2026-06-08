@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 
 import TransitionLink from "@/components/TransitionLink";
+import { cn } from "@/lib/utils";
 
 export interface FlowingMenuItem {
   link: string;
@@ -23,26 +24,26 @@ interface FlowingMenuProps {
 
 interface MenuItemProps extends FlowingMenuItem {
   speed: number;
-  textColor: string;
-  marqueeBgColor: string;
-  marqueeTextColor: string;
-  borderColor: string;
+  textColor?: string;
+  marqueeBgColor?: string;
+  marqueeTextColor?: string;
+  borderColor?: string;
   isFirst: boolean;
 }
 
 export default function FlowingMenu({
   items = [],
   speed = 15,
-  textColor = "#ffffff",
-  bgColor = "#120f17",
-  marqueeBgColor = "#ffffff",
-  marqueeTextColor = "#120f17",
-  borderColor = "#ffffff",
+  textColor,
+  bgColor,
+  marqueeBgColor,
+  marqueeTextColor,
+  borderColor,
 }: FlowingMenuProps) {
   return (
     <div
-      className="h-full w-full overflow-hidden py-16 md:py-24"
-      style={{ backgroundColor: bgColor }}
+      className="h-full w-full overflow-hidden bg-white py-16 text-[var(--color-gray-900)] md:py-24 dark:bg-[var(--color-gray-950)] dark:text-[var(--color-gray-50)]"
+      style={bgColor ? { backgroundColor: bgColor } : undefined}
     >
       <nav className="m-0 flex h-full flex-col p-0">
         {items.map((item, index) => (
@@ -207,13 +208,20 @@ function MenuItem({
   return (
     <div
       ref={itemRef}
-      className="relative h-[clamp(7rem,11vw,10rem)] shrink-0 overflow-hidden text-center"
-      style={{ borderTop: isFirst ? "none" : `1px solid ${borderColor}` }}
+      className={cn(
+        "relative h-[clamp(7rem,11vw,10rem)] shrink-0 overflow-hidden border-t border-[var(--color-gray-300)] text-center dark:border-[var(--color-gray-700)]",
+        isFirst && "border-t-0"
+      )}
+      style={
+        borderColor && !isFirst
+          ? { borderTop: `1px solid ${borderColor}` }
+          : undefined
+      }
     >
       <TransitionLink
         href={link}
         className="relative flex h-full cursor-pointer items-center justify-center px-2 text-center text-[clamp(1.125rem,2.2vw,2.35rem)] font-semibold leading-[1.1] text-balance no-underline [overflow-wrap:anywhere] md:px-3"
-        style={{ color: textColor }}
+        style={textColor ? { color: textColor } : undefined}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         onFocus={() => animateEnter("bottom")}
@@ -224,15 +232,17 @@ function MenuItem({
 
       <div
         ref={marqueeRef}
-        className="pointer-events-none absolute left-0 top-0 h-full w-full translate-y-[101%] overflow-hidden"
-        style={{ backgroundColor: marqueeBgColor }}
+        className="pointer-events-none absolute left-0 top-0 h-full w-full translate-y-[101%] overflow-hidden bg-[var(--color-primary-100)]"
+        style={
+          marqueeBgColor ? { backgroundColor: marqueeBgColor } : undefined
+        }
       >
         <div ref={marqueeInnerRef} className="flex h-full w-fit">
           {Array.from({ length: repetitions }).map((_, index) => (
             <div
               key={index}
-              className="marquee-part flex shrink-0 items-center"
-              style={{ color: marqueeTextColor }}
+              className="marquee-part flex shrink-0 items-center text-[var(--color-gray-950)]"
+              style={marqueeTextColor ? { color: marqueeTextColor } : undefined}
             >
               <span className="whitespace-nowrap px-[1vw] text-[clamp(1.2rem,2.5vw,2.5rem)] font-normal leading-none">
                 {text}
