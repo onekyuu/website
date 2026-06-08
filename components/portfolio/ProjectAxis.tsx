@@ -59,6 +59,7 @@ export default function ProjectAxis({
   const locale = useLocale() as LanguageCode;
   const t = useTranslations("Portfolio");
   const prefersReducedMotion = useReducedMotion();
+  const [activeProjectId, setActiveProjectId] = useState<number | null>(null);
 
   if (isLoading) {
     return (
@@ -98,68 +99,97 @@ export default function ProjectAxis({
           const projectHref = `/portfolio/${project.slug}`;
 
           return (
-            <TransitionLink
+            <motion.article
               key={project.id}
-              href={projectHref}
-              aria-label={`${t("learnMore")}: ${title}`}
-              className="group block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary-500)]"
+              data-project-axis-item={index}
+              className={cn(
+                "relative flex flex-col gap-7 px-4 py-10 md:grid md:grid-cols-2 md:content-center md:gap-0 md:px-0 md:py-10 lg:py-12",
+                index > 0 && "md:-mt-[8vh] lg:-mt-[10vh]"
+              )}
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 72 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.18 }}
+              transition={{
+                duration: 0.9,
+                ease: [0.22, 1, 0.36, 1],
+              }}
             >
-              <motion.article
-                data-project-axis-item={index}
+              <TransitionLink
+                href={projectHref}
+                aria-label={`${t("learnMore")}: ${title}`}
+                onMouseEnter={() => setActiveProjectId(project.id)}
+                onMouseLeave={() => setActiveProjectId(null)}
+                onFocus={() => setActiveProjectId(project.id)}
+                onBlur={() => setActiveProjectId(null)}
                 className={cn(
-                  "relative flex flex-col gap-7 px-4 py-10 md:grid md:grid-cols-2 md:content-center md:gap-0 md:px-0 md:py-10 lg:py-12",
-                  index > 0 && "md:-mt-[8vh] lg:-mt-[10vh]"
+                  "group/project-axis-media relative block aspect-[4/3] w-full overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary-500)]",
+                  "md:row-start-1 md:w-[46vw] md:max-w-[900px]",
+                  isRight
+                    ? "md:col-start-2 md:justify-self-end"
+                    : "md:col-start-1 md:justify-self-start"
                 )}
-                initial={
-                  prefersReducedMotion
-                    ? false
-                    : { opacity: 0, y: 72 }
-                }
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.18 }}
-                transition={{
-                  duration: 0.9,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
               >
-                <div
-                  className={cn(
-                    "relative block aspect-[4/3] w-full overflow-hidden bg-[var(--color-gray-200)] dark:bg-[var(--color-gray-900)]",
-                    "md:row-start-1 md:w-[46vw] md:max-w-[900px]",
-                    isRight
-                      ? "md:col-start-2 md:justify-self-end"
-                      : "md:col-start-1 md:justify-self-start"
-                  )}
-                >
-                  <ProjectCover src={image} title={title} />
-                </div>
+                <BrowserProjectCover src={image} title={title} />
+              </TransitionLink>
 
-                <span
-                  aria-hidden="true"
-                  className="absolute left-1/2 top-1/2 z-[5] hidden h-48 w-[3px] -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-[var(--color-gray-950)] md:block"
-                />
+              <span
+                aria-hidden="true"
+                className="absolute left-1/2 top-1/2 z-[5] hidden h-48 w-[3px] -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-[var(--color-gray-950)] md:block"
+              />
 
-                <div
-                  className={cn(
-                    "relative z-10 flex w-full flex-col items-center justify-center text-center md:absolute md:top-1/2 md:w-[min(34vw,30rem)] md:-translate-y-1/2",
-                    isRight
-                      ? "md:left-[calc(50%-0.75rem)] md:items-start md:text-left"
-                      : "md:right-[calc(50%-0.75rem)] md:items-end md:text-right"
-                  )}
+              <span
+                aria-hidden="true"
+                className={cn(
+                  "absolute left-1/2 top-[calc(50%+6rem)] z-[6] hidden h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[var(--color-gray-900)] opacity-0 transition-[opacity,transform] duration-300 dark:bg-[var(--color-gray-50)] md:block",
+                  activeProjectId === project.id
+                    ? "scale-100 opacity-100"
+                    : "scale-50"
+                )}
+              />
+
+              <div
+                className={cn(
+                  "relative z-10 flex w-full flex-col items-center justify-center text-center md:absolute md:top-1/2 md:w-[min(34vw,30rem)] md:-translate-y-1/2",
+                  isRight
+                    ? "md:left-[calc(50%-0.75rem)] md:items-start md:text-left"
+                    : "md:right-[calc(50%-0.75rem)] md:items-end md:text-right"
+                )}
+              >
+                <span className="text-xs font-normal text-[var(--color-gray-600)] dark:text-[var(--color-gray-400)]">
+                  {category}
+                </span>
+                <TransitionLink
+                  href={projectHref}
+                  onMouseEnter={() => setActiveProjectId(project.id)}
+                  onMouseLeave={() => setActiveProjectId(null)}
+                  onFocus={() => setActiveProjectId(project.id)}
+                  onBlur={() => setActiveProjectId(null)}
+                  className="mt-3 max-w-full text-3xl font-normal leading-[1.08] text-[var(--color-gray-500)] transition-colors duration-300 hover:text-[var(--color-gray-900)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary-500)] dark:text-[var(--color-gray-500)] dark:hover:text-[var(--color-gray-50)] md:mt-5 md:max-w-[13ch] md:text-4xl lg:text-5xl"
                 >
-                  <span className="text-xs font-normal text-[var(--color-gray-600)] dark:text-[var(--color-gray-400)]">
-                    {category}
-                  </span>
-                  <span className="mt-3 max-w-full text-3xl font-normal leading-[1.08] text-[var(--color-gray-900)] transition-opacity group-hover:opacity-55 dark:text-[var(--color-gray-50)] md:mt-5 md:max-w-[13ch] md:text-4xl lg:text-5xl">
-                    {title}
-                  </span>
-                </div>
-              </motion.article>
-            </TransitionLink>
+                  {title}
+                </TransitionLink>
+              </div>
+            </motion.article>
           );
         })}
       </div>
     </section>
+  );
+}
+
+function BrowserProjectCover({ src, title }: { src: string; title: string }) {
+  return (
+    <div className="h-full w-full overflow-hidden rounded-lg border border-[var(--color-gray-300)] bg-[var(--color-gray-950)] shadow-2xl dark:border-[var(--color-gray-700)]">
+      <div className="flex h-8 items-center gap-2 border-b border-white/10 bg-[var(--color-gray-900)] px-4">
+        <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
+        <span className="h-2.5 w-2.5 rounded-full bg-[#ffbd2e]" />
+        <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
+        <span className="ml-3 h-3 w-28 rounded-full bg-white/12" />
+      </div>
+      <div className="relative h-[calc(100%-2rem)] w-full overflow-hidden bg-white">
+        <ProjectCover src={src} title={title} />
+      </div>
+    </div>
   );
 }
 
@@ -171,7 +201,7 @@ function ProjectCover({ src, title }: { src: string; title: string }) {
       src={imageSrc}
       alt={title}
       fill
-      className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.025]"
+      className="object-cover object-top transition-transform duration-700 ease-out group-hover/project-axis-media:scale-[1.025]"
       sizes="(max-width: 767px) 100vw, 46vw"
       onError={() => {
         if (imageSrc !== "/project-cover.jpeg") {

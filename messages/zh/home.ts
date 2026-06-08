@@ -9,6 +9,7 @@ const Home = {
   checkProject: "查看项目",
   home: "主页",
   portfolio: "作品集",
+  selectedProjects: "精选作品",
   blog: "博客",
   gallery: "相册",
   readPost: "阅读文章",
