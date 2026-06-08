@@ -1,4 +1,9 @@
 import { useCallback } from "react";
+import type Lenis from "lenis";
+
+type WindowWithLenis = Window & {
+  lenis?: Lenis;
+};
 
 export const useScrollTo = () => {
   const scrollToElement = useCallback(
@@ -9,7 +14,7 @@ export const useScrollTo = () => {
         return;
       }
 
-      const lenis = (window as any).lenis;
+      const lenis = (window as WindowWithLenis).lenis;
 
       if (lenis) {
         lenis.scrollTo(element, {
@@ -32,7 +37,7 @@ export const useScrollTo = () => {
   );
 
   const scrollToTop = useCallback(() => {
-    const lenis = (window as any).lenis;
+    const lenis = (window as WindowWithLenis).lenis;
     if (lenis) {
       lenis.scrollTo(0, { duration: 1 });
     } else {

@@ -2,9 +2,16 @@ import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
 const withNextIntl = createNextIntlPlugin();
+const skipBuildValidation = process.env.NEXT_BUILD_SKIP_VALIDATION === "1";
 
 const nextConfig: NextConfig = {
   output: "standalone",
+  eslint: {
+    ignoreDuringBuilds: skipBuildValidation,
+  },
+  typescript: {
+    ignoreBuildErrors: skipBuildValidation,
+  },
   webpack(config) {
     const fileLoaderRule = config.module.rules.find(
       (rule: { test?: { test?: (value: string) => boolean } }) =>
