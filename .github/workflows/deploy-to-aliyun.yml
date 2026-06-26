@@ -100,14 +100,18 @@ jobs:
               echo "🐳 Stopping existing containers..."
               sudo docker compose down || true
 
-              echo "📦 Extracting build artifact..."
-              sudo find . -mindepth 1 -maxdepth 1 ! -name website-release.tar.gz -exec rm -rf {} +
-              sudo tar -xzf website-release.tar.gz -C .
-              sudo rm -f website-release.tar.gz
+              RUNTIME_IMAGE="registry.cn-hangzhou.aliyuncs.com/keyu-images/website-frontend-base:v1.0.18"
 
               echo "🐳 Pulling runtime image..."
-              sudo docker compose pull website
-              
+              sudo docker pull "$RUNTIME_IMAGE"
+
+              echo "📦 Extracting build artifact..."
+              sudo docker run --rm \
+                -v /var/www/website:/work \
+                -w /work \
+                "$RUNTIME_IMAGE" \
+                sh -c 'set -eu; find . -mindepth 1 -maxdepth 1 ! -name website-release.tar.gz -exec rm -rf {} \; ; tar -xzf website-release.tar.gz -C .; rm -f website-release.tar.gz'
+
               echo "🚀 Starting containers..."
               sudo docker compose up -d
               
