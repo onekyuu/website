@@ -3,9 +3,11 @@ import Gallery from "./zh/gallery";
 import Home from "./zh/home";
 import Portfolio from "./zh/portfolio";
 
-export default {
+const messages = {
   Home: Home,
   Portfolio: Portfolio,
   Blog: Blog,
   Gallery: Gallery,
 };
+
+export default messages;
