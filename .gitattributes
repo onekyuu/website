@@ -1,0 +1,4 @@
+# GitHub Linguist language statistics
+assets/** linguist-vendored
+public/** linguist-vendored
+app/fonts/** linguist-vendored
